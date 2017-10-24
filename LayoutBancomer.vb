@@ -192,7 +192,7 @@ Module LayoutBancomer
 
             daAnexos.Fill(dsAgil, "Pagos")
             daCorreos.Fill(dsAgil, "Correos")
-
+            Dim Pesos As Decimal
             If dsAgil.Tables("Pagos").Rows.Count > 0 Then
 
                 For Each drAnexo In dsAgil.Tables("Pagos").Rows
@@ -200,8 +200,8 @@ Module LayoutBancomer
                     If drAnexo("SaldoFac") > 50000 Then
 
                         nSaldoFac = drAnexo("SaldoFac")
-
-                        While nSaldoFac > 50000
+                        Pesos = 50000
+                        While nSaldoFac > Pesos
 
                             drDomiciliacion = dtDomiciliacion.NewRow()
                             drDomiciliacion("Contrato") = drAnexo("Anexo")
@@ -216,7 +216,7 @@ Module LayoutBancomer
                             Else
                                 drDomiciliacion("UltimoPago") = "        "
                             End If
-                            drDomiciliacion("Saldo") = 50000
+                            drDomiciliacion("Saldo") = Pesos
                             drDomiciliacion("Banco") = drAnexo("Banco")
                             drDomiciliacion("Tipo") = drAnexo("Tipo")
                             If Trim(drAnexo("CuentaCLABE")) <> "" Then
@@ -232,8 +232,8 @@ Module LayoutBancomer
                             drDomiciliacion("IDCargoExtra") = drAnexo("id_Cargo_Extra")
                             dtDomiciliacion.Rows.Add(drDomiciliacion)
 
-                            nSaldoFac = nSaldoFac - 50000
-
+                            nSaldoFac = nSaldoFac - Pesos
+                            Pesos -= 1
                         End While
 
                         If nSaldoFac > 0 Then
