@@ -9,7 +9,8 @@ Module Procesos
         If Arg.Length > 1 Then
             Select Case UCase(Arg(1))
                 Case "FACTURAS_CFDI"
-                    CFDI33.FacturarCFDI(Today)
+                    Dim Fecha As Date = "06/11/2017"
+                    CFDI33.FacturarCFDI(Fecha)
                 Case "SALDOAVIO"
                     Console.WriteLine("Saldos Avios")
                     SaldosAvios()

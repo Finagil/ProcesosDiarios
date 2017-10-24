@@ -56,7 +56,7 @@ Module CFDI33
         Dim Insuficiente As Boolean = False
 
         cFechaAplicacion = FechaProc.ToString("yyyyMMdd")
-
+        cFechaPago = cFechaAplicacion
         ' Primero creo la tabla Movimientos que contendrá los registros contables de la cobranza
 
         dtMovimientos.Columns.Add("Anexo", Type.GetType("System.String"))
@@ -101,6 +101,7 @@ Module CFDI33
 
             'cReferencia = DataGridView1.Rows(i).Cells(3).Value
             'InstrumentoMonetario = DataGridView1.Rows(i).Cells(12).Value 'InstrumentoMonetario
+            Console.WriteLine("Aviso:" & r.Factura)
             cAnexo = r.Anexo
             'CG.CargaXCliente(CG.SacaCliente(cAnexo))
             Insuficiente = False

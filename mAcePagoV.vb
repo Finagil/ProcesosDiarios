@@ -59,8 +59,8 @@ Module mAcepagov
         Dim drFactura As DataRow
         Dim drMovimiento As DataRow
 
-        Dim strInsert As String
-        Dim strUpdate As String
+        'Dim strInsert As String
+        'Dim strUpdate As String
 
         ' Declaración de variables de datos
 
@@ -84,7 +84,7 @@ Module mAcepagov
         Dim cTipmon As String = ""
         Dim cTipos As String = ""
         Dim i As Integer
-        Dim lCredito As Boolean
+        'Dim lCredito As Boolean
         Dim nAbonoCartera As Decimal = 0
         Dim nAbonoOtros As Decimal = 0
         Dim nBonifica As Decimal = 0
@@ -232,42 +232,42 @@ Module mAcepagov
 
         ' Los primeros conceptos que tengo que añadir a la tabla dtPagos son los Moratorios y su IVA
 
-        If nMoratorios > 0 Then
-            drPago = dtPagos.NewRow()
-            drPago("Anexo") = cAnexo
-            drPago("Letra") = cLetra
-            drPago("Tipos") = "2"
-            drPago("Fepag") = cFecha
-            drPago("Tipmon") = "01"
-            drPago("Banco") = cBanco
-            If cTipar = "B" Then
-                drPago("Concepto") = "MORATORIOS MENSUALIDAD No. " + cLetra + "/0" + cPlazo
-            Else
-                drPago("Concepto") = "MORATORIOS VENCIMIENTO " + cLetra + "/0" + cPlazo
-            End If
-            drPago("Importe") = nMoratorios
-            dtPagos.Rows.Add(drPago)
-            nMontoPago = Round(nMontoPago - nMoratorios, 2)
-        End If
+        'If nMoratorios > 0 Then
+        '    drPago = dtPagos.NewRow()
+        '    drPago("Anexo") = cAnexo
+        '    drPago("Letra") = cLetra
+        '    drPago("Tipos") = "2"
+        '    drPago("Fepag") = cFecha
+        '    drPago("Tipmon") = "01"
+        '    drPago("Banco") = cBanco
+        '    If cTipar = "B" Then
+        '        drPago("Concepto") = "MORATORIOS MENSUALIDAD No. " + cLetra + "/0" + cPlazo
+        '    Else
+        '        drPago("Concepto") = "MORATORIOS VENCIMIENTO " + cLetra + "/0" + cPlazo
+        '    End If
+        '    drPago("Importe") = nMoratorios
+        '    dtPagos.Rows.Add(drPago)
+        '    nMontoPago = Round(nMontoPago - nMoratorios, 2)
+        'End If
 
-        If nIvaMoratorios > 0 Then
-            drPago = dtPagos.NewRow()
-            drPago("Anexo") = cAnexo
-            drPago("Letra") = cLetra
-            drPago("Tipos") = "2"
-            drPago("Fepag") = cFecha
-            drPago("Tipmon") = "01"
-            drPago("Banco") = cBanco
-            If cTipar = "B" Then
-                drPago("Concepto") = "IVA MORATORIOS MENSUALIDAD No. " + cLetra + "/0" + cPlazo
-            Else
-                drPago("Concepto") = "IVA MORATORIOS VENCIMIENTO " + cLetra + "/0" + cPlazo
-            End If
+        'If nIvaMoratorios > 0 Then
+        '    drPago = dtPagos.NewRow()
+        '    drPago("Anexo") = cAnexo
+        '    drPago("Letra") = cLetra
+        '    drPago("Tipos") = "2"
+        '    drPago("Fepag") = cFecha
+        '    drPago("Tipmon") = "01"
+        '    drPago("Banco") = cBanco
+        '    If cTipar = "B" Then
+        '        drPago("Concepto") = "IVA MORATORIOS MENSUALIDAD No. " + cLetra + "/0" + cPlazo
+        '    Else
+        '        drPago("Concepto") = "IVA MORATORIOS VENCIMIENTO " + cLetra + "/0" + cPlazo
+        '    End If
 
-            drPago("Importe") = nIvaMoratorios
-            dtPagos.Rows.Add(drPago)
-            nMontoPago = Round(nMontoPago - nIvaMoratorios, 2)
-        End If
+        '    drPago("Importe") = nIvaMoratorios
+        '    dtPagos.Rows.Add(drPago)
+        '    nMontoPago = Round(nMontoPago - nIvaMoratorios, 2)
+        'End If
 
         ' El siguiente arreglo de estructuras debe ser inicializado por cada factura que se pague ya que de ello depende la jerarquización del pago.
         ' Además su conformación depende del tipo de producto (es diferente para Arrendamiento Puro).
@@ -441,11 +441,11 @@ Module mAcepagov
 
                     Else
 
-                        ' Pago parcial del importe
+                        '' Pago parcial del importe
 
-                        aConcepto.Importe = Round(nMontoPago * aConcepto.Porcentaje, 2)
-                        nMontoPago = nMontoPago - aConcepto.Importe
-                        nPagoConcepto = aConcepto.Importe
+                        'aConcepto.Importe = Round(nMontoPago * aConcepto.Porcentaje, 2)
+                        'nMontoPago = nMontoPago - aConcepto.Importe
+                        'nPagoConcepto = aConcepto.Importe
 
                     End If
 
