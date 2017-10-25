@@ -94,7 +94,7 @@ Module CFDI33
 
         ' Solo necesito saber el número de elementos que tiene el DataGridView1
 
-        TaAvisos.Fill(ProdDS.AvisosCFDI, cFechaPago)
+        TaAvisos.FillHastaFecha(ProdDS.AvisosCFDI, cFechaPago)
         TaUdis.Fill(ProdDS.TraeUdis)
         drUdis = ProdDS.TraeUdis.Rows
         For Each r As ProduccionDS.AvisosCFDIRow In ProdDS.AvisosCFDI.Rows
@@ -215,7 +215,7 @@ Module CFDI33
             'End If
 
 
-            nMontoPago = r.SaldoFac
+            nMontoPago = r.Saldo
 
             'If nImporte > 0 And nImporte >= (nMoratorios + nIvaMoratorios) Then
 
@@ -308,7 +308,7 @@ Module CFDI33
             TaAvisos.FacturarAviso(True, cSerie.Trim, nRecibo, r.Factura, r.Anexo)
             cm1 = New SqlCommand(strUpdate, cnAgil)
             cnAgil.Open()
-            cm1.ExecuteNonQuery()
+            'cm1.ExecuteNonQuery()
             cnAgil.Close()
         Next
 
