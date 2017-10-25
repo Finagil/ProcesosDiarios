@@ -41,6 +41,7 @@ Module mAcepagov
         Public Concepto As String
         Public Importe As Decimal
         Public Porcentaje As Decimal
+        Public Iva As Decimal
     End Structure
 
     Dim aConcepto As New Conceptos()
@@ -118,6 +119,7 @@ Module mAcepagov
         dtPagos.Columns.Add("Importe", Type.GetType("System.Decimal"))
         dtPagos.Columns.Add("Tipmon", Type.GetType("System.String"))
         dtPagos.Columns.Add("Banco", Type.GetType("System.String"))
+        dtPagos.Columns.Add("IVA", Type.GetType("System.Decimal"))
         dtPagos.Clear()
 
         ' El siguiente Stored Procedure trae todos los atributos de la factura correspondiente al anexo y al vencimiento dados
@@ -280,6 +282,7 @@ Module mAcepagov
                 aConcepto.Concepto = "FEGA"
                 aConcepto.Importe = nBaseFEGA
                 aConcepto.Porcentaje = nBaseFEGA / (nBaseFEGA + nIvaFEGA)
+                aConcepto.Iva = nIvaFEGA
                 aConceptos.Add(aConcepto)
 
                 aConcepto.Concepto = "IVA FEGA"
@@ -292,6 +295,7 @@ Module mAcepagov
                 aConcepto.Concepto = "SEGURO DE VIDA"
                 aConcepto.Importe = nSeguroVida
                 aConcepto.Porcentaje = 1
+                aConcepto.IVA = 0
                 aConceptos.Add(aConcepto)
             End If
 
@@ -299,6 +303,7 @@ Module mAcepagov
                 aConcepto.Concepto = "INTERES OTROS ADEUDOS"
                 aConcepto.Importe = nInteresOtros
                 aConcepto.Porcentaje = nInteresOtros / (nInteresOtros + nIvaOtros)
+                aConcepto.Iva = nIvaOtros
                 aConceptos.Add(aConcepto)
 
                 If nIvaOtros > 0 Then                                          ' Puede darse el caso en que haya Intereses pero no haya IVA de los intereses, por ejemplo
@@ -322,6 +327,7 @@ Module mAcepagov
                     aConcepto.Concepto = "INTERES SEGURO"
                     aConcepto.Importe = drFactura("IntSe") + drFactura("VarSe")
                     aConcepto.Porcentaje = (drFactura("IntSe") + drFactura("VarSe")) / (drFactura("IntSe") + drFactura("VarSe") + drFactura("IvaSe"))
+                    aConcepto.Iva = drFactura("IvaSe")
                     aConceptos.Add(aConcepto)
 
                     If drFactura("IvaSe") > 0 Then                             ' Puede darse el caso en que haya Intereses pero no haya IVA de los intereses, por ejemplo
@@ -335,6 +341,7 @@ Module mAcepagov
                 If drFactura("Rense") > 0 Then
                     aConcepto.Concepto = "CAPITAL SEGURO"
                     aConcepto.Importe = drFactura("Rense")
+                    aConcepto.Iva = 0
                     aConcepto.Porcentaje = 1
                     aConceptos.Add(aConcepto)
                 End If
@@ -343,6 +350,7 @@ Module mAcepagov
                     aConcepto.Concepto = "PAGO DE RENTA"
                     aConcepto.Importe = drFactura("RenPr") + drFactura("VarPr")
                     aConcepto.Porcentaje = (drFactura("RenPr") + drFactura("VarPr")) / (drFactura("RenPr") + drFactura("VarPr") + drFactura("IvaCapital") + drFactura("IvaPr"))
+                    aConcepto.Iva = drFactura("IvaCapital") + drFactura("IvaPr")
                     aConceptos.Add(aConcepto)
 
                     aConcepto.Concepto = "IVA DEL PAGO DE RENTA"
@@ -358,6 +366,7 @@ Module mAcepagov
                     aConcepto.Concepto = "MENSUALIDAD"
                     aConcepto.Importe = nCapitalEquipo
                     aConcepto.Porcentaje = nCapitalEquipo / (nCapitalEquipo + nIvaCapital)
+                    aConcepto.Iva = nIvaCapital
                     aConceptos.Add(aConcepto)
                     If nIvaCapital > 0 Then                                    ' Puede darse el caso en que haya Capital Equipo pero no haya IVA del Capital
                         aConcepto.Concepto = "IVA MENSUALIDAD"                     ' ya que éste solamente existe para Arrendamiento Financiero
@@ -373,6 +382,7 @@ Module mAcepagov
                     aConcepto.Concepto = "INTERESES"
                     aConcepto.Importe = nInteres
                     aConcepto.Porcentaje = nInteres / (nInteres + 0)
+                    aConcepto.Iva = nIvaInteres
                     aConceptos.Add(aConcepto)
 
                     If nIvaInteres > 0 Then                                    ' Puede darse el caso en que haya Intereses pero no haya IVA de los intereses, por ejemplo
@@ -387,6 +397,7 @@ Module mAcepagov
                     aConcepto.Concepto = "CAPITAL SEGURO"
                     aConcepto.Importe = nCapitalSeguro
                     aConcepto.Porcentaje = 1
+                    aConcepto.Iva = 0
                     aConceptos.Add(aConcepto)
                 End If
 
@@ -394,6 +405,7 @@ Module mAcepagov
                     aConcepto.Concepto = "CAPITAL EQUIPO"
                     aConcepto.Importe = nCapitalEquipo
                     aConcepto.Porcentaje = nCapitalEquipo / (nCapitalEquipo + nIvaCapital)
+                    aConcepto.Iva = nIvaCapital
                     aConceptos.Add(aConcepto)
 
                     If nIvaCapital > 0 Then                                    ' Puede darse el caso en que haya Capital Equipo pero no haya IVA del Capital
@@ -463,6 +475,7 @@ Module mAcepagov
                     End If
 
                     drPago("Importe") = nPagoConcepto
+                    drPago("IVA") = aConcepto.Iva
                     dtPagos.Rows.Add(drPago)
 
                 End If
@@ -1235,7 +1248,10 @@ Module mAcepagov
         stmWriter.WriteLine(cRenglon)
 
         For Each drPago In dtPagos.Rows
-            cRenglon = "D1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|1|||" & Trim(drPago("Concepto")) & "||" & drPago("Importe")
+            If InStr(Trim(drPago("Concepto")), "IVA ") Then
+                Continue For
+            End If
+            cRenglon = "D1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|1|||" & Trim(drPago("Concepto")) & "||" & drPago("Importe") & "|" & drPago("Iva")
             cRenglon = cRenglon.Replace("Ñ", Chr(165))
             cRenglon = cRenglon.Replace("ñ", Chr(164))
             cRenglon = cRenglon.Replace("á", Chr(160))
@@ -1251,12 +1267,12 @@ Module mAcepagov
             stmWriter.WriteLine(cRenglon)
         Next
 
-        If nIva = 0 Then
-            cRenglon = "S1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & nSubTotal & "|" & nIva & "|" & nTotal & "|Importe con letra|||0"
-        Else
-            cRenglon = "S1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & nSubTotal & "|" & nIva & "|" & nTotal & "|Importe con letra|||16"
-        End If
-        stmWriter.WriteLine(cRenglon)
+        'If nIva = 0 Then
+        'cRenglon = "S1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & nSubTotal & "|" & nIva & "|" & nTotal & "|Importe con letra|||0"
+        'Else
+        'cRenglon = "S1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & nSubTotal & "|" & nIva & "|" & nTotal & "|Importe con letra|||16"
+        'End If
+        'stmWriter.WriteLine(cRenglon)
         'cRenglon = "Z1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & cCheque & "|" & Trim(cRfc) & "|"
         'stmWriter.WriteLine(cRenglon)
 

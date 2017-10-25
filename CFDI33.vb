@@ -89,8 +89,8 @@ Module CFDI33
         ' Toma el número consecutivo de facturas de pago -que depende de la Serie- y lo incrementa en uno
 
         drSerie = dsAgil.Tables("Series").Rows(0)
-        nIDSerieA = drSerie("IDSerieA")
-        nIDSerieMXL = drSerie("IDSerieMXL")
+        nIDSerieA = 0 'drSerie("IDSerieA")
+        nIDSerieMXL = 0  'drSerie("IDSerieMXL")
 
         ' Solo necesito saber el número de elementos que tiene el DataGridView1
 
