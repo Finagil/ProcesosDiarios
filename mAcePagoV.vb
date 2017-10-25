@@ -1214,7 +1214,7 @@ Module mAcepagov
         Dim stmFactura As New FileStream("C:\Facturas\FACTURA_" & cSerie & "_" & nRecibo & ".txt", FileMode.Create, FileAccess.Write, FileShare.None)
         Dim stmWriter As New StreamWriter(stmFactura, System.Text.Encoding.Default)
 
-        stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|")
+        stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|PPD|99")
 
         cRenglon = "H3|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & Trim(cNombre) & "|" &
         Trim(cCalle) & "|||" & Trim(cColonia) & "|" & Trim(cDelegacion) & "|" & Trim(cEstado) & "|" & cCopos & "|" & cCuentaPago & "|" & cFormaPago & "|MEXICO|" & Trim(cRfc) & "|M.N.|" &
@@ -1257,8 +1257,8 @@ Module mAcepagov
             cRenglon = "S1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & nSubTotal & "|" & nIva & "|" & nTotal & "|Importe con letra|||16"
         End If
         stmWriter.WriteLine(cRenglon)
-        cRenglon = "Z1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & cCheque & "|" & Trim(cRfc) & "|"
-        stmWriter.WriteLine(cRenglon)
+        'cRenglon = "Z1|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & cCheque & "|" & Trim(cRfc) & "|"
+        'stmWriter.WriteLine(cRenglon)
 
         stmWriter.Flush()
         stmFactura.Flush()
