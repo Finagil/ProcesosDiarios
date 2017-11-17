@@ -175,9 +175,9 @@ Namespace My
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Data Source=server-raid\;Initial Catalog=Production;Persist Security Info=True;Us"& _ 
             "er ID=User_PRO;Password=User_PRO2015")>  _
-        Public ReadOnly Property ProductionCS() As String
+        Public ReadOnly Property ConectionStringCFDI() As String
             Get
-                Return CType(Me("ProductionCS"),String)
+                Return CType(Me("ConectionStringCFDI"),String)
             End Get
         End Property
     End Class

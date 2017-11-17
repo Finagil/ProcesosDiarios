@@ -12412,7 +12412,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -12713,7 +12713,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -12995,7 +12995,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -13738,7 +13738,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -13930,7 +13930,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -14806,7 +14806,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -15523,7 +15523,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -15578,7 +15578,8 @@ Namespace ProduccionDSTableAdapters
                 "e"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            Facturas INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Anexos ON Factu"& _ 
                 "ras.Anexo = Anexos.Anexo INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Clientes ON Factur"& _ 
                 "as.Cliente = Clientes.Cliente"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (Facturas.FacturaCFDI = 0) AND (Fact"& _ 
-                "uras.Feven <= @Fecha)"
+                "uras.Feven <= @Fecha) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (Facturas.FacturaCFDI = 0) AN"& _ 
+                "D (Facturas.Feven >= @Fecha) AND (Facturas.ImporteFac > Facturas.SaldoFac)"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Fecha", Global.System.Data.SqlDbType.NChar, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "Feven", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
@@ -15831,7 +15832,7 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ProductionCS
+            Me._connection.ConnectionString = Global.ProcesosDiarios.My.MySettings.Default.ConectionStringCFDI
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

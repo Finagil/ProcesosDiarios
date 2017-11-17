@@ -14,7 +14,7 @@ Module CFDI33
         Dim ProdDS As New ProduccionDS
         'Declaración de variables de conexión ADO .NET
 
-        Dim cnAgil As New SqlConnection(My.Settings.ProductionCS)
+        Dim cnAgil As New SqlConnection(My.Settings.ConectionStringCFDI)
         Dim cm1 As New SqlCommand()
         Dim cm2 As New SqlCommand()
         Dim cm3 As New SqlCommand()
@@ -30,6 +30,7 @@ Module CFDI33
         Dim strUpdate As String = ""
         Dim strInsert As String = ""
         Dim InstrumentoMonetario As String = ""
+        Dim MetodoPago As String
 
         ' Declaración de variables de datos
 
@@ -89,8 +90,8 @@ Module CFDI33
         ' Toma el número consecutivo de facturas de pago -que depende de la Serie- y lo incrementa en uno
 
         drSerie = dsAgil.Tables("Series").Rows(0)
-        nIDSerieA = 0 'drSerie("IDSerieA")
-        nIDSerieMXL = 0  'drSerie("IDSerieMXL")
+        nIDSerieA = 2000 'drSerie("IDSerieA")
+        nIDSerieMXL = 2000  'drSerie("IDSerieMXL")
 
         ' Solo necesito saber el número de elementos que tiene el DataGridView1
 
@@ -214,8 +215,12 @@ Module CFDI33
             '    End Select
             'End If
 
+            If r.Tipar <> "B" Then
+                nMontoPago = r.ImporteFac * 2
+            Else
+                nMontoPago = (r.IvaCapital + r.RenPr) * 2
+            End If
 
-            nMontoPago = r.Saldo
 
             'If nImporte > 0 And nImporte >= (nMoratorios + nIvaMoratorios) Then
 
@@ -247,9 +252,9 @@ Module CFDI33
                     nIDSerieMXL = nIDSerieMXL + 1
                     nRecibo = nIDSerieMXL
                 End If
-
+                MetodoPago = "PPD"
                 cLetra = r.Letra
-                Acepagov(cAnexo, cLetra, nMontoPago, nMoratorios, nIvaMoratorios, cBanco, cCheque, dtMovimientos, cFechaAplicacion, cFechaPago, cSerie, nRecibo, InstrumentoMonetario, FechaProc)
+                Acepagov(cAnexo, cLetra, nMontoPago, nMoratorios, nIvaMoratorios, cBanco, cCheque, dtMovimientos, cFechaAplicacion, cFechaPago, cSerie, nRecibo, InstrumentoMonetario, FechaProc, MetodoPago)
             End If
 
             'Next

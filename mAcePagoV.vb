@@ -46,11 +46,11 @@ Module mAcepagov
 
     Dim aConcepto As New Conceptos()
 
-    Public Sub Acepagov(ByVal cAnexo As String, ByVal cLetra As String, ByVal nMontoPago As Decimal, ByVal nMoratorios As Decimal, ByVal nIvaMoratorios As Decimal, ByVal cBanco As String, ByVal cCheque As String, ByRef dtMovimientos As DataTable, ByVal cFecha As String, ByVal cFechaPago As String, ByVal cSerie As String, ByVal nRecibo As Decimal, InstrumentoMonetario As String, FechaProc As Date)
+    Public Sub Acepagov(ByVal cAnexo As String, ByVal cLetra As String, ByVal nMontoPago As Decimal, ByVal nMoratorios As Decimal, ByVal nIvaMoratorios As Decimal, ByVal cBanco As String, ByVal cCheque As String, ByRef dtMovimientos As DataTable, ByVal cFecha As String, ByVal cFechaPago As String, ByVal cSerie As String, ByVal nRecibo As Decimal, InstrumentoMonetario As String, FechaProc As Date, MetodoPago As String)
 
         ' Declaración de variables de conexión ADO .NET
 
-        Dim cnAgil As New SqlConnection(My.Settings.ProductionCS)
+        Dim cnAgil As New SqlConnection(My.Settings.ConectionStringCFDI)
         Dim cm1 As New SqlCommand()
         Dim daFacturas As New SqlDataAdapter(cm1)
 
@@ -295,7 +295,7 @@ Module mAcepagov
                 aConcepto.Concepto = "SEGURO DE VIDA"
                 aConcepto.Importe = nSeguroVida
                 aConcepto.Porcentaje = 1
-                aConcepto.IVA = 0
+                aConcepto.Iva = 0
                 aConceptos.Add(aConcepto)
             End If
 
@@ -442,7 +442,6 @@ Module mAcepagov
                 If nMontoPago > 0 And aConcepto.Importe > 0 Then
 
                     cConcepto = aConcepto.Concepto
-
                     If nMontoPago >= aConcepto.Importe / aConcepto.Porcentaje Then
 
                         ' Pago completo del importe
@@ -1227,7 +1226,7 @@ Module mAcepagov
         Dim stmFactura As New FileStream("C:\Facturas\FACTURA_" & cSerie & "_" & nRecibo & ".txt", FileMode.Create, FileAccess.Write, FileShare.None)
         Dim stmWriter As New StreamWriter(stmFactura, System.Text.Encoding.Default)
 
-        stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|PPD|99")
+        stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|" & MetodoPago & "|99")
 
         cRenglon = "H3|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & Trim(cNombre) & "|" &
         Trim(cCalle) & "|||" & Trim(cColonia) & "|" & Trim(cDelegacion) & "|" & Trim(cEstado) & "|" & cCopos & "|" & cCuentaPago & "|" & cFormaPago & "|MEXICO|" & Trim(cRfc) & "|M.N.|" &
@@ -1414,7 +1413,7 @@ Module mAcepagov
     End Sub
 
     Public Sub CuentaPagos(ByVal cAnexo As String, ByRef nPagos As Byte)
-        Dim cnAgil As New SqlConnection(My.Settings.ProductionCS)
+        Dim cnAgil As New SqlConnection(My.Settings.ConectionStringCFDI)
         Dim cm1 As New SqlCommand()
         nPagos = 0
         With cm1
