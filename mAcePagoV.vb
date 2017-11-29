@@ -97,9 +97,11 @@ Module mAcepagov
         Dim nImporte As Decimal = 0
         Dim nInteres As Decimal = 0
         Dim nInteresOtros As Decimal = 0
+        Dim nInteresSEG As Decimal = 0
         Dim nIva As Decimal = 0
         Dim nIvaCapital As Decimal = 0
         Dim nIvaInteres As Decimal = 0
+        Dim nIvaInteresSeg As Decimal = 0
         Dim nIvaOtros As Decimal = 0
         Dim nPagoConcepto As Decimal = 0
         Dim nPlazo As Byte = 0
@@ -225,8 +227,10 @@ Module mAcepagov
         nInteresOtros = drFactura("InteresOt") + drFactura("VarOt")
         nCapitalOtros = drFactura("CapitalOt")
 
-        nIvaInteres = drFactura("IvaPr") + drFactura("IvaSe")
-        nInteres = drFactura("IntPr") + drFactura("VarPr") + drFactura("IntSe") + drFactura("VarSe")
+        nIvaInteres = drFactura("IvaPr")
+        nIvaInteresSeg = drFactura("IvaSe")
+        nInteres = drFactura("IntPr") + drFactura("VarPr")
+        nInteresSEG = drFactura("IntSe") + drFactura("VarSe")
         nCapitalSeguro = drFactura("RenSe")
         nCapitalEquipo = drFactura("RenPr") - drFactura("IntPr")
         nIvaCapital = drFactura("IvaCapital")
@@ -394,6 +398,21 @@ Module mAcepagov
                     'End If
                 End If
 
+                If drFactura("IntSe") + drFactura("VarSe") > 0 Then 'ECT separacion de interes Seguro
+                    aConcepto.Concepto = "INTERES SEGURO"
+                    aConcepto.Importe = nInteresSEG
+                    aConcepto.Porcentaje = (drFactura("IntSe") + drFactura("VarSe")) / (drFactura("IntSe") + drFactura("VarSe") + drFactura("IvaSe"))
+                    aConcepto.Iva = nIvaInteresSeg
+                    aConceptos.Add(aConcepto)
+
+                    'If drFactura("IvaSe") > 0 Then                             ' Puede darse el caso en que haya Intereses pero no haya IVA de los intereses, por ejemplo
+                    '    aConcepto.Concepto = "IVA INTERES SEGURO"              ' en un Crédito Refaccionario o Crédito Simple a Persona Moral o Persona Física con Actividad Empresarial
+                    '    aConcepto.Importe = drFactura("IvaSe")
+                    '    aConcepto.Porcentaje = 1
+                    '    aConceptos.Add(aConcepto)
+                    'End If
+                End If
+
                 If nCapitalSeguro > 0 Then
                     aConcepto.Concepto = "CAPITAL SEGURO"
                     aConcepto.Importe = nCapitalSeguro
@@ -484,46 +503,46 @@ Module mAcepagov
 
         Else
 
-            ' La prelación es la que se venía haciendo hasta el 22 de agosto de 2013
+            '' La prelación es la que se venía haciendo hasta el 22 de agosto de 2013
 
-            aConcepto.Concepto = "FEGA"
-            aConcepto.Importe = nImporteFEGA
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "FEGA"
+            'aConcepto.Importe = nImporteFEGA
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "SEGURO DE VIDA"
-            aConcepto.Importe = nSeguroVida
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "SEGURO DE VIDA"
+            'aConcepto.Importe = nSeguroVida
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "IVA INTERES OTROS ADEUDOS"
-            aConcepto.Importe = nIvaOtros
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "IVA INTERES OTROS ADEUDOS"
+            'aConcepto.Importe = nIvaOtros
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "INTERES OTROS ADEUDOS"
-            aConcepto.Importe = nInteresOtros
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "INTERES OTROS ADEUDOS"
+            'aConcepto.Importe = nInteresOtros
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "CAPITAL OTROS ADEUDOS"
-            aConcepto.Importe = nCapitalOtros
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "CAPITAL OTROS ADEUDOS"
+            'aConcepto.Importe = nCapitalOtros
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "IVA INTERESES"
-            aConcepto.Importe = nIvaInteres
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "IVA INTERESES"
+            'aConcepto.Importe = nIvaInteres
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "INTERESES"
-            aConcepto.Importe = nInteres
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "INTERESES"
+            'aConcepto.Importe = nInteres
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "CAPITAL SEGURO"
-            aConcepto.Importe = nCapitalSeguro
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "CAPITAL SEGURO"
+            'aConcepto.Importe = nCapitalSeguro
+            'aConceptos.Add(aConcepto)
 
-            aConcepto.Concepto = "CAPITAL EQUIPO"
-            aConcepto.Importe = nCapitalEquipo + nIvaCapital
-            aConceptos.Add(aConcepto)
+            'aConcepto.Concepto = "CAPITAL EQUIPO"
+            'aConcepto.Importe = nCapitalEquipo + nIvaCapital
+            'aConceptos.Add(aConcepto)
 
-            ' Se trata de un pago total a la factura
-            PPTotal(dtPagos, aConceptos, drFactura, cFecha, cBanco)
+            '' Se trata de un pago total a la factura
+            'PPTotal(dtPagos, aConceptos, drFactura, cFecha, cBanco)
 
         End If
 
@@ -1227,7 +1246,7 @@ Module mAcepagov
         Dim stmFactura As New FileStream("C:\Facturas\FACTURA_" & cSerie & "_" & nRecibo & ".txt", FileMode.Create, FileAccess.Write, FileShare.None)
         Dim stmWriter As New StreamWriter(stmFactura, System.Text.Encoding.Default)
 
-        stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|" & MetodoPago & "|99")
+        stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|" & MetodoPago & "|99|")
 
         cRenglon = "H3|" & cCliente & "|" & Mid(cAnexo, 1, 5) & "/" & Mid(cAnexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & Trim(cNombre) & "|" &
         Trim(cCalle) & "|||" & Trim(cColonia) & "|" & Trim(cDelegacion) & "|" & Trim(cEstado) & "|" & cCopos & "|" & cCuentaPago & "|" & cFormaPago & "|MEXICO|" & Trim(cRfc) & "|M.N.|" &
