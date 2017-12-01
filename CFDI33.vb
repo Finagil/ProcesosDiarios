@@ -96,13 +96,13 @@ Module CFDI33
         ' Solo necesito saber el número de elementos que tiene el DataGridView1
         Select Case Tipo.ToUpper
             Case "PREPAGO" ' prepagos antes de su fecha de vencimiento
-                TaAvisos.FillByPrepagos(ProdDS.AvisosCFDI, cFechaPago)
+                TaAvisos.FillByPrepagos(ProdDS.AvisosCFDI, cFechaPago, "20171101")'Fecha de Salida a Producion
             Case "DIA" 'avisos de vencimiento del dia
                 TaAvisos.FillporDia(ProdDS.AvisosCFDI, cFechaPago)
-            Case "PASADOS" ' avisos generados despues de su vencimiento
+            Case "ANTERIORES" ' avisos generados despues de su vencimiento
                 TaAvisos.FillByAnteriores(ProdDS.AvisosCFDI, cFechaPago)
-            Case "PENDIENTES"
-                TaAvisos.FillHastaFecha(ProdDS.AvisosCFDI, cFechaPago)
+                'Case "PENDIENTES"
+                'TaAvisos.FillHastaFecha(ProdDS.AvisosCFDI, cFechaPago)
         End Select
 
         'TaAvisos.FillHastaFecha(ProdDS.AvisosCFDI, cFechaPago)

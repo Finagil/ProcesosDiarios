@@ -15529,7 +15529,7 @@ Namespace ProduccionDSTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(4) {}
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(3) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        Facturas.Factura, Facturas.Anexo, Facturas.Letra, Facturas.Cliente,"& _ 
@@ -15598,31 +15598,11 @@ Namespace ProduccionDSTableAdapters
                 "e"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            Facturas INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Anexos ON Factu"& _ 
                 "ras.Anexo = Anexos.Anexo INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Clientes ON Factur"& _ 
                 "as.Cliente = Clientes.Cliente"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (Facturas.FacturaCFDI = 0) AND (Fact"& _ 
-                "uras.Feven > @Fecha AND Facturas.Fepag > N'') AND (Facturas.Fepag >= N'20171115'"& _ 
-                ")"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY Facturas.Feven"
+                "uras.Feven > @Fecha) AND (Facturas.Fepag > N'') AND (Facturas.Fepag >= @FechaArr"& _ 
+                "anque)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY Facturas.Feven"
             Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Fecha", Global.System.Data.SqlDbType.NChar, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "Feven", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
-            Me._commandCollection(4).Connection = Me.Connection
-            Me._commandCollection(4).CommandText = "SELECT        Facturas.Factura, Facturas.Anexo, Facturas.Letra, Facturas.Cliente,"& _ 
-                " Facturas.Feven, Facturas.Fepag, Facturas.Saldo, Facturas.Salse, Facturas.SaldOt"& _ 
-                ", Facturas.RenPr, Facturas.IntPr, Facturas.Bonifica, Facturas.IvaCapital, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"    "& _ 
-                "                     Facturas.VarPr, Facturas.IvaPr, Facturas.RenSe, Facturas.In"& _ 
-                "tSe, Facturas.VarSe, Facturas.IvaSe, Facturas.Opcion, Facturas.IvaOpcion, Factur"& _ 
-                "as.CapitalOt, Facturas.InteresOt, Facturas.VarOt, Facturas.IvaOt, Facturas.Segur"& _ 
-                "oVida, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Facturas.ImporteFEGA, Facturas.Tipmon, Factura"& _ 
-                "s.Dias, Facturas.Tasa, Facturas.Difer, Facturas.UDI1, Facturas.UDI2, Facturas.Ta"& _ 
-                "saIVA, Facturas.ImporteFac, Facturas.SaldoFac, Facturas.IndPag, Facturas.Enviado"& _ 
-                ", "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Facturas.Bloqueo, Facturas.FechaCreacion, Facturas."& _ 
-                "FacturaCFDI, 'No' AS [Ult.Venc], 0 AS Adeudo, Facturas.SerieCFDI, Facturas.NoFac"& _ 
-                "turaCFDI, Anexos.Tipar, Clientes.Tipo, Clientes.Sucursal, Clientes.TasaIVAClient"& _ 
-                "e"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            Facturas INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Anexos ON Factu"& _ 
-                "ras.Anexo = Anexos.Anexo INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Clientes ON Factur"& _ 
-                "as.Cliente = Clientes.Cliente"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (Facturas.FacturaCFDI = 0) AND (Fact"& _ 
-                "uras.Feven <= @Fecha) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (Facturas.FacturaCFDI = 0) AN"& _ 
-                "D (Facturas.Feven >= @Fecha) AND (Facturas.ImporteFac > Facturas.SaldoFac)"
-            Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Fecha", Global.System.Data.SqlDbType.NChar, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "Feven", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaArranque", Global.System.Data.SqlDbType.NChar, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "Fepag", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -15697,12 +15677,17 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByPrepagos(ByVal dataTable As ProduccionDS.AvisosCFDIDataTable, ByVal Fecha As String) As Integer
+        Public Overloads Overridable Function FillByPrepagos(ByVal dataTable As ProduccionDS.AvisosCFDIDataTable, ByVal Fecha As String, ByVal FechaArranque As String) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(3)
             If (Fecha Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(Fecha,String)
+            End If
+            If (FechaArranque Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(FechaArranque,String)
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -15715,46 +15700,17 @@ Namespace ProduccionDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByPrepagos(ByVal Fecha As String) As ProduccionDS.AvisosCFDIDataTable
+        Public Overloads Overridable Function GetDataByPrepagos(ByVal Fecha As String, ByVal FechaArranque As String) As ProduccionDS.AvisosCFDIDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(3)
             If (Fecha Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(Fecha,String)
             End If
-            Dim dataTable As ProduccionDS.AvisosCFDIDataTable = New ProduccionDS.AvisosCFDIDataTable()
-            Me.Adapter.Fill(dataTable)
-            Return dataTable
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillHastaFecha(ByVal dataTable As ProduccionDS.AvisosCFDIDataTable, ByVal Fecha As String) As Integer
-            Me.Adapter.SelectCommand = Me.CommandCollection(4)
-            If (Fecha Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            If (FechaArranque Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.SelectCommand.Parameters(0).Value = CType(Fecha,String)
-            End If
-            If (Me.ClearBeforeFill = true) Then
-                dataTable.Clear
-            End If
-            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
-            Return returnValue
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByHastaFecha(ByVal Fecha As String) As ProduccionDS.AvisosCFDIDataTable
-            Me.Adapter.SelectCommand = Me.CommandCollection(4)
-            If (Fecha Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(0).Value = CType(Fecha,String)
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(FechaArranque,String)
             End If
             Dim dataTable As ProduccionDS.AvisosCFDIDataTable = New ProduccionDS.AvisosCFDIDataTable()
             Me.Adapter.Fill(dataTable)
