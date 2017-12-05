@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.IO
 Imports System.Math
 Module CFDI33
     Dim drUdis As DataRowCollection
@@ -189,6 +190,87 @@ Module CFDI33
 
 
 
+    End Sub
+
+    Sub FacturarCFDI_AV(FechaProc As Date)
+        Dim Ta As New ProduccionDSTableAdapters.TraspasosAvioCCTableAdapter
+        Dim t As New ProduccionDS.TraspasosAvioCCDataTable
+        Dim nRecibo As Integer
+        Dim cRenglon As String
+        Dim FechaS As String = FechaProc.ToString("yyyyMMdd")
+
+        Ta.Fill(t, FechaS)
+        For Each r As ProduccionDS.TraspasosAvioCCRow In t.Rows
+            If r.Sucursal = "04" Then
+                cSerie = "MXL"
+                nRecibo = Ta.SerieXML
+            Else
+                cSerie = "A"
+                nRecibo = Ta.SerieA
+            End If
+
+
+            Dim stmWriter As New StreamWriter("C:\Facturas\FACTURA_" & cSerie & "_" & nRecibo & ".txt")
+
+            stmWriter.WriteLine("H1|" & FechaProc.ToShortDateString & "|PPD|99|")
+
+            cRenglon = "H3|" & r.Cliente & "|" & Mid(r.Anexo, 1, 5) & "/" & Mid(r.Anexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|" & Trim(r.Descr) & "|" &
+            Trim(r.Calle) & "|||" & Trim(r.Colonia) & "|" & Trim(r.Delegacion) & "|" & Trim(r.Estado) & "|" & r.Copos & "|||MEXICO|" & Trim(r.RFC) & "|M.N.|" &
+            "|FACTURA|" & r.Cliente & "|LEANDRO VALLE 402||REFORMA Y FFCCNN|TOLUCA|ESTADO DE MEXICO|50070|MEXICO|" & r.Anexo & "|" & r.Ciclo & "|"
+
+            cRenglon = cRenglon.Replace("Ñ", Chr(165))
+            cRenglon = cRenglon.Replace("ñ", Chr(164))
+            cRenglon = cRenglon.Replace("á", Chr(160))
+            cRenglon = cRenglon.Replace("é", Chr(130))
+            cRenglon = cRenglon.Replace("í", Chr(161))
+            cRenglon = cRenglon.Replace("ó", Chr(162))
+            cRenglon = cRenglon.Replace("ú", Chr(163))
+            cRenglon = cRenglon.Replace("Á", Chr(181))
+            cRenglon = cRenglon.Replace("É", Chr(144))
+            cRenglon = cRenglon.Replace("Ó", Chr(224))
+            cRenglon = cRenglon.Replace("Ú", Chr(233))
+            cRenglon = cRenglon.Replace("°", Chr(167))
+            stmWriter.WriteLine(cRenglon)
+
+
+            cRenglon = "D1|" & r.Cliente & "|" & Mid(r.Anexo, 1, 5) & "/" & Mid(r.Anexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|1|||INTERESES AVIO||" & r.Intereses + r.InteresesDias & "|0"
+            cRenglon = cRenglon.Replace("Ñ", Chr(165))
+            cRenglon = cRenglon.Replace("ñ", Chr(164))
+            cRenglon = cRenglon.Replace("á", Chr(160))
+            cRenglon = cRenglon.Replace("é", Chr(130))
+            cRenglon = cRenglon.Replace("í", Chr(161))
+            cRenglon = cRenglon.Replace("ó", Chr(162))
+            cRenglon = cRenglon.Replace("ú", Chr(163))
+            cRenglon = cRenglon.Replace("Á", Chr(181))
+            cRenglon = cRenglon.Replace("É", Chr(144))
+            cRenglon = cRenglon.Replace("Ó", Chr(224))
+            cRenglon = cRenglon.Replace("Ú", Chr(233))
+            cRenglon = cRenglon.Replace("°", Chr(167))
+            stmWriter.WriteLine(cRenglon)
+
+            cRenglon = "D1|" & r.Cliente & "|" & Mid(r.Anexo, 1, 5) & "/" & Mid(r.Anexo, 6, 4) & "|" & cSerie & "|" & nRecibo & "|1|||CAPITAL CREDITO DE AVIO||" & r.Importe + r.Fega & "|0"
+            cRenglon = cRenglon.Replace("Ñ", Chr(165))
+            cRenglon = cRenglon.Replace("ñ", Chr(164))
+            cRenglon = cRenglon.Replace("á", Chr(160))
+            cRenglon = cRenglon.Replace("é", Chr(130))
+            cRenglon = cRenglon.Replace("í", Chr(161))
+            cRenglon = cRenglon.Replace("ó", Chr(162))
+            cRenglon = cRenglon.Replace("ú", Chr(163))
+            cRenglon = cRenglon.Replace("Á", Chr(181))
+            cRenglon = cRenglon.Replace("É", Chr(144))
+            cRenglon = cRenglon.Replace("Ó", Chr(224))
+            cRenglon = cRenglon.Replace("Ú", Chr(233))
+            cRenglon = cRenglon.Replace("°", Chr(167))
+            stmWriter.WriteLine(cRenglon)
+            stmWriter.Close()
+
+            If r.Sucursal = "04" Then
+                Ta.ConsumeSerieMXL()
+            Else
+                Ta.ConsumeSerieA()
+            End If
+            Ta.FacturarTraspaso(True, cSerie, nRecibo, r.id_Traspaso)
+        Next
     End Sub
 
 End Module
