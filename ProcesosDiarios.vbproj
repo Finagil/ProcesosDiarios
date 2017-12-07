@@ -71,10 +71,8 @@
   <ItemGroup>
     <Compile Include="AviosSaldos.vb" />
     <Compile Include="Backup.vb" />
-    <Compile Include="CFDI33.vb" />
     <Compile Include="Factoraje.vb" />
     <Compile Include="LayoutBancomer.vb" />
-    <Compile Include="mAcePagoV.vb" />
     <Compile Include="PersonasHistoria.vb" />
     <Compile Include="Procesos.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -95,6 +93,9 @@
     <Compile Include="ProduccionDS.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ProduccionDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ProduccionDS.vb">
       <DependentUpon>ProduccionDS.xsd</DependentUpon>
     </Compile>
     <Compile Include="SnapShotDiasRetraso.vb" />
