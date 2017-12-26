@@ -17,6 +17,7 @@ Module LayoutBancomer
         Dim drAnexo As DataRow
         Dim drCorreo As DataRow
         Dim drDomiciliacion As DataRow
+        Dim ContadorAux1 As Integer = 1
 
         Dim strUpdate As String = ""
 
@@ -25,7 +26,7 @@ Module LayoutBancomer
         Dim Adjunto As Attachment
 
         Dim ms As New MemoryStream
-        Dim writer As New StreamWriter(ms, System.Text.Encoding.Default)
+        Dim writer As StreamWriter
 
         Dim cAnexo As String = ""
         Dim cBanco As String = ""
@@ -57,7 +58,7 @@ Module LayoutBancomer
 
         ' Dado que el job correrá todos los días a las 8:00 a.m. debo omitir sábado y domingo del proceso
         Dim Hoy As Date = Today
-        '        Hoy = CDate("01/05/2017") 'PARA PRUEBAS
+        Hoy = CDate("21/12/2017") 'PARA PRUEBAS
 
         Dim nDiaSemana As Byte = Hoy.Date.DayOfWeek
 
@@ -195,9 +196,9 @@ Module LayoutBancomer
             Dim Pesos As Decimal
             If dsAgil.Tables("Pagos").Rows.Count > 0 Then
 
-                For Each drAnexo In dsAgil.Tables("Pagos").Rows
+                For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario cobreos por montos mayores a 
 
-                    If drAnexo("SaldoFac") > 50000 Then
+                    If drAnexo("SaldoFac") > 400000 Then
 
                         nSaldoFac = drAnexo("SaldoFac")
                         Pesos = 50000
@@ -305,8 +306,25 @@ Module LayoutBancomer
                 Next
 
                 nCount = 1
+                If cTipoReporte = "B" Then
+                    writer = New StreamWriter("c:\files\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                ElseIf cTipoReporte = "O" Then
+                    writer = New StreamWriter("c:\files\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                End If
 
                 For Each drAnexo In dtDomiciliacion.Rows
+
+                    If nSumaPago >= 400000 Then
+                        writer.Close()
+                        nCount = 1
+                        ContadorAux1 += 1
+                        nSumaPago = 0
+                        If cTipoReporte = "B" Then
+                            writer = New StreamWriter("c:\files\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                        ElseIf cTipoReporte = "O" Then
+                            writer = New StreamWriter("c:\files\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                        End If
+                    End If
 
                     cAnexo = drAnexo("Contrato")
                     If Len(cAnexo) > 9 Then
@@ -508,6 +526,24 @@ Module LayoutBancomer
                         cm3.ExecuteNonQuery()
                         cnAgil.Close()
                     End If
+
+                    If nSumaPago >= 400000 Then
+                        nCount += 1
+                        cSumaPago = Int(nSumaPago).ToString
+                        If nSumaPago <> Int(nSumaPago) Then
+                            If Math.Round(nSumaPago Mod Int(nSumaPago), 2) * 100 < 10 Then
+                                cSumaPago = cSumaPago & "0" & Int(Math.Round(nSumaPago Mod Int(nSumaPago), 2) * 100).ToString
+                            Else
+                                cSumaPago = cSumaPago & Int(Math.Round(nSumaPago Mod Int(nSumaPago), 2) * 100).ToString
+                            End If
+                        Else
+                            ' Se trata de un pago sin centavos
+                            cSumaPago = cSumaPago & "00"
+                        End If
+
+                        cRenglon = "09" & Utilerias.Stuff(nCount.ToString, "I", "0", 7) & "30" & Mid(cDia, 1, 2) & "00001" & Utilerias.Stuff((nCount - 2).ToString, "I", "0", 7) & Utilerias.Stuff(cSumaPago, "I", "0", 18) & Space(17) & Space(240)
+                        writer.WriteLine(cRenglon)
+                    End If
                 Next
 
                 nCount += 1
@@ -527,7 +563,7 @@ Module LayoutBancomer
 
                 cRenglon = "09" & Utilerias.Stuff(nCount.ToString, "I", "0", 7) & "30" & Mid(cDia, 1, 2) & "00001" & Utilerias.Stuff((nCount - 2).ToString, "I", "0", 7) & Utilerias.Stuff(cSumaPago, "I", "0", 18) & Space(17) & Space(240)
                 writer.WriteLine(cRenglon)
-                writer.Flush()
+                writer.Close()
                 Try
                     ms.Position = 0
                     Servidor.Host = "smtp01.cmoderna.com"
@@ -538,12 +574,20 @@ Module LayoutBancomer
                     Mensaje.From = New MailAddress("Domiciliacion@Finagil.com.mx", "FINAGIL envíos automáticos")
                     If cTipoReporte = "B" Then
                         Mensaje.Subject = "Layout BANCOMER"
-                        Adjunto = New Attachment(ms, "Pagos BANCOMER_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
+                        For x = 1 To ContadorAux1
+                            Adjunto = New Attachment("c:\files\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt", "text/csv")
+                            Mensaje.Attachments.Add(Adjunto)
+                        Next
+                        'Adjunto = New Attachment(ms, "Pagos BANCOMER_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
                     ElseIf cTipoReporte = "O" Then
                         Mensaje.Subject = "Layout OTROS BANCOS"
-                        Adjunto = New Attachment(ms, "Pagos OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
+                        For x = 1 To ContadorAux1
+                            Adjunto = New Attachment("c:\files\Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt", "text/csv")
+                            Mensaje.Attachments.Add(Adjunto)
+                        Next
+                        'Adjunto = New Attachment(ms, "Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
                     End If
-                    Mensaje.Attachments.Add(Adjunto)
+                    'Mensaje.Attachments.Add(Adjunto)
                     Servidor.Send(Mensaje)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
