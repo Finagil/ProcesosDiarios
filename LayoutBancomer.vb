@@ -58,7 +58,7 @@ Module LayoutBancomer
 
         ' Dado que el job correrá todos los días a las 8:00 a.m. debo omitir sábado y domingo del proceso
         Dim Hoy As Date = Today
-        Hoy = CDate("21/12/2017") 'PARA PRUEBAS
+        'Hoy = CDate("21/12/2017") 'PARA PRUEBAS
 
         Dim nDiaSemana As Byte = Hoy.Date.DayOfWeek
 
