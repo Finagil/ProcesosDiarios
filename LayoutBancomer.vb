@@ -582,7 +582,7 @@ Module LayoutBancomer
                     ElseIf cTipoReporte = "O" Then
                         Mensaje.Subject = "Layout OTROS BANCOS"
                         For x = 1 To ContadorAux1
-                            Adjunto = New Attachment("c:\files\Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt", "text/csv")
+                            Adjunto = New Attachment("c:\files\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt", "text/csv")
                             Mensaje.Attachments.Add(Adjunto)
                         Next
                         'Adjunto = New Attachment(ms, "Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
@@ -598,7 +598,7 @@ Module LayoutBancomer
                 writer.Dispose()
                 ms.Dispose()
                 Mensaje.Dispose()
-                Adjunto.Dispose()
+                If Not IsNothing(Adjunto) Then Adjunto.Dispose()
             Else
                 Try
                     ms.Position = 0
