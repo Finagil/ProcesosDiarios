@@ -58,7 +58,7 @@ Module LayoutBancomer
 
         ' Dado que el job correrá todos los días a las 8:00 a.m. debo omitir sábado y domingo del proceso
         Dim Hoy As Date = Today
-        'Hoy = CDate("21/12/2017") 'PARA PRUEBAS
+        Hoy = CDate("24/01/2018") 'PARA PRUEBAS
 
         Dim nDiaSemana As Byte = Hoy.Date.DayOfWeek
 
@@ -198,10 +198,8 @@ Module LayoutBancomer
 
                 For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario cobreos por montos mayores a 
 
-                    If drAnexo("SaldoFac") > 400000 Then
-
-                        nSaldoFac = drAnexo("SaldoFac")
-                        Pesos = 50000
+                    nSaldoFac = drAnexo("SaldoFac")
+                    Pesos = 50000
                         While nSaldoFac > Pesos
 
                             drDomiciliacion = dtDomiciliacion.NewRow()
@@ -270,38 +268,7 @@ Module LayoutBancomer
 
                         End If
 
-                    Else
 
-                        drDomiciliacion = dtDomiciliacion.NewRow()
-                        drDomiciliacion("Contrato") = drAnexo("Anexo")
-                        drDomiciliacion("Letra") = drAnexo("Letra")
-                        If Trim(drAnexo("Feven")) <> "" Then
-                            drDomiciliacion("Vencimiento") = drAnexo("Feven")
-                        Else
-                            drDomiciliacion("Vencimiento") = "        "
-                        End If
-                        If Trim(drAnexo("Fepag")) <> "" Then
-                            drDomiciliacion("UltimoPago") = drAnexo("Fepag")
-                        Else
-                            drDomiciliacion("UltimoPago") = "        "
-                        End If
-                        drDomiciliacion("Saldo") = drAnexo("SaldoFac")
-                        drDomiciliacion("Banco") = drAnexo("Banco")
-                        drDomiciliacion("Tipo") = drAnexo("Tipo")
-                        If Trim(drAnexo("CuentaCLABE")) <> "" Then
-                            drDomiciliacion("Cuenta") = drAnexo("CuentaCLABE")
-                        ElseIf Trim(drAnexo("NumTarjeta")) <> "" Then
-                            drDomiciliacion("Cuenta") = drAnexo("NumTarjeta")
-                        Else
-                            drDomiciliacion("Cuenta") = drAnexo("CuentaEJE")
-                        End If
-                        drDomiciliacion("Titular") = drAnexo("TitularCta")
-                        drDomiciliacion("Name") = drAnexo("Descr")
-                        drDomiciliacion("Referencia") = drAnexo("Referencia")
-                        drDomiciliacion("IDCargoExtra") = drAnexo("id_Cargo_Extra")
-                        dtDomiciliacion.Rows.Add(drDomiciliacion)
-
-                    End If
 
                 Next
 
