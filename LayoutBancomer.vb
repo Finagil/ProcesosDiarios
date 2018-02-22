@@ -58,7 +58,7 @@ Module LayoutBancomer
 
         ' Dado que el job correrá todos los días a las 8:00 a.m. debo omitir sábado y domingo del proceso
         Dim Hoy As Date = Today
-        Hoy = CDate("24/01/2018") 'PARA PRUEBAS
+        'Hoy = CDate("05/02/2018") 'PARA PRUEBAS
 
         Dim nDiaSemana As Byte = Hoy.Date.DayOfWeek
 
@@ -171,7 +171,7 @@ Module LayoutBancomer
                                    "INNER JOIN Anexos ON Anexos.Anexo = Facturas.Anexo " &
                                    "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco <> 'BANCOMER' AND Facturas.SaldoFac > 0 " &
                                    "UNION " &
-                                   "SELECT PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, '' AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
+                                   "SELECT PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, rtrim(letra) AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "INNER JOIN Clientes ON Anexos.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
@@ -194,82 +194,84 @@ Module LayoutBancomer
             daAnexos.Fill(dsAgil, "Pagos")
             daCorreos.Fill(dsAgil, "Correos")
             Dim Pesos As Decimal
+            Dim Particion As Integer = 0
             If dsAgil.Tables("Pagos").Rows.Count > 0 Then
 
                 For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario cobreos por montos mayores a 
-
+                    Particion = 1
                     nSaldoFac = drAnexo("SaldoFac")
                     Pesos = 50000
-                        While nSaldoFac > Pesos
+                    While nSaldoFac > Pesos
+                        drDomiciliacion = dtDomiciliacion.NewRow()
+                        drDomiciliacion("Contrato") = drAnexo("Anexo")
+                        drDomiciliacion("Letra") = Chr(64 + Particion) & Mid(drAnexo("Letra"), 2, 2)
+                        If Trim(drAnexo("Feven")) <> "" Then
+                            drDomiciliacion("Vencimiento") = drAnexo("Feven")
+                        Else
+                            drDomiciliacion("Vencimiento") = "        "
+                        End If
+                        If Trim(drAnexo("Fepag")) <> "" Then
+                            drDomiciliacion("UltimoPago") = drAnexo("Fepag")
+                        Else
+                            drDomiciliacion("UltimoPago") = "        "
+                        End If
+                        drDomiciliacion("Saldo") = Pesos
+                        drDomiciliacion("Banco") = drAnexo("Banco")
+                        drDomiciliacion("Tipo") = drAnexo("Tipo")
+                        If Trim(drAnexo("CuentaCLABE")) <> "" Then
+                            drDomiciliacion("Cuenta") = drAnexo("CuentaCLABE")
+                        ElseIf Trim(drAnexo("NumTarjeta")) <> "" Then
+                            drDomiciliacion("Cuenta") = drAnexo("NumTarjeta")
+                        Else
+                            drDomiciliacion("Cuenta") = drAnexo("CuentaEJE")
+                        End If
+                        drDomiciliacion("Titular") = drAnexo("TitularCta")
+                        drDomiciliacion("Name") = drAnexo("Descr")
+                        drDomiciliacion("Referencia") = drAnexo("Referencia")
+                        drDomiciliacion("IDCargoExtra") = drAnexo("id_Cargo_Extra")
+                        dtDomiciliacion.Rows.Add(drDomiciliacion)
 
-                            drDomiciliacion = dtDomiciliacion.NewRow()
-                            drDomiciliacion("Contrato") = drAnexo("Anexo")
+                        nSaldoFac = nSaldoFac - Pesos
+                        Pesos -= 1
+                        Particion += 1
+                    End While
+
+                    If nSaldoFac > 0 Then
+
+                        drDomiciliacion = dtDomiciliacion.NewRow()
+                        drDomiciliacion("Contrato") = drAnexo("Anexo")
+                        If Particion = 1 Then
                             drDomiciliacion("Letra") = drAnexo("Letra")
-                            If Trim(drAnexo("Feven")) <> "" Then
-                                drDomiciliacion("Vencimiento") = drAnexo("Feven")
-                            Else
-                                drDomiciliacion("Vencimiento") = "        "
-                            End If
-                            If Trim(drAnexo("Fepag")) <> "" Then
-                                drDomiciliacion("UltimoPago") = drAnexo("Fepag")
-                            Else
-                                drDomiciliacion("UltimoPago") = "        "
-                            End If
-                            drDomiciliacion("Saldo") = Pesos
-                            drDomiciliacion("Banco") = drAnexo("Banco")
-                            drDomiciliacion("Tipo") = drAnexo("Tipo")
-                            If Trim(drAnexo("CuentaCLABE")) <> "" Then
-                                drDomiciliacion("Cuenta") = drAnexo("CuentaCLABE")
-                            ElseIf Trim(drAnexo("NumTarjeta")) <> "" Then
-                                drDomiciliacion("Cuenta") = drAnexo("NumTarjeta")
-                            Else
-                                drDomiciliacion("Cuenta") = drAnexo("CuentaEJE")
-                            End If
-                            drDomiciliacion("Titular") = drAnexo("TitularCta")
-                            drDomiciliacion("Name") = drAnexo("Descr")
-                            drDomiciliacion("Referencia") = drAnexo("Referencia")
-                            drDomiciliacion("IDCargoExtra") = drAnexo("id_Cargo_Extra")
-                            dtDomiciliacion.Rows.Add(drDomiciliacion)
-
-                            nSaldoFac = nSaldoFac - Pesos
-                            Pesos -= 1
-                        End While
-
-                        If nSaldoFac > 0 Then
-
-                            drDomiciliacion = dtDomiciliacion.NewRow()
-                            drDomiciliacion("Contrato") = drAnexo("Anexo")
-                            drDomiciliacion("Letra") = drAnexo("Letra")
-                            If Trim(drAnexo("Feven")) <> "" Then
-                                drDomiciliacion("Vencimiento") = drAnexo("Feven")
-                            Else
-                                drDomiciliacion("Vencimiento") = "        "
-                            End If
-                            If Trim(drAnexo("Fepag")) <> "" Then
-                                drDomiciliacion("UltimoPago") = drAnexo("Fepag")
-                            Else
-                                drDomiciliacion("UltimoPago") = "        "
-                            End If
-                            drDomiciliacion("Saldo") = nSaldoFac
-                            drDomiciliacion("Banco") = drAnexo("Banco")
-                            drDomiciliacion("Tipo") = drAnexo("Tipo")
-                            If Trim(drAnexo("CuentaCLABE")) <> "" Then
-                                drDomiciliacion("Cuenta") = drAnexo("CuentaCLABE")
-                            ElseIf Trim(drAnexo("NumTarjeta")) <> "" Then
-                                drDomiciliacion("Cuenta") = drAnexo("NumTarjeta")
-                            Else
-                                drDomiciliacion("Cuenta") = drAnexo("CuentaEJE")
-                            End If
-                            drDomiciliacion("Titular") = drAnexo("TitularCta")
-                            drDomiciliacion("Name") = drAnexo("Descr")
-                            drDomiciliacion("Referencia") = drAnexo("Referencia")
-                            drDomiciliacion("IDCargoExtra") = drAnexo("id_Cargo_Extra")
-                            dtDomiciliacion.Rows.Add(drDomiciliacion)
-
+                        Else
+                            drDomiciliacion("Letra") = Chr(64 + Particion) & Mid(drAnexo("Letra"), 2, 2)
                         End If
 
-
-
+                        If Trim(drAnexo("Feven")) <> "" Then
+                            drDomiciliacion("Vencimiento") = drAnexo("Feven")
+                        Else
+                            drDomiciliacion("Vencimiento") = "        "
+                        End If
+                        If Trim(drAnexo("Fepag")) <> "" Then
+                            drDomiciliacion("UltimoPago") = drAnexo("Fepag")
+                        Else
+                            drDomiciliacion("UltimoPago") = "        "
+                        End If
+                        drDomiciliacion("Saldo") = nSaldoFac
+                        drDomiciliacion("Banco") = drAnexo("Banco")
+                        drDomiciliacion("Tipo") = drAnexo("Tipo")
+                        If Trim(drAnexo("CuentaCLABE")) <> "" Then
+                            drDomiciliacion("Cuenta") = drAnexo("CuentaCLABE")
+                        ElseIf Trim(drAnexo("NumTarjeta")) <> "" Then
+                            drDomiciliacion("Cuenta") = drAnexo("NumTarjeta")
+                        Else
+                            drDomiciliacion("Cuenta") = drAnexo("CuentaEJE")
+                        End If
+                        drDomiciliacion("Titular") = drAnexo("TitularCta")
+                        drDomiciliacion("Name") = drAnexo("Descr")
+                        drDomiciliacion("Referencia") = drAnexo("Referencia")
+                        drDomiciliacion("IDCargoExtra") = drAnexo("id_Cargo_Extra")
+                        dtDomiciliacion.Rows.Add(drDomiciliacion)
+                    End If
                 Next
 
                 nCount = 1
@@ -373,7 +375,8 @@ Module LayoutBancomer
                     If Trim(cLetra) <> "" Then
                         cRefBancomer = "PAGO " & cLetra & " DEL CONTRATO " & cRefBancomer
                     Else
-                        cRefBancomer = "PAGO EXT DEL CONTRATO " & cRefBancomer
+                        cLetra = Utilerias.Stuff(nCount.ToString, "I", "0", 3)
+                        cRefBancomer = "PAGO " & cLetra & " EXT CONTRATO " & cRefBancomer
                     End If
 
                     nPago = drAnexo("Saldo")
@@ -487,7 +490,6 @@ Module LayoutBancomer
 
                     If drAnexo("IDCargoExtra") <> 0 Then
                         strUpdate = "UPDATE PROM_CARGOS_EXTRAS SET Procesado = 1 WHERE id_Cargo_Extra = " & drAnexo("IDCargoExtra")
-                        'strUpdate = "UPDATE PROM_CARGOS_EXTRAS SET Procesado = 0 WHERE id_Cargo_Extra = " & drAnexo("IDCargoExtra")
                         cm3 = New SqlCommand(strUpdate, cnAgil)
                         cnAgil.Open()
                         cm3.ExecuteNonQuery()
@@ -538,6 +540,7 @@ Module LayoutBancomer
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
                         Mensaje.To.Add(Trim(drCorreo("Correo")))
                     Next
+                    'Mensaje.To.Add("ecacerest@finagil.com.mx")
                     Mensaje.From = New MailAddress("Domiciliacion@Finagil.com.mx", "FINAGIL envíos automáticos")
                     If cTipoReporte = "B" Then
                         Mensaje.Subject = "Layout BANCOMER"
