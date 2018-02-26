@@ -22,6 +22,9 @@ Module Procesos
                     Termina_Contratos()
                 Case "FACTORAJE"
                     Factoraje.NotificacionFactorajeFACT_VENC()
+                Case "PASIVOS"
+                    'GeneraInteresesDiarios("31/01/2018") '.AddDays(Date.Now.Date.Day * -1))
+                    GeneraInteresesDiarios(Date.Now.Date) '.AddDays(Date.Now.Date.Day * -1))
             End Select
         End If
         Console.WriteLine("Terminado")
