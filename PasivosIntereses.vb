@@ -15,7 +15,7 @@ Module PasivosIntereses
         For Each F As WEB_FinagilDS.DatosFondeosRow In FondeoDS.DatosFondeos.Rows
             SaldoIni = 0
             If F.id_Fondeo <> 28 Then
-                Continue For
+                'Continue For
             End If
             If F.Tipo_Fondeo = "INDIVIDUAL" Then
                 taEdoCta.QuitarInteresPagoAut(F.id_Fondeo, FechaFin.Month, FechaFin.Year)

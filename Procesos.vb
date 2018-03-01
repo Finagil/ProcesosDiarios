@@ -23,7 +23,9 @@ Module Procesos
                 Case "FACTORAJE"
                     Factoraje.NotificacionFactorajeFACT_VENC()
                 Case "PASIVOS"
-                    'GeneraInteresesDiarios("31/01/2018") '.AddDays(Date.Now.Date.Day * -1))
+                    If Date.Now.Day <= 4 Then
+                        GeneraInteresesDiarios(Date.Now.Date.AddDays(Date.Now.Day * -1)) ' se procesa 4 dias lo del mes anterior
+                    End If
                     GeneraInteresesDiarios(Date.Now.Date) '.AddDays(Date.Now.Date.Day * -1))
             End Select
         End If
