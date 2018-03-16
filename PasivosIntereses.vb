@@ -14,7 +14,7 @@ Module PasivosIntereses
         taFond.Fill(FondeoDS.DatosFondeos)
         For Each F As WEB_FinagilDS.DatosFondeosRow In FondeoDS.DatosFondeos.Rows
             SaldoIni = 0
-            If F.id_Fondeo <> 28 Then
+            If F.id_Fondeo <> 20 Then
                 'Continue For
             End If
             If F.Tipo_Fondeo = "INDIVIDUAL" Then
@@ -28,7 +28,7 @@ Module PasivosIntereses
                         If Tasa = 0 Then ErrorEnTasa("atorres@finagil.com.mx", F.TipoTasa, FecAux)
                     End If
                     taPag.Fill(FondeoDS.FOND_FechasPagoCapital, F.id_Fondeo, FecAux)
-                    If FondeoDS.FOND_FechasPagoCapital.Rows.Count > 0 Then
+                    If FondeoDS.FOND_FechasPagoCapital.Rows.Count > 0 And FecAux.Month = FechaFin.Month Then
                         Pago = FondeoDS.FOND_FechasPagoCapital.Rows(0)
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux)
                         Interes = (Tasa / 36000) * Dias * SaldoIni
