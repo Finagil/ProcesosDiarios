@@ -376,7 +376,7 @@ Module LayoutBancomer
                         cRefBancomer = "PAGO " & cLetra & " DEL CONTRATO " & cRefBancomer
                     Else
                         cLetra = Utilerias.Stuff(nCount.ToString, "I", "0", 3)
-                        cRefBancomer = "PAGO " & cLetra & " EXT CONTRATO " & cRefBancomer
+                        cRefBancomer = "PAGO " & cLetra & " EXT " & Today.ToString("yyyyMMdd") & " " & cRefBancomer
                     End If
 
                     nPago = drAnexo("Saldo")
