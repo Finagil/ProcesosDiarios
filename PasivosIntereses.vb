@@ -124,8 +124,8 @@ Module PasivosIntereses
             Mensaje.To.Add(Para)
             Mensaje.To.Add("ecacerest@finagil.com.mx")
             Mensaje.From = New MailAddress("Tasas@Finagil.com.mx", "FINAGIL envíos automáticos")
-            Mensaje.Subject = "Tasa no Encontarada"
-            Mensaje.Body = "Tasa no enconatrada: " & Tasa & "<BR> Fecha : " & Fecha.ToShortDateString
+            Mensaje.Subject = "Tasa no Encontrada"
+            Mensaje.Body = "Tasa no encontrada: " & Tasa & "<BR> Fecha : " & Fecha.ToShortDateString
             Servidor.Send(Mensaje)
         Catch ex As Exception
 
