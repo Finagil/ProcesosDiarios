@@ -58,7 +58,7 @@ Module LayoutBancomer
 
         ' Dado que el job correrá todos los días a las 8:00 a.m. debo omitir sábado y domingo del proceso
         Dim Hoy As Date = Today
-        'Hoy = CDate("05/02/2018") 'PARA PRUEBAS
+        'Hoy = CDate("30/03/2018") 'PARA PRUEBAS
 
         Dim nDiaSemana As Byte = Hoy.Date.DayOfWeek
 
@@ -193,11 +193,15 @@ Module LayoutBancomer
 
             daAnexos.Fill(dsAgil, "Pagos")
             daCorreos.Fill(dsAgil, "Correos")
+            'Dim ta As New ProduccionDSTableAdapters.AnexosTableAdapter
             Dim Pesos As Decimal
             Dim Particion As Integer = 0
             If dsAgil.Tables("Pagos").Rows.Count > 0 Then
 
-                For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario cobreos por montos mayores a 
+                For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario correos por montos mayores a 
+                    'If ta.EsRimo(drAnexo("Anexo")) <= 0 Then
+                    '    Continue For
+                    'End If
                     Particion = 1
                     nSaldoFac = drAnexo("SaldoFac")
                     Pesos = 50000
