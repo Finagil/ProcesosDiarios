@@ -1,7 +1,7 @@
 ﻿Imports System.Net.Mail
 Module PasivosIntereses
 
-    Sub GeneraInteresesDiarios(FechaFin As Date)
+    Sub GeneraInteresesDiarios(FechaFin As Date, SoloUno As Boolean, idAux As Integer)
         Dim TaTasas As New ProduccionDSTableAdapters.HistaTableAdapter
         Dim FecIni, FecAux As Date
         Dim SaldoIni, Tasa, Dias, Interes, Retencion, Capital As Decimal
@@ -14,8 +14,8 @@ Module PasivosIntereses
         taFond.Fill(FondeoDS.DatosFondeos)
         For Each F As WEB_FinagilDS.DatosFondeosRow In FondeoDS.DatosFondeos.Rows
             SaldoIni = 0
-            If F.id_Fondeo <> 20 Then
-                'Continue For
+            If F.id_Fondeo <> idAux And SoloUno = True Then
+                Continue For
             End If
             If F.Tipo_Fondeo = "INDIVIDUAL" Then
                 taEdoCta.QuitarInteresPagoAut(F.id_Fondeo, FechaFin.Month, FechaFin.Year)
