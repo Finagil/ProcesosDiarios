@@ -33,6 +33,8 @@ Module PasivosIntereses
                     taPag.Fill(FondeoDS.FOND_FechasPagoCapital, F.id_Fondeo, FecAux)
                     If FondeoDS.FOND_FechasPagoCapital.Rows.Count > 0 And FecAux.Month = FechaFin.Month Then
                         Pago = FondeoDS.FOND_FechasPagoCapital.Rows(0)
+                        If FecAux.DayOfWeek = DayOfWeek.Sunday Then FecAux = FecAux.AddDays(1)
+                        If FecAux.DayOfWeek = DayOfWeek.Saturday Then FecAux = FecAux.AddDays(2)
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux)
                         Interes = (Tasa / 36000) * Dias * SaldoIni
                         Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
