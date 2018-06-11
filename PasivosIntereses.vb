@@ -24,6 +24,7 @@ Module PasivosIntereses
                 taEdoCta.QuitarInteresPagoAut(F.id_Fondeo, FechaFin.Month, FechaFin.Year)
                 SaldoIni = taEdoCta.SumaCapital(F.id_Fondeo)
                 FecAux = taEdoCta.UltimaFechaFin(F.id_Fondeo)
+                'FecAux = FecAux.AddDays(1)
                 FecIni = FecAux
                 While FecAux <= FechaFin
                     If F.TipoTasa = "Tasa Fija" Then
@@ -42,6 +43,9 @@ Module PasivosIntereses
                             taPag.UpdateFecha(FecAux, Pago.id_pago)
                         End If
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux)
+                        'If FecAux.Month <> FechaFin.Month Then
+                        '    Dias += 1
+                        'End If
                         Interes = (Tasa / 36000) * Dias * SaldoIni
                         Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
                         taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni)
@@ -49,6 +53,12 @@ Module PasivosIntereses
                         taEdoCta.Insert(F.id_Fondeo, "PAGO AUTOMATICO", Pago.Capital * -1, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni - Pago.Capital)
                         SaldoIni -= Pago.Capital
                         FecIni = FecAux
+                    ElseIf FecAux.Month <> FechaFin.Month Then ' corte de interes
+                        Dias = DateDiff(DateInterval.Day, FecIni, FecAux.AddDays(1))
+                        Interes = (Tasa / 36000) * Dias * SaldoIni
+                        Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
+                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni)
+                        FecIni = FecAux.AddDays(1)
                     End If
                     FecAux = FecAux.AddDays(1)
                 End While

@@ -27,9 +27,11 @@ Module Procesos
                     If Arg.Length >= 3 Then
                         ID = Arg(2)
                     End If
-                    'GeneraInteresesDiarios("2018-01-31", 9)
-                    'GeneraInteresesDiarios("2018-02-28", 9)
-                    'GeneraInteresesDiarios("2018-03-31", 21)
+                    GeneraInteresesDiarios("2018-01-31", ID)
+                    GeneraInteresesDiarios("2018-02-28", ID)
+                    GeneraInteresesDiarios("2018-03-31", ID)
+                    GeneraInteresesDiarios("2018-04-30", ID)
+                    GeneraInteresesDiarios("2018-05-31", ID)
                     If Date.Now.Day <= 6 Then
                         GeneraInteresesDiarios(Date.Now.Date.AddDays(Date.Now.Day * -1), ID) ' se procesa 6 dias lo del mes anterior
                     End If
