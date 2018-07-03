@@ -1,6 +1,6 @@
 ﻿Imports System.Net.Mail
 Module PasivosIntereses
-
+    Dim CorreoTESORERIA As String = "atorres@finagil.com.mx"
     Sub GeneraInteresesDiarios(FechaFin As Date, idAux As Integer)
         Dim TaTasas As New ProduccionDSTableAdapters.HistaTableAdapter
         Dim FecIni, FecAux As Date
@@ -29,7 +29,7 @@ Module PasivosIntereses
                 While FecAux <= FechaFin
                     If F.TipoTasa = "Tasa Fija" Then
                         Tasa = F.TasaDiferencial
-                        If Tasa = 0 Then ErrorEnTasa("atorres@finagil.com.mx", F.TipoTasa, FecAux)
+                        If Tasa = 0 Then ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecAux)
                     End If
                     taPag.Fill(FondeoDS.FOND_FechasPagoCapital, F.id_Fondeo, FecAux)
                     If FondeoDS.FOND_FechasPagoCapital.Rows.Count > 0 And FecAux.Month = FechaFin.Month Then
@@ -79,7 +79,7 @@ Module PasivosIntereses
                         Tasa = F.TasaDiferencial
                     ElseIf F.TipoTasa = "Tasa TIIE 28" Then
                         Tasa = F.TasaDiferencial + TaTasas.SacaTASA(4, FecIni.ToString("yyyyMMdd"))
-                        If Tasa = 0 Then ErrorEnTasa("atorres@finagil.com.mx", F.TipoTasa, FecIni)
+                        If Tasa = 0 Then ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecIni)
                     ElseIf F.TipoTasa = "Tasa Libor" Then
                         Tasa = F.TasaDiferencial + TaTasas.SacaTASA(12, FecIni.ToString("yyyyMMdd"))
                         For x As Integer = 1 To 4
@@ -87,7 +87,7 @@ Module PasivosIntereses
                             If Tasa > 0 Then Exit For
                         Next
                         If Tasa = 0 Then
-                            ErrorEnTasa("atorres@finagil.com.mx", F.TipoTasa, FecIni)
+                            ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecIni)
                         End If
                     End If
 
