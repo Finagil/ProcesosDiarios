@@ -112,7 +112,7 @@ Module Backup
                         r = RutaNueva & Mid(d, elDir.Length + 1, d.Length) & "\"
                     End If
 
-                    If InStr(r, "\bin\") > 0 Or InStr(r, "\obj\") > 0 Then
+                    If InStr(r, "\bin\") > 0 Or InStr(r, "\obj\") > 0 Or InStr(r, "\.") > 0 Then
                         ' no pasamos estas carpetas
                     Else
                         If Not Directory.Exists(r) Then
