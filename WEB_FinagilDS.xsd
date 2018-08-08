@@ -362,7 +362,7 @@ WHERE        (id_Fondeo = @id_fondeo)</CommandText>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        FOND_Fondeadores.Fondeador, FOND_Fondeadores.Retencion, FOND_Fondeadores.TasaRetencion, FOND_Fondeos.id_Fondeo, FOND_Fondeos.TipoTasa, FOND_Fondeos.TasaDiferencial, FOND_Fondeos.Estatus, 
-                         FOND_TiposFondeos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos
+                         FOND_TiposFondeos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos, FOND_Fondeos.FechaVencimiento
 FROM            FOND_Fondeadores INNER JOIN
                          FOND_Fondeos ON FOND_Fondeadores.id_Fondeador = FOND_Fondeos.id_Fondeador INNER JOIN
                          FOND_TiposFondeos ON FOND_Fondeos.id_TipoFondeo = FOND_TiposFondeos.id_TipoFondeo
@@ -383,13 +383,14 @@ ORDER BY FOND_Fondeos.id_Fondeo</CommandText>
               <Mapping SourceColumn="Estatus" DataSetColumn="Estatus" />
               <Mapping SourceColumn="Tipo_Fondeo" DataSetColumn="Tipo_Fondeo" />
               <Mapping SourceColumn="No_Movimientos" DataSetColumn="No_Movimientos" />
+              <Mapping SourceColumn="FechaVencimiento" DataSetColumn="FechaVencimiento" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="ConnectionStringWEB (MySettings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByIdFondeo" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByIdFondeo" GeneratorSourceName="FillByIdFondeo" GetMethodModifier="Public" GetMethodName="GetDataByIdFondeo" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByIdFondeo" UserSourceName="FillByIdFondeo">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        FOND_Fondeadores.Fondeador, FOND_Fondeadores.Retencion, FOND_Fondeadores.TasaRetencion, FOND_Fondeos.id_Fondeo, FOND_Fondeos.TipoTasa, FOND_Fondeos.TasaDiferencial, FOND_Fondeos.Estatus, 
-                         FOND_TiposFondeos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos
+                         FOND_TiposFondeos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos, FOND_Fondeos.FechaVencimiento
 FROM            FOND_Fondeadores INNER JOIN
                          FOND_Fondeos ON FOND_Fondeadores.id_Fondeador = FOND_Fondeos.id_Fondeador INNER JOIN
                          FOND_TiposFondeos ON FOND_Fondeos.id_TipoFondeo = FOND_TiposFondeos.id_TipoFondeo
@@ -634,6 +635,7 @@ SELECT id_pago, id_fondeo, FechaPago, Capital FROM FOND_FechasPagoCapital WHERE 
                 </xs:simpleType>
               </xs:element>
               <xs:element name="No_Movimientos" msprop:Generator_ColumnVarNameInTable="columnNo_Movimientos" msprop:Generator_ColumnPropNameInRow="No_Movimientos" msprop:Generator_ColumnPropNameInTable="No_MovimientosColumn" msprop:Generator_UserColumnName="No_Movimientos" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FechaVencimiento" msprop:Generator_ColumnVarNameInTable="columnFechaVencimiento" msprop:Generator_ColumnPropNameInRow="FechaVencimiento" msprop:Generator_ColumnPropNameInTable="FechaVencimientoColumn" msprop:Generator_UserColumnName="FechaVencimiento" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

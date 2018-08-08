@@ -20,6 +20,7 @@ Module PasivosIntereses
 
         For Each F As WEB_FinagilDS.DatosFondeosRow In FondeoDS.DatosFondeos.Rows
             SaldoIni = 0
+
             If F.Tipo_Fondeo = "INDIVIDUAL" Then
                 taEdoCta.QuitarInteresPagoAut(F.id_Fondeo, FechaFin.Month, FechaFin.Year)
                 SaldoIni = taEdoCta.SumaCapital(F.id_Fondeo)
@@ -75,6 +76,9 @@ Module PasivosIntereses
                 FecIni = FechaFin.AddDays((FechaFin.Day - 1) * -1)
                 taEdoCta.QuitaInteresesMes(F.id_Fondeo, FechaFin.Month, FechaFin.Year)
                 While FecIni <= FechaFin
+                    If FecIni > F.FechaVencimiento Then
+                        Exit While
+                    End If
                     If F.TipoTasa = "Tasa Fija" Then
                         Tasa = F.TasaDiferencial
                     ElseIf F.TipoTasa = "Tasa TIIE 28" Then
