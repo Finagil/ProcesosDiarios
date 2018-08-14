@@ -5075,7 +5075,7 @@ Namespace WEB_FinagilDSTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(8) {}
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(9) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        id_Movimiento, id_Fondeo, Concepto, Importe, Interes, Retencion, Ta"& _ 
@@ -5095,57 +5095,65 @@ Namespace WEB_FinagilDSTableAdapters
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(2).Connection = Me.Connection
             Me._commandCollection(2).CommandText = "DELETE FROM FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo) AND (Concept"& _ 
-                "o = 'intereses') AND (MONTH(FechaInicio) = @mes) AND (YEAR(FechaInicio) = @Año) "& _ 
-                "OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (id_Fondeo = @id_fondeo) AND (Concepto = 'intereses"& _ 
-                "') AND (MONTH(FechaFin) = @mes) AND (YEAR(FechaFin) = @Año)"
+                "o = 'intereses') AND (FechaInicio = @FechaInicio) AND (FechaFin = @FechaFin)"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@mes", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Año", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaInicio", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaInicio", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaFin", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaFin", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(3) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(3).Connection = Me.Connection
             Me._commandCollection(3).CommandText = "DELETE FROM FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo) AND (Concept"& _ 
-                "o = 'intereses' OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Concepto = 'PAGO AUTOMATICO') AND ("& _ 
-                "MONTH(FechaInicio) >= @mes) AND (YEAR(FechaInicio) >= @Año) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                "& _ 
-                "         (id_Fondeo = @id_fondeo) AND (Concepto = 'intereses' OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"              "& _ 
-                "           Concepto = 'PAGO AUTOMATICO') AND (MONTH(FechaFin) >= @mes) AND (YEAR"& _ 
-                "(FechaFin) >= @Año)"
+                "o = 'intereses') AND (MONTH(FechaInicio) = @mes) AND (YEAR(FechaInicio) = @Año) "& _ 
+                "OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (id_Fondeo = @id_fondeo) AND (Concepto = 'intereses"& _ 
+                "') AND (MONTH(FechaFin) = @mes) AND (YEAR(FechaFin) = @Año)"
             Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@mes", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Año", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(4).Connection = Me.Connection
-            Me._commandCollection(4).CommandText = "SELECT        ISNULL(SUM(Importe), 0) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuen"& _ 
-                "ta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FechaInicio = @FechaInicio) AND (id_Fondeo = @id_Fondeo)"
+            Me._commandCollection(4).CommandText = "DELETE FROM FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo) AND (Concept"& _ 
+                "o = 'intereses' OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Concepto = 'PAGO AUTOMATICO') AND ("& _ 
+                "MONTH(FechaInicio) >= @mes) AND (YEAR(FechaInicio) >= @Año) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                "& _ 
+                "         (id_Fondeo = @id_fondeo) AND (Concepto = 'intereses' OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"              "& _ 
+                "           Concepto = 'PAGO AUTOMATICO') AND (MONTH(FechaFin) >= @mes) AND (YEAR"& _ 
+                "(FechaFin) >= @Año)"
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaInicio", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaInicio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_Fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@mes", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Año", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(5) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(5).Connection = Me.Connection
-            Me._commandCollection(5).CommandText = "SELECT        SUM(Importe) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  "& _ 
-                "      (id_Fondeo = @id_fondeo)"
+            Me._commandCollection(5).CommandText = "SELECT        ISNULL(SUM(Importe), 0) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuen"& _ 
+                "ta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FechaInicio = @FechaInicio) AND (id_Fondeo = @id_Fondeo)"
             Me._commandCollection(5).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaInicio", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaInicio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_Fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(6) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(6).Connection = Me.Connection
-            Me._commandCollection(6).CommandText = "SELECT        isnull(SUM(Importe),0) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuent"& _ 
-                "a"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo) AND (FechaInicio <= @Fecha)"
+            Me._commandCollection(6).CommandText = "SELECT        SUM(Importe) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  "& _ 
+                "      (id_Fondeo = @id_fondeo)"
             Me._commandCollection(6).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Fecha", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaInicio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(7).Connection = Me.Connection
-            Me._commandCollection(7).CommandText = "SELECT        SUM(Interes) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  "& _ 
-                "      (id_Fondeo = @id_fondeo)"
+            Me._commandCollection(7).CommandText = "SELECT        isnull(SUM(Importe),0) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuent"& _ 
+                "a"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo) AND (FechaInicio <= @Fecha)"
             Me._commandCollection(7).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Fecha", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaInicio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(8) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(8).Connection = Me.Connection
-            Me._commandCollection(8).CommandText = "SELECT        MAX(FechaFin) AS FechaFin"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE"& _ 
-                "        (id_Fondeo = @id_fondeo)"
+            Me._commandCollection(8).CommandText = "SELECT        SUM(Interes) AS Capital"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  "& _ 
+                "      (id_Fondeo = @id_fondeo)"
             Me._commandCollection(8).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(8).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(9) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(9).Connection = Me.Connection
+            Me._commandCollection(9).CommandText = "SELECT        MAX(FechaFin) AS FechaFin"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE"& _ 
+                "        (id_Fondeo = @id_fondeo)"
+            Me._commandCollection(9).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -5612,8 +5620,45 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, false)>  _
-        Public Overloads Overridable Function QuitaInteresesMes(ByVal id_fondeo As Global.System.Nullable(Of Decimal), ByVal mes As Decimal, ByVal Año As Decimal) As Integer
+        Public Overloads Overridable Function QuitaCorteInteres(ByVal id_fondeo As Global.System.Nullable(Of Decimal), ByVal FechaInicio As Global.System.Nullable(Of Date), ByVal FechaFin As Global.System.Nullable(Of Date)) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(2)
+            If (id_fondeo.HasValue = true) Then
+                command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
+            Else
+                command.Parameters(0).Value = Global.System.DBNull.Value
+            End If
+            If (FechaInicio.HasValue = true) Then
+                command.Parameters(1).Value = CType(FechaInicio.Value,Date)
+            Else
+                command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (FechaFin.HasValue = true) Then
+                command.Parameters(2).Value = CType(FechaFin.Value,Date)
+            Else
+                command.Parameters(2).Value = Global.System.DBNull.Value
+            End If
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, false)>  _
+        Public Overloads Overridable Function QuitaInteresesMes(ByVal id_fondeo As Global.System.Nullable(Of Decimal), ByVal mes As Decimal, ByVal Año As Decimal) As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(3)
             If (id_fondeo.HasValue = true) Then
                 command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
             Else
@@ -5642,7 +5687,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, false)>  _
         Public Overloads Overridable Function QuitarInteresPagoAut(ByVal id_fondeo As Global.System.Nullable(Of Decimal), ByVal mes As Decimal, ByVal Año As Decimal) As Integer
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(3)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(4)
             If (id_fondeo.HasValue = true) Then
                 command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
             Else
@@ -5670,7 +5715,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function SacaCAPITAL(ByVal FechaInicio As Global.System.Nullable(Of Date), ByVal id_Fondeo As Global.System.Nullable(Of Decimal)) As Object
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(4)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(5)
             If (FechaInicio.HasValue = true) Then
                 command.Parameters(0).Value = CType(FechaInicio.Value,Date)
             Else
@@ -5706,7 +5751,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function SumaCapital(ByVal id_fondeo As Global.System.Nullable(Of Decimal)) As Object
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(5)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(6)
             If (id_fondeo.HasValue = true) Then
                 command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
             Else
@@ -5737,7 +5782,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function SumaCapitalHasta(ByVal id_fondeo As Global.System.Nullable(Of Decimal), ByVal Fecha As Global.System.Nullable(Of Date)) As Object
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(6)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
             If (id_fondeo.HasValue = true) Then
                 command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
             Else
@@ -5773,7 +5818,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function SumaInteres(ByVal id_fondeo As Global.System.Nullable(Of Decimal)) As Global.System.Nullable(Of Decimal)
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(8)
             If (id_fondeo.HasValue = true) Then
                 command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
             Else
@@ -5804,7 +5849,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function UltimaFechaFin(ByVal id_fondeo As Global.System.Nullable(Of Decimal)) As Global.System.Nullable(Of Date)
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(8)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(9)
             If (id_fondeo.HasValue = true) Then
                 command.Parameters(0).Value = CType(id_fondeo.Value,Decimal)
             Else
@@ -5997,15 +6042,15 @@ Namespace WEB_FinagilDSTableAdapters
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT        FOND_Fondeadores.Fondeador, FOND_Fondeadores.Retencion, FOND_Fondea" &
-                "dores.TasaRetencion, FOND_Fondeos.id_Fondeo, FOND_Fondeos.TipoTasa, FOND_Fondeos" &
-                ".TasaDiferencial, FOND_Fondeos.Estatus, " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "                         FOND_TiposFon" &
-                "deos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos, FOND_Fondeos.FechaVencimient" &
-                "o" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "FROM            FOND_Fondeadores INNER JOIN" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "                         FOND_Fo" &
-                "ndeos ON FOND_Fondeadores.id_Fondeador = FOND_Fondeos.id_Fondeador INNER JOIN" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " " &
-                "                        FOND_TiposFondeos ON FOND_Fondeos.id_TipoFondeo = FOND_T" &
-                "iposFondeos.id_TipoFondeo" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "WHERE        (FOND_Fondeos.Estatus = 'VIGENTE') AND (" &
-                "FOND_Fondeos.id_Fondeo = @id_fondeo)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ORDER BY FOND_Fondeos.id_Fondeo"
+            Me._commandCollection(1).CommandText = "SELECT        FOND_Fondeadores.Fondeador, FOND_Fondeadores.Retencion, FOND_Fondea"& _ 
+                "dores.TasaRetencion, FOND_Fondeos.id_Fondeo, FOND_Fondeos.TipoTasa, FOND_Fondeos"& _ 
+                ".TasaDiferencial, FOND_Fondeos.Estatus, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_TiposFon"& _ 
+                "deos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos, FOND_Fondeos.FechaVencimient"& _ 
+                "o"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_Fondeadores INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_Fo"& _ 
+                "ndeos ON FOND_Fondeadores.id_Fondeador = FOND_Fondeos.id_Fondeador INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&" "& _ 
+                "                        FOND_TiposFondeos ON FOND_Fondeos.id_TipoFondeo = FOND_T"& _ 
+                "iposFondeos.id_TipoFondeo"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FOND_Fondeos.Estatus = 'VIGENTE') AND ("& _ 
+                "FOND_Fondeos.id_Fondeo = @id_fondeo)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY FOND_Fondeos.id_Fondeo"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
