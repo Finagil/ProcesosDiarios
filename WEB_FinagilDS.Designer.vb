@@ -1492,6 +1492,10 @@ Partial Public Class WEB_FinagilDS
         
         Private columnSaldoFinal As Global.System.Data.DataColumn
         
+        Private columnPago As Global.System.Data.DataColumn
+        
+        Private columnBanco As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -1616,6 +1620,22 @@ Partial Public Class WEB_FinagilDS
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property PagoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPago
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property BancoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBanco
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1652,9 +1672,9 @@ Partial Public Class WEB_FinagilDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddFOND_EstadoCuentaRow(ByVal id_Fondeo As Decimal, ByVal Concepto As String, ByVal Importe As Decimal, ByVal Interes As Decimal, ByVal Retencion As Decimal, ByVal TasaRetencion As Decimal, ByVal FechaInicio As Date, ByVal FechaFin As Date, ByVal SaldoInicial As Decimal, ByVal SaldoFinal As Decimal) As FOND_EstadoCuentaRow
+        Public Overloads Function AddFOND_EstadoCuentaRow(ByVal id_Fondeo As Decimal, ByVal Concepto As String, ByVal Importe As Decimal, ByVal Interes As Decimal, ByVal Retencion As Decimal, ByVal TasaRetencion As Decimal, ByVal FechaInicio As Date, ByVal FechaFin As Date, ByVal SaldoInicial As Decimal, ByVal SaldoFinal As Decimal, ByVal Pago As Decimal, ByVal Banco As String) As FOND_EstadoCuentaRow
             Dim rowFOND_EstadoCuentaRow As FOND_EstadoCuentaRow = CType(Me.NewRow,FOND_EstadoCuentaRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, id_Fondeo, Concepto, Importe, Interes, Retencion, TasaRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal}
+            Dim columnValuesArray() As Object = New Object() {Nothing, id_Fondeo, Concepto, Importe, Interes, Retencion, TasaRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal, Pago, Banco}
             rowFOND_EstadoCuentaRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowFOND_EstadoCuentaRow)
             Return rowFOND_EstadoCuentaRow
@@ -1694,6 +1714,8 @@ Partial Public Class WEB_FinagilDS
             Me.columnFechaFin = MyBase.Columns("FechaFin")
             Me.columnSaldoInicial = MyBase.Columns("SaldoInicial")
             Me.columnSaldoFinal = MyBase.Columns("SaldoFinal")
+            Me.columnPago = MyBase.Columns("Pago")
+            Me.columnBanco = MyBase.Columns("Banco")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1721,6 +1743,10 @@ Partial Public Class WEB_FinagilDS
             MyBase.Columns.Add(Me.columnSaldoInicial)
             Me.columnSaldoFinal = New Global.System.Data.DataColumn("SaldoFinal", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnSaldoFinal)
+            Me.columnPago = New Global.System.Data.DataColumn("Pago", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPago)
+            Me.columnBanco = New Global.System.Data.DataColumn("Banco", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBanco)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid_Movimiento}, true))
             Me.columnid_Movimiento.AutoIncrement = true
             Me.columnid_Movimiento.AutoIncrementSeed = -1
@@ -1729,6 +1755,7 @@ Partial Public Class WEB_FinagilDS
             Me.columnid_Movimiento.ReadOnly = true
             Me.columnid_Movimiento.Unique = true
             Me.columnConcepto.MaxLength = 20
+            Me.columnBanco.MaxLength = 2
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1886,6 +1913,8 @@ Partial Public Class WEB_FinagilDS
         
         Private columnFechaVencimiento As Global.System.Data.DataColumn
         
+        Private columnBancoDefault As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -2002,6 +2031,14 @@ Partial Public Class WEB_FinagilDS
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property BancoDefaultColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBancoDefault
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -2038,9 +2075,9 @@ Partial Public Class WEB_FinagilDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddDatosFondeosRow(ByVal Fondeador As String, ByVal Retencion As Boolean, ByVal TasaRetencion As Decimal, ByVal TipoTasa As String, ByVal TasaDiferencial As Decimal, ByVal Estatus As String, ByVal Tipo_Fondeo As String, ByVal No_Movimientos As Decimal, ByVal FechaVencimiento As Date) As DatosFondeosRow
+        Public Overloads Function AddDatosFondeosRow(ByVal Fondeador As String, ByVal Retencion As Boolean, ByVal TasaRetencion As Decimal, ByVal TipoTasa As String, ByVal TasaDiferencial As Decimal, ByVal Estatus As String, ByVal Tipo_Fondeo As String, ByVal No_Movimientos As Decimal, ByVal FechaVencimiento As Date, ByVal BancoDefault As String) As DatosFondeosRow
             Dim rowDatosFondeosRow As DatosFondeosRow = CType(Me.NewRow,DatosFondeosRow)
-            Dim columnValuesArray() As Object = New Object() {Fondeador, Retencion, TasaRetencion, Nothing, TipoTasa, TasaDiferencial, Estatus, Tipo_Fondeo, No_Movimientos, FechaVencimiento}
+            Dim columnValuesArray() As Object = New Object() {Fondeador, Retencion, TasaRetencion, Nothing, TipoTasa, TasaDiferencial, Estatus, Tipo_Fondeo, No_Movimientos, FechaVencimiento, BancoDefault}
             rowDatosFondeosRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDatosFondeosRow)
             Return rowDatosFondeosRow
@@ -2079,6 +2116,7 @@ Partial Public Class WEB_FinagilDS
             Me.columnTipo_Fondeo = MyBase.Columns("Tipo_Fondeo")
             Me.columnNo_Movimientos = MyBase.Columns("No_Movimientos")
             Me.columnFechaVencimiento = MyBase.Columns("FechaVencimiento")
+            Me.columnBancoDefault = MyBase.Columns("BancoDefault")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2104,6 +2142,8 @@ Partial Public Class WEB_FinagilDS
             MyBase.Columns.Add(Me.columnNo_Movimientos)
             Me.columnFechaVencimiento = New Global.System.Data.DataColumn("FechaVencimiento", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnFechaVencimiento)
+            Me.columnBancoDefault = New Global.System.Data.DataColumn("BancoDefault", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBancoDefault)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid_Fondeo}, true))
             Me.columnFondeador.MaxLength = 50
             Me.columnid_Fondeo.AutoIncrement = true
@@ -2115,6 +2155,7 @@ Partial Public Class WEB_FinagilDS
             Me.columnTipoTasa.MaxLength = 20
             Me.columnEstatus.MaxLength = 10
             Me.columnTipo_Fondeo.MaxLength = 20
+            Me.columnBancoDefault.MaxLength = 2
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3332,6 +3373,36 @@ Partial Public Class WEB_FinagilDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property Pago() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableFOND_EstadoCuenta.PagoColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Pago' de la tabla 'FOND_EstadoCuenta' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableFOND_EstadoCuenta.PagoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property Banco() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableFOND_EstadoCuenta.BancoColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Banco' de la tabla 'FOND_EstadoCuenta' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableFOND_EstadoCuenta.BancoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function Isid_FondeoNull() As Boolean
             Return Me.IsNull(Me.tableFOND_EstadoCuenta.id_FondeoColumn)
         End Function
@@ -3448,6 +3519,30 @@ Partial Public Class WEB_FinagilDS
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetSaldoFinalNull()
             Me(Me.tableFOND_EstadoCuenta.SaldoFinalColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsPagoNull() As Boolean
+            Return Me.IsNull(Me.tableFOND_EstadoCuenta.PagoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetPagoNull()
+            Me(Me.tableFOND_EstadoCuenta.PagoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsBancoNull() As Boolean
+            Return Me.IsNull(Me.tableFOND_EstadoCuenta.BancoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetBancoNull()
+            Me(Me.tableFOND_EstadoCuenta.BancoColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -3614,6 +3709,21 @@ Partial Public Class WEB_FinagilDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property BancoDefault() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDatosFondeos.BancoDefaultColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'BancoDefault' de la tabla 'DatosFondeos' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDatosFondeos.BancoDefaultColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function IsFondeadorNull() As Boolean
             Return Me.IsNull(Me.tableDatosFondeos.FondeadorColumn)
         End Function
@@ -3718,6 +3828,18 @@ Partial Public Class WEB_FinagilDS
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetFechaVencimientoNull()
             Me(Me.tableDatosFondeos.FechaVencimientoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsBancoDefaultNull() As Boolean
+            Return Me.IsNull(Me.tableDatosFondeos.BancoDefaultColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetBancoDefaultNull()
+            Me(Me.tableDatosFondeos.BancoDefaultColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -4951,6 +5073,8 @@ Namespace WEB_FinagilDSTableAdapters
             tableMapping.ColumnMappings.Add("FechaFin", "FechaFin")
             tableMapping.ColumnMappings.Add("SaldoInicial", "SaldoInicial")
             tableMapping.ColumnMappings.Add("SaldoFinal", "SaldoFinal")
+            tableMapping.ColumnMappings.Add("Pago", "Pago")
+            tableMapping.ColumnMappings.Add("Banco", "Banco")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
@@ -4966,7 +5090,9 @@ Namespace WEB_FinagilDSTableAdapters
                 "al_FechaInicio)) AND ((@IsNull_FechaFin = 1 AND [FechaFin] IS NULL) OR ([FechaFi"& _ 
                 "n] = @Original_FechaFin)) AND ((@IsNull_SaldoInicial = 1 AND [SaldoInicial] IS N"& _ 
                 "ULL) OR ([SaldoInicial] = @Original_SaldoInicial)) AND ((@IsNull_SaldoFinal = 1 "& _ 
-                "AND [SaldoFinal] IS NULL) OR ([SaldoFinal] = @Original_SaldoFinal)))"
+                "AND [SaldoFinal] IS NULL) OR ([SaldoFinal] = @Original_SaldoFinal)) AND ((@IsNul"& _ 
+                "l_Pago = 1 AND [Pago] IS NULL) OR ([Pago] = @Original_Pago)) AND ((@IsNull_Banco"& _ 
+                " = 1 AND [Banco] IS NULL) OR ([Banco] = @Original_Banco)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_id_Movimiento", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Movimiento", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_id_Fondeo", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
@@ -4989,15 +5115,20 @@ Namespace WEB_FinagilDSTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_SaldoInicial", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoInicial", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_SaldoFinal", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "SaldoFinal", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_SaldoFinal", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoFinal", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_Pago", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Pago", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Pago", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "Pago", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_Banco", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Banco", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Banco", Global.System.Data.SqlDbType.NChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Banco", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO [FOND_EstadoCuenta] ([id_Fondeo], [Concepto], [Importe], [Interes], ["& _ 
                 "Retencion], [TasaRetencion], [FechaInicio], [FechaFin], [SaldoInicial], [SaldoFi"& _ 
-                "nal]) VALUES (@id_Fondeo, @Concepto, @Importe, @Interes, @Retencion, @TasaRetenc"& _ 
-                "ion, @FechaInicio, @FechaFin, @SaldoInicial, @SaldoFinal);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT id_Movimiento"& _ 
-                ", id_Fondeo, Concepto, Importe, Interes, Retencion, TasaRetencion, FechaInicio, "& _ 
-                "FechaFin, SaldoInicial, SaldoFinal FROM FOND_EstadoCuenta WHERE (id_Movimiento ="& _ 
-                " SCOPE_IDENTITY()) ORDER BY id_Movimiento"
+                "nal], [Pago], [Banco]) VALUES (@id_Fondeo, @Concepto, @Importe, @Interes, @Reten"& _ 
+                "cion, @TasaRetencion, @FechaInicio, @FechaFin, @SaldoInicial, @SaldoFinal, @Pago"& _ 
+                ", @Banco);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT id_Movimiento, id_Fondeo, Concepto, Importe, Interes, Retenci"& _ 
+                "on, TasaRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal, Pago, Banco "& _ 
+                "FROM FOND_EstadoCuenta WHERE (id_Movimiento = SCOPE_IDENTITY()) ORDER BY id_Movi"& _ 
+                "miento"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_Fondeo", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Concepto", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Concepto", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -5009,27 +5140,32 @@ Namespace WEB_FinagilDSTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaFin", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaFin", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SaldoInicial", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoInicial", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SaldoFinal", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoFinal", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Pago", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "Pago", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Banco", Global.System.Data.SqlDbType.NChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Banco", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE [FOND_EstadoCuenta] SET [id_Fondeo] = @id_Fondeo, [Concepto] = @Concepto, "& _ 
                 "[Importe] = @Importe, [Interes] = @Interes, [Retencion] = @Retencion, [TasaReten"& _ 
                 "cion] = @TasaRetencion, [FechaInicio] = @FechaInicio, [FechaFin] = @FechaFin, [S"& _ 
-                "aldoInicial] = @SaldoInicial, [SaldoFinal] = @SaldoFinal WHERE (([id_Movimiento]"& _ 
-                " = @Original_id_Movimiento) AND ((@IsNull_id_Fondeo = 1 AND [id_Fondeo] IS NULL)"& _ 
-                " OR ([id_Fondeo] = @Original_id_Fondeo)) AND ((@IsNull_Concepto = 1 AND [Concept"& _ 
-                "o] IS NULL) OR ([Concepto] = @Original_Concepto)) AND ((@IsNull_Importe = 1 AND "& _ 
-                "[Importe] IS NULL) OR ([Importe] = @Original_Importe)) AND ((@IsNull_Interes = 1"& _ 
-                " AND [Interes] IS NULL) OR ([Interes] = @Original_Interes)) AND ((@IsNull_Retenc"& _ 
-                "ion = 1 AND [Retencion] IS NULL) OR ([Retencion] = @Original_Retencion)) AND ((@"& _ 
-                "IsNull_TasaRetencion = 1 AND [TasaRetencion] IS NULL) OR ([TasaRetencion] = @Ori"& _ 
-                "ginal_TasaRetencion)) AND ((@IsNull_FechaInicio = 1 AND [FechaInicio] IS NULL) O"& _ 
-                "R ([FechaInicio] = @Original_FechaInicio)) AND ((@IsNull_FechaFin = 1 AND [Fecha"& _ 
-                "Fin] IS NULL) OR ([FechaFin] = @Original_FechaFin)) AND ((@IsNull_SaldoInicial ="& _ 
-                " 1 AND [SaldoInicial] IS NULL) OR ([SaldoInicial] = @Original_SaldoInicial)) AND"& _ 
-                " ((@IsNull_SaldoFinal = 1 AND [SaldoFinal] IS NULL) OR ([SaldoFinal] = @Original"& _ 
-                "_SaldoFinal)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT id_Movimiento, id_Fondeo, Concepto, Importe, Interes, Re"& _ 
-                "tencion, TasaRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal FROM FON"& _ 
-                "D_EstadoCuenta WHERE (id_Movimiento = @id_Movimiento) ORDER BY id_Movimiento"
+                "aldoInicial] = @SaldoInicial, [SaldoFinal] = @SaldoFinal, [Pago] = @Pago, [Banco"& _ 
+                "] = @Banco WHERE (([id_Movimiento] = @Original_id_Movimiento) AND ((@IsNull_id_F"& _ 
+                "ondeo = 1 AND [id_Fondeo] IS NULL) OR ([id_Fondeo] = @Original_id_Fondeo)) AND ("& _ 
+                "(@IsNull_Concepto = 1 AND [Concepto] IS NULL) OR ([Concepto] = @Original_Concept"& _ 
+                "o)) AND ((@IsNull_Importe = 1 AND [Importe] IS NULL) OR ([Importe] = @Original_I"& _ 
+                "mporte)) AND ((@IsNull_Interes = 1 AND [Interes] IS NULL) OR ([Interes] = @Origi"& _ 
+                "nal_Interes)) AND ((@IsNull_Retencion = 1 AND [Retencion] IS NULL) OR ([Retencio"& _ 
+                "n] = @Original_Retencion)) AND ((@IsNull_TasaRetencion = 1 AND [TasaRetencion] I"& _ 
+                "S NULL) OR ([TasaRetencion] = @Original_TasaRetencion)) AND ((@IsNull_FechaInici"& _ 
+                "o = 1 AND [FechaInicio] IS NULL) OR ([FechaInicio] = @Original_FechaInicio)) AND"& _ 
+                " ((@IsNull_FechaFin = 1 AND [FechaFin] IS NULL) OR ([FechaFin] = @Original_Fecha"& _ 
+                "Fin)) AND ((@IsNull_SaldoInicial = 1 AND [SaldoInicial] IS NULL) OR ([SaldoInici"& _ 
+                "al] = @Original_SaldoInicial)) AND ((@IsNull_SaldoFinal = 1 AND [SaldoFinal] IS "& _ 
+                "NULL) OR ([SaldoFinal] = @Original_SaldoFinal)) AND ((@IsNull_Pago = 1 AND [Pago"& _ 
+                "] IS NULL) OR ([Pago] = @Original_Pago)) AND ((@IsNull_Banco = 1 AND [Banco] IS "& _ 
+                "NULL) OR ([Banco] = @Original_Banco)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT id_Movimiento, id_Fondeo, Concep"& _ 
+                "to, Importe, Interes, Retencion, TasaRetencion, FechaInicio, FechaFin, SaldoInic"& _ 
+                "ial, SaldoFinal, Pago, Banco FROM FOND_EstadoCuenta WHERE (id_Movimiento = @id_M"& _ 
+                "ovimiento) ORDER BY id_Movimiento"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_Fondeo", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Concepto", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Concepto", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -5041,6 +5177,8 @@ Namespace WEB_FinagilDSTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaFin", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaFin", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SaldoInicial", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoInicial", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SaldoFinal", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoFinal", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Pago", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "Pago", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Banco", Global.System.Data.SqlDbType.NChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Banco", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_id_Movimiento", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Movimiento", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_id_Fondeo", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_id_Fondeo", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -5062,6 +5200,10 @@ Namespace WEB_FinagilDSTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_SaldoInicial", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoInicial", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_SaldoFinal", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "SaldoFinal", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_SaldoFinal", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "SaldoFinal", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_Pago", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Pago", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Pago", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "Pago", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_Banco", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Banco", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_Banco", Global.System.Data.SqlDbType.NChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "Banco", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_Movimiento", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Movimiento", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
@@ -5079,16 +5221,17 @@ Namespace WEB_FinagilDSTableAdapters
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        id_Movimiento, id_Fondeo, Concepto, Importe, Interes, Retencion, Ta"& _ 
-                "saRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FO"& _ 
-                "ND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY id_Movimiento"
+                "saRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal, Pago, Banco"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM "& _ 
+                "           FOND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY id"& _ 
+                "_Movimiento"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT        id_Movimiento, id_Fondeo, Concepto, Importe, Interes, Retencion, Ta"& _ 
-                "saRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FO"& _ 
-                "ND_EstadoCuenta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (id_Fondeo = @id_fondeo) AND (FechaInicio = @Fecha"& _ 
-                "Ini)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY id_Movimiento"
+            Me._commandCollection(1).CommandText = "SELECT Banco, Concepto, FechaFin, FechaInicio, Importe, Interes, Pago, Retencion,"& _ 
+                " SaldoFinal, SaldoInicial, TasaRetencion, id_Fondeo, id_Movimiento FROM FOND_Est"& _ 
+                "adoCuenta WHERE (id_Fondeo = @id_fondeo) AND (FechaInicio = @FechaIni) ORDER BY "& _ 
+                "id_Movimiento"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FechaIni", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "FechaInicio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -5266,7 +5409,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_id_Movimiento As Decimal, ByVal Original_id_Fondeo As Global.System.Nullable(Of Decimal), ByVal Original_Concepto As String, ByVal Original_Importe As Global.System.Nullable(Of Decimal), ByVal Original_Interes As Global.System.Nullable(Of Decimal), ByVal Original_Retencion As Global.System.Nullable(Of Decimal), ByVal Original_TasaRetencion As Global.System.Nullable(Of Decimal), ByVal Original_FechaInicio As Global.System.Nullable(Of Date), ByVal Original_FechaFin As Global.System.Nullable(Of Date), ByVal Original_SaldoInicial As Global.System.Nullable(Of Decimal), ByVal Original_SaldoFinal As Global.System.Nullable(Of Decimal)) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_id_Movimiento As Decimal, ByVal Original_id_Fondeo As Global.System.Nullable(Of Decimal), ByVal Original_Concepto As String, ByVal Original_Importe As Global.System.Nullable(Of Decimal), ByVal Original_Interes As Global.System.Nullable(Of Decimal), ByVal Original_Retencion As Global.System.Nullable(Of Decimal), ByVal Original_TasaRetencion As Global.System.Nullable(Of Decimal), ByVal Original_FechaInicio As Global.System.Nullable(Of Date), ByVal Original_FechaFin As Global.System.Nullable(Of Date), ByVal Original_SaldoInicial As Global.System.Nullable(Of Decimal), ByVal Original_SaldoFinal As Global.System.Nullable(Of Decimal), ByVal Original_Pago As Global.System.Nullable(Of Decimal), ByVal Original_Banco As String) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_id_Movimiento,Decimal)
             If (Original_id_Fondeo.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0,Object)
@@ -5338,6 +5481,20 @@ Namespace WEB_FinagilDSTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(19).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(20).Value = Global.System.DBNull.Value
             End If
+            If (Original_Pago.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(21).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(22).Value = CType(Original_Pago.Value,Decimal)
+            Else
+                Me.Adapter.DeleteCommand.Parameters(21).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(22).Value = Global.System.DBNull.Value
+            End If
+            If (Original_Banco Is Nothing) Then
+                Me.Adapter.DeleteCommand.Parameters(23).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(24).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.DeleteCommand.Parameters(23).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(24).Value = CType(Original_Banco,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -5357,7 +5514,7 @@ Namespace WEB_FinagilDSTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal id_Fondeo As Global.System.Nullable(Of Decimal), ByVal Concepto As String, ByVal Importe As Global.System.Nullable(Of Decimal), ByVal Interes As Global.System.Nullable(Of Decimal), ByVal Retencion As Global.System.Nullable(Of Decimal), ByVal TasaRetencion As Global.System.Nullable(Of Decimal), ByVal FechaInicio As Global.System.Nullable(Of Date), ByVal FechaFin As Global.System.Nullable(Of Date), ByVal SaldoInicial As Global.System.Nullable(Of Decimal), ByVal SaldoFinal As Global.System.Nullable(Of Decimal)) As Integer
+        Public Overloads Overridable Function Insert(ByVal id_Fondeo As Global.System.Nullable(Of Decimal), ByVal Concepto As String, ByVal Importe As Global.System.Nullable(Of Decimal), ByVal Interes As Global.System.Nullable(Of Decimal), ByVal Retencion As Global.System.Nullable(Of Decimal), ByVal TasaRetencion As Global.System.Nullable(Of Decimal), ByVal FechaInicio As Global.System.Nullable(Of Date), ByVal FechaFin As Global.System.Nullable(Of Date), ByVal SaldoInicial As Global.System.Nullable(Of Decimal), ByVal SaldoFinal As Global.System.Nullable(Of Decimal), ByVal Pago As Global.System.Nullable(Of Decimal), ByVal Banco As String) As Integer
             If (id_Fondeo.HasValue = true) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = CType(id_Fondeo.Value,Decimal)
             Else
@@ -5408,6 +5565,16 @@ Namespace WEB_FinagilDSTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(9).Value = Global.System.DBNull.Value
             End If
+            If (Pago.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(10).Value = CType(Pago.Value,Decimal)
+            Else
+                Me.Adapter.InsertCommand.Parameters(10).Value = Global.System.DBNull.Value
+            End If
+            If (Banco Is Nothing) Then
+                Me.Adapter.InsertCommand.Parameters(11).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.InsertCommand.Parameters(11).Value = CType(Banco,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -5438,6 +5605,8 @@ Namespace WEB_FinagilDSTableAdapters
                     ByVal FechaFin As Global.System.Nullable(Of Date),  _
                     ByVal SaldoInicial As Global.System.Nullable(Of Decimal),  _
                     ByVal SaldoFinal As Global.System.Nullable(Of Decimal),  _
+                    ByVal Pago As Global.System.Nullable(Of Decimal),  _
+                    ByVal Banco As String,  _
                     ByVal Original_id_Movimiento As Decimal,  _
                     ByVal Original_id_Fondeo As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_Concepto As String,  _
@@ -5449,6 +5618,8 @@ Namespace WEB_FinagilDSTableAdapters
                     ByVal Original_FechaFin As Global.System.Nullable(Of Date),  _
                     ByVal Original_SaldoInicial As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_SaldoFinal As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_Pago As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_Banco As String,  _
                     ByVal id_Movimiento As Decimal) As Integer
             If (id_Fondeo.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = CType(id_Fondeo.Value,Decimal)
@@ -5500,78 +5671,102 @@ Namespace WEB_FinagilDSTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(9).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_id_Movimiento,Decimal)
-            If (Original_id_Fondeo.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_id_Fondeo.Value,Decimal)
+            If (Pago.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Pago.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
             End If
-            If (Original_Concepto Is Nothing) Then
+            If (Banco Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(11).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Banco,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_id_Movimiento,Decimal)
+            If (Original_id_Fondeo.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_id_Fondeo.Value,Decimal)
+            Else
                 Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_Concepto,String)
             End If
-            If (Original_Importe.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_Importe.Value,Decimal)
-            Else
+            If (Original_Concepto Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(15).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(16).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_Concepto,String)
             End If
-            If (Original_Interes.HasValue = true) Then
+            If (Original_Importe.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_Interes.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_Importe.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(18).Value = Global.System.DBNull.Value
             End If
-            If (Original_Retencion.HasValue = true) Then
+            If (Original_Interes.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(19).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_Retencion.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_Interes.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(19).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(20).Value = Global.System.DBNull.Value
             End If
-            If (Original_TasaRetencion.HasValue = true) Then
+            If (Original_Retencion.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(21).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_TasaRetencion.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_Retencion.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(21).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(22).Value = Global.System.DBNull.Value
             End If
-            If (Original_FechaInicio.HasValue = true) Then
+            If (Original_TasaRetencion.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(23).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_FechaInicio.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_TasaRetencion.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(23).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(24).Value = Global.System.DBNull.Value
             End If
-            If (Original_FechaFin.HasValue = true) Then
+            If (Original_FechaInicio.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(25).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_FechaFin.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_FechaInicio.Value,Date)
             Else
                 Me.Adapter.UpdateCommand.Parameters(25).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(26).Value = Global.System.DBNull.Value
             End If
-            If (Original_SaldoInicial.HasValue = true) Then
+            If (Original_FechaFin.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(27).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(28).Value = CType(Original_SaldoInicial.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(28).Value = CType(Original_FechaFin.Value,Date)
             Else
                 Me.Adapter.UpdateCommand.Parameters(27).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(28).Value = Global.System.DBNull.Value
             End If
-            If (Original_SaldoFinal.HasValue = true) Then
+            If (Original_SaldoInicial.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(29).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(30).Value = CType(Original_SaldoFinal.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(30).Value = CType(Original_SaldoInicial.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(29).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(30).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(31).Value = CType(id_Movimiento,Decimal)
+            If (Original_SaldoFinal.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(32).Value = CType(Original_SaldoFinal.Value,Decimal)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(32).Value = Global.System.DBNull.Value
+            End If
+            If (Original_Pago.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(34).Value = CType(Original_Pago.Value,Decimal)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(34).Value = Global.System.DBNull.Value
+            End If
+            If (Original_Banco Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(36).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(36).Value = CType(Original_Banco,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(37).Value = CType(id_Movimiento,Decimal)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -5602,6 +5797,8 @@ Namespace WEB_FinagilDSTableAdapters
                     ByVal FechaFin As Global.System.Nullable(Of Date),  _
                     ByVal SaldoInicial As Global.System.Nullable(Of Decimal),  _
                     ByVal SaldoFinal As Global.System.Nullable(Of Decimal),  _
+                    ByVal Pago As Global.System.Nullable(Of Decimal),  _
+                    ByVal Banco As String,  _
                     ByVal Original_id_Movimiento As Decimal,  _
                     ByVal Original_id_Fondeo As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_Concepto As String,  _
@@ -5612,8 +5809,10 @@ Namespace WEB_FinagilDSTableAdapters
                     ByVal Original_FechaInicio As Global.System.Nullable(Of Date),  _
                     ByVal Original_FechaFin As Global.System.Nullable(Of Date),  _
                     ByVal Original_SaldoInicial As Global.System.Nullable(Of Decimal),  _
-                    ByVal Original_SaldoFinal As Global.System.Nullable(Of Decimal)) As Integer
-            Return Me.Update(id_Fondeo, Concepto, Importe, Interes, Retencion, TasaRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal, Original_id_Movimiento, Original_id_Fondeo, Original_Concepto, Original_Importe, Original_Interes, Original_Retencion, Original_TasaRetencion, Original_FechaInicio, Original_FechaFin, Original_SaldoInicial, Original_SaldoFinal, Original_id_Movimiento)
+                    ByVal Original_SaldoFinal As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_Pago As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_Banco As String) As Integer
+            Return Me.Update(id_Fondeo, Concepto, Importe, Interes, Retencion, TasaRetencion, FechaInicio, FechaFin, SaldoInicial, SaldoFinal, Pago, Banco, Original_id_Movimiento, Original_id_Fondeo, Original_Concepto, Original_Importe, Original_Interes, Original_Retencion, Original_TasaRetencion, Original_FechaInicio, Original_FechaFin, Original_SaldoInicial, Original_SaldoFinal, Original_Pago, Original_Banco, Original_id_Movimiento)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6014,6 +6213,7 @@ Namespace WEB_FinagilDSTableAdapters
             tableMapping.ColumnMappings.Add("Tipo_Fondeo", "Tipo_Fondeo")
             tableMapping.ColumnMappings.Add("No_Movimientos", "No_Movimientos")
             tableMapping.ColumnMappings.Add("FechaVencimiento", "FechaVencimiento")
+            tableMapping.ColumnMappings.Add("BancoDefault", "BancoDefault")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -6034,11 +6234,11 @@ Namespace WEB_FinagilDSTableAdapters
                 "dores.TasaRetencion, FOND_Fondeos.id_Fondeo, FOND_Fondeos.TipoTasa, FOND_Fondeos"& _ 
                 ".TasaDiferencial, FOND_Fondeos.Estatus, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_TiposFon"& _ 
                 "deos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos, FOND_Fondeos.FechaVencimient"& _ 
-                "o"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_Fondeadores INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_Fo"& _ 
-                "ndeos ON FOND_Fondeadores.id_Fondeador = FOND_Fondeos.id_Fondeador INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&" "& _ 
-                "                        FOND_TiposFondeos ON FOND_Fondeos.id_TipoFondeo = FOND_T"& _ 
-                "iposFondeos.id_TipoFondeo"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FOND_Fondeos.Estatus = 'VIGENTE')"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDE"& _ 
-                "R BY FOND_Fondeos.id_Fondeo"
+                "o, FOND_Fondeadores.BancoDefault"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_Fondeadores INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&" "& _ 
+                "                        FOND_Fondeos ON FOND_Fondeadores.id_Fondeador = FOND_Fon"& _ 
+                "deos.id_Fondeador INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_TiposFondeos ON FOND"& _ 
+                "_Fondeos.id_TipoFondeo = FOND_TiposFondeos.id_TipoFondeo"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FOND_Fon"& _ 
+                "deos.Estatus = 'VIGENTE')"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY FOND_Fondeos.id_Fondeo"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection

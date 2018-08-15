@@ -9,8 +9,8 @@
     <Shape ID="DesignTable:Correos" ZOrder="6" X="111" Y="148" Height="134" Width="189" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="83" />
     <Shape ID="DesignTable:FacturasConSaldo" ZOrder="5" X="91" Y="573" Height="248" Width="248" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
     <Shape ID="DesignTable:CancelacionesORD" ZOrder="4" X="106" Y="297" Height="267" Width="252" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
-    <Shape ID="DesignTable:FOND_EstadoCuenta" ZOrder="2" X="670" Y="184" Height="419" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
-    <Shape ID="DesignTable:DatosFondeos" ZOrder="1" X="396" Y="187" Height="286" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
+    <Shape ID="DesignTable:FOND_EstadoCuenta" ZOrder="2" X="670" Y="184" Height="381" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
+    <Shape ID="DesignTable:DatosFondeos" ZOrder="1" X="396" Y="187" Height="305" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
     <Shape ID="DesignTable:FOND_FechasPagoCapital" ZOrder="3" X="360" Y="613" Height="172" Width="293" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="102" />
   </Shapes>
   <Connectors />

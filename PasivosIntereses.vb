@@ -45,9 +45,9 @@ Module PasivosIntereses
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux)
                         Interes = (Tasa / 36000) * Dias * SaldoIni
                         Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
-                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni)
+                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni, 0, "")
                         Interes = taEdoCta.SumaInteres(F.id_Fondeo) * -1
-                        taEdoCta.Insert(F.id_Fondeo, "PAGO AUTOMATICO", Pago.Capital * -1, Interes, Retencion, F.TasaRetencion, FecAux, FecAux, SaldoIni, SaldoIni - Pago.Capital)
+                        taEdoCta.Insert(F.id_Fondeo, "PAGO AUTOMATICO", Pago.Capital * -1, Interes, Retencion, F.TasaRetencion, FecAux, FecAux, SaldoIni, SaldoIni - Pago.Capital, 0, F.BancoDefault)
                         SaldoIni -= Pago.Capital
                         FecIni = FecAux
                     ElseIf FecAux.Month <> FechaFin.Month Then ' corte de interes
@@ -55,7 +55,7 @@ Module PasivosIntereses
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux.AddDays(1))
                         Interes = (Tasa / 36000) * Dias * SaldoIni
                         Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
-                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni)
+                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni, 0, "")
                         FecIni = FecAux.AddDays(1)
                     End If
                     FecAux = FecAux.AddDays(1)
@@ -65,7 +65,7 @@ Module PasivosIntereses
                 Interes = (Tasa / 36000) * Dias * SaldoIni
                 Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000.6), 2)
                 If Dias > 1 Then
-                    taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FechaFin, SaldoIni, SaldoIni)
+                    taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FechaFin, SaldoIni, SaldoIni, 0, "")
                 End If
                 '**corte de interes a la fecha***********************************
 
