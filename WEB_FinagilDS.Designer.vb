@@ -6246,11 +6246,12 @@ Namespace WEB_FinagilDSTableAdapters
                 "dores.TasaRetencion, FOND_Fondeos.id_Fondeo, FOND_Fondeos.TipoTasa, FOND_Fondeos"& _ 
                 ".TasaDiferencial, FOND_Fondeos.Estatus, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_TiposFon"& _ 
                 "deos.Tipo_Fondeo, FOND_TiposFondeos.No_Movimientos, FOND_Fondeos.FechaVencimient"& _ 
-                "o"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_Fondeadores INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_Fo"& _ 
-                "ndeos ON FOND_Fondeadores.id_Fondeador = FOND_Fondeos.id_Fondeador INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&" "& _ 
-                "                        FOND_TiposFondeos ON FOND_Fondeos.id_TipoFondeo = FOND_T"& _ 
-                "iposFondeos.id_TipoFondeo"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FOND_Fondeos.Estatus = 'VIGENTE') AND ("& _ 
-                "FOND_Fondeos.id_Fondeo = @id_fondeo)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY FOND_Fondeos.id_Fondeo"
+                "o, FOND_Fondeadores.BancoDefault"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            FOND_Fondeadores INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&" "& _ 
+                "                        FOND_Fondeos ON FOND_Fondeadores.id_Fondeador = FOND_Fon"& _ 
+                "deos.id_Fondeador INNER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         FOND_TiposFondeos ON FOND"& _ 
+                "_Fondeos.id_TipoFondeo = FOND_TiposFondeos.id_TipoFondeo"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (FOND_Fon"& _ 
+                "deos.Estatus = 'VIGENTE') AND (FOND_Fondeos.id_Fondeo = @id_fondeo)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY FO"& _ 
+                "ND_Fondeos.id_Fondeo"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
