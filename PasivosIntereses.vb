@@ -117,15 +117,15 @@ Module PasivosIntereses
                         taEdoCta.FillByFecha(FondeoDS.FOND_EstadoCuenta, F.id_Fondeo, FecIni)
                         Mov = FondeoDS.FOND_EstadoCuenta.Rows(0)
                         Mov.BeginEdit()
-                        SaldoIni += Capital
                         Mov.SaldoInicial = SaldoIni
                         Mov.Interes = Mov.SaldoInicial * (Tasa / 36000)
                         Mov.Retencion = Math.Round(Mov.SaldoInicial * Math.Round(F.TasaRetencion / 36000, 6), 2)
-                        Mov.SaldoFinal = SaldoIni + Mov.Importe
+                        Mov.SaldoFinal = Mov.SaldoInicial + Mov.Importe
                         Mov.FechaInicio = FecIni
                         Mov.TasaRetencion = F.TasaRetencion
                         Mov.FechaFin = FecIni
                         Mov.EndEdit()
+                        SaldoIni += Capital
                         taEdoCta.Update(Mov)
                     End If
                     FecIni = FecIni.AddDays(1)
