@@ -118,9 +118,14 @@ Module PasivosIntereses
                         Mov = FondeoDS.FOND_EstadoCuenta.Rows(0)
                         Mov.BeginEdit()
                         Mov.SaldoInicial = SaldoIni
-                        Mov.Interes = Mov.SaldoInicial * (Tasa / 36000)
-                        Mov.Retencion = Math.Round(Mov.SaldoInicial * Math.Round(F.TasaRetencion / 36000, 6), 2)
                         Mov.SaldoFinal = Mov.SaldoInicial + Mov.Importe
+                        If Mov.Retencion = True Then
+                            Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
+                            Mov.Retencion = Math.Round(Mov.SaldoFinal * Math.Round(F.TasaRetencion / 36000, 6), 2)
+                        Else
+                            Mov.Interes = Mov.SaldoInicial * (Tasa / 36000)
+                            Mov.Retencion = 0
+                        End If
                         Mov.FechaInicio = FecIni
                         Mov.TasaRetencion = F.TasaRetencion
                         Mov.FechaFin = FecIni

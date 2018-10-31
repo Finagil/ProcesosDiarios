@@ -3,7 +3,7 @@ Imports System.Net.Mail
 Imports System.Data
 Imports System.Data.SqlClient
 Module LayoutBancomer
-    Public Function EnviaLayout(ByVal cTipoReporte As String) As String
+    Public Function EnviaLayout(ByVal cTipoReporte As String, Dias As Integer) As String
 
         Dim cnAgil As New SqlConnection(My.Settings.ConnectionStringDOMI)
         Dim cm1 As New SqlCommand
@@ -57,7 +57,7 @@ Module LayoutBancomer
         Dim nIDCargoExtra As Integer = 0
 
         ' Dado que el job correrá todos los días a las 8:00 a.m. debo omitir sábado y domingo del proceso
-        Dim Hoy As Date = Today
+        Dim Hoy As Date = Today.AddDays(Dias)
         'Hoy = CDate("30/03/2018") 'PARA PRUEBAS
 
         Dim nDiaSemana As Byte = Hoy.Date.DayOfWeek

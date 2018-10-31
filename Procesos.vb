@@ -14,8 +14,14 @@ Module Procesos
                 Case "BACKUPDB"
                     RepaldoDB()
                 Case "DOMICILIACION"
-                    EnviaLayout("B") 'Bancomer
-                    EnviaLayout("O") 'otros bancos
+                    Dim Dias As Integer
+                    If Arg.Length >= 3 Then
+                        Dias = Arg(2)
+                    Else
+                        Dias = 0
+                    End If
+                    EnviaLayout("B", Dias) 'Bancomer
+                    EnviaLayout("O", Dias) 'otros bancos
                 Case "GENERAPERSONAS"
                     PersonasHistoria.Main()
                 Case "TERMINACONTRATO"
