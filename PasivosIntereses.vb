@@ -2,6 +2,7 @@
 Module PasivosIntereses
     Dim CorreoTESORERIA As String = "atorres@finagil.com.mx"
     Sub GeneraInteresesDiarios(FechaFin As Date, idAux As Integer)
+        Console.WriteLine("ID=" & idAux & " - " & FechaFin.ToShortDateString)
         Dim TaTasas As New ProduccionDSTableAdapters.HistaTableAdapter
         Dim FecIni, FecAux As Date
         Dim SaldoIni, Tasa, Dias, Interes, Retencion, Capital As Decimal
@@ -119,11 +120,11 @@ Module PasivosIntereses
                         Mov.BeginEdit()
                         Mov.SaldoInicial = SaldoIni
                         Mov.SaldoFinal = Mov.SaldoInicial + Mov.Importe
-                        If Mov.Retencion = True Then
+                        If F.TasaRetencion > 0 Then ' personas morales
                             Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
                             Mov.Retencion = Math.Round(Mov.SaldoFinal * Math.Round(F.TasaRetencion / 36000, 6), 2)
-                        Else
-                            Mov.Interes = Mov.SaldoInicial * (Tasa / 36000)
+                        Else ' Bancarios
+                            Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
                             Mov.Retencion = 0
                         End If
                         Mov.FechaInicio = FecIni

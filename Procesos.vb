@@ -33,6 +33,7 @@ Module Procesos
                     If Arg.Length >= 3 Then
                         ID = Arg(2)
                     End If
+                    'GeneraInteresesDiarios("2017-12-31", ID)
                     'GeneraInteresesDiarios("2018-01-31", ID)
                     'GeneraInteresesDiarios("2018-02-28", ID)
                     'GeneraInteresesDiarios("2018-03-31", ID)
