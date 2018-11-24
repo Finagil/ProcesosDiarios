@@ -183,8 +183,8 @@ Module LayoutBancomer
 
             With cm2
                 .CommandType = CommandType.Text
-                .CommandText = "SELECT Correo FROM WEB_Finagil.dbo.FON_Correos " &
-                               "WHERE Fase = 'TESORERIA' " &
+                .CommandText = "SELECT Correo FROM GEN_CorreosFases " &
+                               "WHERE (Fase = 'DOMICILIACION') " &
                                "ORDER BY id_correo"
                 .Connection = cnAgil
             End With
