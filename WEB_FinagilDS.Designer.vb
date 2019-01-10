@@ -5260,7 +5260,9 @@ Namespace WEB_FinagilDSTableAdapters
                 "MONTH(FechaInicio) >= @mes) AND (YEAR(FechaInicio) >= @Año) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                "& _ 
                 "         (id_Fondeo = @id_fondeo) AND (Concepto = 'intereses' OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"              "& _ 
                 "           Concepto = 'PAGO AUTOMATICO') AND (MONTH(FechaFin) >= @mes) AND (YEAR"& _ 
-                "(FechaFin) >= @Año)"
+                "(FechaFin) >= @Año) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (id_Fondeo = @id_fondeo) AND (C"& _ 
+                "oncepto = 'intereses' OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Concepto = 'PAGO AUTOMATICO')"& _ 
+                " AND (YEAR(FechaFin) >= @Año + 1)"
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id_fondeo", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "id_Fondeo", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@mes", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 0, 0, "", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
