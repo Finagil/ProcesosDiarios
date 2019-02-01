@@ -124,7 +124,10 @@ Module PasivosIntereses
                             Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
                             Mov.Retencion = Math.Round(Mov.SaldoFinal * Math.Round(F.TasaRetencion / 36000, 6), 2)
                         Else ' Bancarios
-                            Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
+                            If Mov.Interes < 0 Then ' es pago
+                            Else
+                                Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
+                            End If
                             Mov.Retencion = 0
                         End If
                         Mov.FechaInicio = FecIni
