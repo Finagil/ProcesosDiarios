@@ -12,6 +12,7 @@ Module PasivosIntereses
         Dim Mov As WEB_FinagilDS.FOND_EstadoCuentaRow
         Dim taPag As New WEB_FinagilDSTableAdapters.FOND_FechasPagoCapitalTableAdapter
         Dim Pago As WEB_FinagilDS.FOND_FechasPagoCapitalRow
+        Dim TasaRetencion As Decimal = 0
 
         If idAux <> 0 Then
             taFond.FillByIdFondeo(FondeoDS.DatosFondeos, idAux)
@@ -28,6 +29,7 @@ Module PasivosIntereses
                 FecAux = taEdoCta.UltimaFechaFin(F.id_Fondeo)
                 FecIni = FecAux
                 While FecAux <= FechaFin
+                    TasaRetencion = taFond.SacaTasaRetension(FecAux)
                     If F.TipoTasa = "Tasa Fija" Then
                         Tasa = F.TasaDiferencial
                         If Tasa = 0 Then ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecAux)
@@ -45,18 +47,18 @@ Module PasivosIntereses
                         End If
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux)
                         Interes = (Tasa / 36000) * Dias * SaldoIni
-                        Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
-                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni, 0, "")
+                        Retencion = Math.Round(SaldoIni * Math.Round(TasaRetencion / 360, 6), 2)
+                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni, 0, "")
                         Interes = taEdoCta.SumaInteres(F.id_Fondeo) * -1
-                        taEdoCta.Insert(F.id_Fondeo, "PAGO AUTOMATICO", Pago.Capital * -1, Interes, Retencion, F.TasaRetencion, FecAux, FecAux, SaldoIni, SaldoIni - Pago.Capital, 0, F.BancoDefault)
+                        taEdoCta.Insert(F.id_Fondeo, "PAGO AUTOMATICO", Pago.Capital * -1, Interes, Retencion, TasaRetencion, FecAux, FecAux, SaldoIni, SaldoIni - Pago.Capital, 0, F.BancoDefault)
                         SaldoIni -= Pago.Capital
                         FecIni = FecAux
                     ElseIf FecAux.Month <> FechaFin.Month Then ' corte de interes
                         taEdoCta.QuitaCorteInteres(F.id_Fondeo, FecIni, FecAux)
                         Dias = DateDiff(DateInterval.Day, FecIni, FecAux.AddDays(1))
                         Interes = (Tasa / 36000) * Dias * SaldoIni
-                        Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
-                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni, 0, "")
+                        Retencion = Math.Round(SaldoIni * Math.Round(TasaRetencion / 360, 6), 2)
+                        taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, TasaRetencion, FecIni, FecAux, SaldoIni, SaldoIni, 0, "")
                         FecIni = FecAux.AddDays(1)
                     End If
                     FecAux = FecAux.AddDays(1)
@@ -64,9 +66,9 @@ Module PasivosIntereses
                 'corte de interes a la fecha***********************************
                 Dias = DateDiff(DateInterval.Day, FecIni, FechaFin)
                 Interes = (Tasa / 36000) * Dias * SaldoIni
-                Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000.6), 2)
+                Retencion = Math.Round(SaldoIni * Math.Round(TasaRetencion / 360), 2)
                 If Dias > 1 Then
-                    taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, F.TasaRetencion, FecIni, FechaFin, SaldoIni, SaldoIni, 0, "")
+                    taEdoCta.Insert(F.id_Fondeo, "INTERESES", 0, Interes, Retencion, TasaRetencion, FecIni, FechaFin, SaldoIni, SaldoIni, 0, "")
                 End If
                 '**corte de interes a la fecha***********************************
 
@@ -74,6 +76,7 @@ Module PasivosIntereses
                 FecIni = FechaFin.AddDays((FechaFin.Day - 1) * -1)
                 taEdoCta.QuitaInteresesMes(F.id_Fondeo, FechaFin.Month, FechaFin.Year)
                 While FecIni <= FechaFin
+                    TasaRetencion = taFond.SacaTasaRetension(FecIni)
                     If FecIni > F.FechaVencimiento Then
                         Exit While
                     End If
@@ -104,12 +107,12 @@ Module PasivosIntereses
                         Mov.id_Fondeo = F.id_Fondeo
                         Mov.SaldoInicial = SaldoIni
                         Mov.Interes = SaldoIni * (Tasa / 36000)
-                        Mov.Retencion = Math.Round(SaldoIni * Math.Round(F.TasaRetencion / 36000, 6), 2)
+                        Mov.Retencion = Math.Round(SaldoIni * Math.Round(TasaRetencion / 360, 6), 2)
                         Mov.SaldoFinal = Mov.SaldoInicial
                         Mov.FechaInicio = FecIni
                         Mov.FechaFin = FecIni
                         Mov.Importe = 0
-                        Mov.TasaRetencion = F.TasaRetencion
+                        Mov.TasaRetencion = TasaRetencion
                         Mov.EndEdit()
                         FondeoDS.FOND_EstadoCuenta.AddFOND_EstadoCuentaRow(Mov)
                         taEdoCta.Update(FondeoDS.FOND_EstadoCuenta)
@@ -120,9 +123,9 @@ Module PasivosIntereses
                         Mov.BeginEdit()
                         Mov.SaldoInicial = SaldoIni
                         Mov.SaldoFinal = Mov.SaldoInicial + Mov.Importe
-                        If F.TasaRetencion > 0 Then ' personas morales
+                        If TasaRetencion > 0 Then ' personas morales
                             Mov.Interes = Mov.SaldoFinal * (Tasa / 36000)
-                            Mov.Retencion = Math.Round(Mov.SaldoFinal * Math.Round(F.TasaRetencion / 36000, 6), 2)
+                            Mov.Retencion = Math.Round(Mov.SaldoFinal * Math.Round(TasaRetencion / 360, 6), 2)
                         Else ' Bancarios
                             If Mov.Interes < 0 Then ' es pago
                             Else
@@ -131,7 +134,7 @@ Module PasivosIntereses
                             Mov.Retencion = 0
                         End If
                         Mov.FechaInicio = FecIni
-                        Mov.TasaRetencion = F.TasaRetencion
+                        Mov.TasaRetencion = TasaRetencion
                         Mov.FechaFin = FecIni
                         Mov.EndEdit()
                         SaldoIni += Capital

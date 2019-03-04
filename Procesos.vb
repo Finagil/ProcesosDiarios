@@ -42,7 +42,7 @@ Module Procesos
                     'GeneraInteresesDiarios("2018-06-30", ID)
                     'GeneraInteresesDiarios("2018-07-31", ID)
                     'GeneraInteresesDiarios("2018-08-31", ID)
-                    'GeneraInteresesDiarios("2018-09-30", ID)
+                    'GeneraInteresesDiarios("2019-01-31", ID)
                     If Date.Now.Day <= 6 Then
                         GeneraInteresesDiarios(Date.Now.Date.AddDays(Date.Now.Day * -1), ID) ' se procesa 6 dias lo del mes anterior
                     End If
