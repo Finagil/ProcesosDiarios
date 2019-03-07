@@ -30,6 +30,9 @@ Module PasivosIntereses
                 FecIni = FecAux
                 While FecAux <= FechaFin
                     TasaRetencion = taFond.SacaTasaRetension(FecAux)
+                    If F.TasaRetencion = 0 Then
+                        TasaRetencion = 0
+                    End If
                     If F.TipoTasa = "Tasa Fija" Then
                         Tasa = F.TasaDiferencial
                         If Tasa = 0 Then ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecAux)
@@ -77,6 +80,9 @@ Module PasivosIntereses
                 taEdoCta.QuitaInteresesMes(F.id_Fondeo, FechaFin.Month, FechaFin.Year)
                 While FecIni <= FechaFin
                     TasaRetencion = taFond.SacaTasaRetension(FecIni)
+                    If F.TasaRetencion = 0 Then
+                        TasaRetencion = 0
+                    End If
                     If FecIni > F.FechaVencimiento Then
                         Exit While
                     End If
