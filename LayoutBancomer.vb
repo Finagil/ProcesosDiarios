@@ -196,6 +196,7 @@ Module LayoutBancomer
             'Dim ta As New ProduccionDSTableAdapters.AnexosTableAdapter
             Dim Pesos As Decimal
             Dim Particion As Integer = 0
+            Dim DomiciliacionFija As Decimal
             If dsAgil.Tables("Pagos").Rows.Count > 0 Then
 
                 For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario correos por montos mayores a 
@@ -204,11 +205,23 @@ Module LayoutBancomer
                     'End If
                     Particion = 1
                     nSaldoFac = drAnexo("SaldoFac")
+                    If drAnexo("Letra") <> "" Then
+                        cm3 = New SqlCommand("Select isnull(MAX(Importe),0) from JUR_DomiciliacionFija where Anexo= '" & drAnexo("Anexo") & "'", cnAgil)
+                        cnAgil.Open()
+                        DomiciliacionFija = cm3.ExecuteScalar()
+                        cnAgil.Close()
+                    Else
+                        DomiciliacionFija = 0
+                    End If
+                    If DomiciliacionFija > 0 And DomiciliacionFija > nSaldoFac Then
+                        nSaldoFac = DomiciliacionFija
+                    End If
                     Pesos = 50000
                     While nSaldoFac > Pesos
                         drDomiciliacion = dtDomiciliacion.NewRow()
                         drDomiciliacion("Contrato") = drAnexo("Anexo")
                         drDomiciliacion("Letra") = Chr(64 + Particion) & Mid(drAnexo("Letra"), 2, 2)
+                        drDomiciliacion("Letra") += Space(3 - CStr(drDomiciliacion("Letra")).Length)
                         If Trim(drAnexo("Feven")) <> "" Then
                             drDomiciliacion("Vencimiento") = drAnexo("Feven")
                         Else
@@ -248,6 +261,7 @@ Module LayoutBancomer
                             drDomiciliacion("Letra") = drAnexo("Letra")
                         Else
                             drDomiciliacion("Letra") = Chr(64 + Particion) & Mid(drAnexo("Letra"), 2, 2)
+                            drDomiciliacion("Letra") += Space(3 - CStr(drDomiciliacion("Letra")).Length)
                         End If
 
                         If Trim(drAnexo("Feven")) <> "" Then
