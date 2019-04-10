@@ -10,9 +10,9 @@ Module Backup
         Dim Aux As Integer = 0
         Try
             '*****Respalda Fuentes
-            Console.WriteLine("Los subdirectorios de {0}", My.Settings.RutaOrigenFuentes)
-            recorrerDir(My.Settings.RutaOrigenFuentes, 0, My.Settings.RutaBackupDB, False)
-            recorrerDir(My.Settings.RutaOrigenFuentes, 0, My.Settings.RutaBackupRaid, True)
+            'Console.WriteLine("Los subdirectorios de {0}", My.Settings.RutaOrigenFuentes)
+            'recorrerDir(My.Settings.RutaOrigenFuentes, 0, My.Settings.RutaBackupDB, False)
+            'recorrerDir(My.Settings.RutaOrigenFuentes, 0, My.Settings.RutaBackupRaid, True)
             '*****Respalda Fuentes
 
             For Each file1 As FileInfo In folder.GetFiles("*.bak")
