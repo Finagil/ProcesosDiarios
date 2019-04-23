@@ -144,7 +144,7 @@ Module PersonasHistoria
                     taSeg.Fill(tSeg, cAnexo)
                     TraeSald(tSeg, Date.Now.ToString("yyyyMMdd"), nSaldoSeguro, nInteresSeguro, nCarteraSeguro, r.TipoCredito)
                 Else
-                    nSaldoEquipo = TaAnexos.SadoFactura(cAnexo)
+                    nSaldoEquipo = TaAnexos.SaldoFactura(cAnexo)
                 End If
                 If TaAnexos.ScalarAtraso(cAnexo) > 0 Then
                     Atraso = "SI"
@@ -203,7 +203,7 @@ Module PersonasHistoria
     Private Sub EnviaError(ByVal Para As String, ByVal Mensaje As String, ByVal Asunto As String)
         If InStr(Mensaje, Asunto) = 0 Then
             Dim Mensage As New MailMessage("InternoBI2008@cmoderna.com", Trim(Para), Trim(Asunto), Mensaje)
-            Dim Cliente As New SmtpClient("smtp01.cmoderna.com", 26)
+            Dim Cliente As New SmtpClient("192.168.110.1", 25)
             Try
                 Cliente.Send(Mensage)
             Catch ex As Exception

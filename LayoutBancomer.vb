@@ -553,8 +553,8 @@ Module LayoutBancomer
                 writer.Close()
                 Try
                     ms.Position = 0
-                    Servidor.Host = "smtp01.cmoderna.com"
-                    Servidor.Port = "26"
+                    Servidor.Host = "192.168.110.1"
+                    Servidor.Port = "25"
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
                         Mensaje.To.Add(Trim(drCorreo("Correo")))
                     Next
@@ -590,8 +590,8 @@ Module LayoutBancomer
             Else
                 Try
                     ms.Position = 0
-                    Servidor.Host = "smtp01.cmoderna.com"
-                    Servidor.Port = "26"
+                    Servidor.Host = "192.168.110.1"
+                    Servidor.Port = "25"
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
                         Mensaje.To.Add(Trim(drCorreo("Correo")))
                     Next

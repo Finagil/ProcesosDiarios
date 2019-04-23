@@ -159,8 +159,8 @@ Module PasivosIntereses
         Try
             Dim Servidor As New SmtpClient
             Dim Mensaje As New MailMessage
-            Servidor.Host = "smtp01.cmoderna.com"
-            Servidor.Port = "26"
+            Servidor.Host = "192.168.110.1"
+            Servidor.Port = "25"
             Mensaje.To.Add(Para)
             Mensaje.To.Add("ecacerest@finagil.com.mx")
             Mensaje.From = New MailAddress("Tasas@Finagil.com.mx", "FINAGIL envíos automáticos")
