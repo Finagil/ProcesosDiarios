@@ -205,6 +205,7 @@ Module PersonasHistoria
             Dim Mensage As New MailMessage("InternoBI2008@cmoderna.com", Trim(Para), Trim(Asunto), Mensaje)
             Dim Cliente As New SmtpClient("192.168.110.1", 25)
             Try
+                Cliente.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
                 Cliente.Send(Mensage)
             Catch ex As Exception
                 'ReportError(ex)

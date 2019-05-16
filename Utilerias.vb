@@ -330,6 +330,7 @@ Public Class Utilerias
         Dim Mensage As New MailMessage(Trim(de), Trim(Para), Trim(Asunto), Mensaje)
         Dim Cliente As New SmtpClient("192.168.110.1", 25)
         Try
+            Cliente.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
             Mensage.IsBodyHtml = True
             Cliente.Send(Mensage)
         Catch ex As Exception

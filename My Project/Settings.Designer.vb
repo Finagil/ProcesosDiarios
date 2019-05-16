@@ -67,7 +67,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("\\server-raid\Puente Sistemas\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("\\server-raid2\Puente Sistemas\")>  _
         Public ReadOnly Property RutaOrigenBackup_Raid() As String
             Get
                 Return CType(Me("RutaOrigenBackup_Raid"),String)

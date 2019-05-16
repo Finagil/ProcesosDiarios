@@ -11,7 +11,7 @@
       <Value Profile="(Default)">Data Source=server-raid2;Initial Catalog=production;Persist Security Info=True;User ID=User_PRO;Password=User_PRO2015</Value>
     </Setting>
     <Setting Name="RutaOrigenBackup_Raid" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">\\server-raid\Puente Sistemas\</Value>
+      <Value Profile="(Default)">\\server-raid2\Puente Sistemas\</Value>
     </Setting>
     <Setting Name="RutaBackupDB" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\server-nas\RespaldosDB\</Value>

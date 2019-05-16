@@ -21,7 +21,7 @@ Module LayoutBancomer
 
         Dim strUpdate As String = ""
 
-        Dim Servidor As New SmtpClient
+        Dim Servidor As New SmtpClient("192.168.110.1", 25)
         Dim Mensaje As New MailMessage
         Dim Adjunto As Attachment
 
@@ -553,8 +553,6 @@ Module LayoutBancomer
                 writer.Close()
                 Try
                     ms.Position = 0
-                    Servidor.Host = "192.168.110.1"
-                    Servidor.Port = "25"
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
                         Mensaje.To.Add(Trim(drCorreo("Correo")))
                     Next
@@ -576,6 +574,7 @@ Module LayoutBancomer
                         'Adjunto = New Attachment(ms, "Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
                     End If
                     'Mensaje.Attachments.Add(Adjunto)
+                    Servidor.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
                     Servidor.Send(Mensaje)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
@@ -590,8 +589,6 @@ Module LayoutBancomer
             Else
                 Try
                     ms.Position = 0
-                    Servidor.Host = "192.168.110.1"
-                    Servidor.Port = "25"
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
                         Mensaje.To.Add(Trim(drCorreo("Correo")))
                     Next
@@ -601,6 +598,7 @@ Module LayoutBancomer
                     ElseIf cTipoReporte = "O" Then
                         Mensaje.Subject = "SIN DATOS - Layout OTROS BANCOS"
                     End If
+                    Servidor.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
                     Servidor.Send(Mensaje)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
