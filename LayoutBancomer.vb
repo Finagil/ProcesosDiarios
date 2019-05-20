@@ -21,7 +21,9 @@ Module LayoutBancomer
 
         Dim strUpdate As String = ""
 
-        Dim Servidor As New SmtpClient("192.168.110.1", 25)
+        Dim Servidor As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
+        Dim Credenciales As String() = My.Settings.SMTP_creden.Split(",")
+        Servidor.Credentials = New System.Net.NetworkCredential(Credenciales(0), Credenciales(1), Credenciales(2))
         Dim Mensaje As New MailMessage
         Dim Adjunto As Attachment
 
@@ -574,7 +576,6 @@ Module LayoutBancomer
                         'Adjunto = New Attachment(ms, "Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
                     End If
                     'Mensaje.Attachments.Add(Adjunto)
-                    Servidor.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
                     Servidor.Send(Mensaje)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
@@ -598,7 +599,6 @@ Module LayoutBancomer
                     ElseIf cTipoReporte = "O" Then
                         Mensaje.Subject = "SIN DATOS - Layout OTROS BANCOS"
                     End If
-                    Servidor.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
                     Servidor.Send(Mensaje)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
