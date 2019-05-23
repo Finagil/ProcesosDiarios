@@ -121,6 +121,15 @@ Module LayoutBancomer
                         cFechaInicialEXT = Hoy.AddDays(0).ToString("yyyyMMdd") 'hoy
                         cFechaFinalEXT = Hoy.AddDays(3).ToString("yyyyMMdd") ' sabado, domingo y lunes
                 End Select
+                'Revive Cargos Extras de mañana respecto a la fecha de proceso
+                With cm2
+                    .CommandType = CommandType.Text
+                    .CommandText = "update PROM_Cargos_Extras set Procesado = 0 WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "'"
+                    .Connection = cnAgil
+                    cnAgil.Open()
+                    cm2.ExecuteScalar()
+                    cnAgil.Close()
+                End With
 
 
                 With cm1
@@ -163,7 +172,15 @@ Module LayoutBancomer
                         cFechaFinal = Hoy.AddDays(0).ToString("yyyyMMdd")
                 End Select
 
-
+                'Revive Cargos Extras de hoy respecto a la fecha de proceso
+                With cm2
+                    .CommandType = CommandType.Text
+                    .CommandText = "update PROM_Cargos_Extras set Procesado = 0 WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "'"
+                    .Connection = cnAgil
+                    cnAgil.Open()
+                    cm2.ExecuteScalar()
+                    cnAgil.Close()
+                End With
 
                 With cm1
                     .CommandType = CommandType.Text

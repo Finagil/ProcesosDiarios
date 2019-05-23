@@ -203,9 +203,10 @@ Module PersonasHistoria
     Private Sub EnviaError(ByVal Para As String, ByVal Mensaje As String, ByVal Asunto As String)
         If InStr(Mensaje, Asunto) = 0 Then
             Dim Mensage As New MailMessage("InternoBI2008@cmoderna.com", Trim(Para), Trim(Asunto), Mensaje)
-            Dim Cliente As New SmtpClient("192.168.110.1", 25)
+            Dim Cliente As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
             Try
-                Cliente.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
+                Dim Cred() As String = My.Settings.SMTP_creden.Split(",")
+                Cliente.Credentials = New System.Net.NetworkCredential(Cred(0), Cred(1), Cred(2))
                 Cliente.Send(Mensage)
             Catch ex As Exception
                 'ReportError(ex)

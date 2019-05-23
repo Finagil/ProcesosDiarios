@@ -159,8 +159,10 @@ Module PasivosIntereses
         Try
             Dim Servidor As New SmtpClient
             Dim Mensaje As New MailMessage
-            Servidor.Host = "192.168.110.1"
-            Servidor.Port = "25"
+            Servidor.Host = My.Settings.SMTP
+            Servidor.Port = My.Settings.SMTP_port
+            Dim Cred() As String = My.Settings.SMTP_creden.Split(",")
+            Servidor.Credentials = New System.Net.NetworkCredential(Cred(0), Cred(1), Cred(2))
             Mensaje.To.Add(Para)
             Mensaje.To.Add("ecacerest@finagil.com.mx")
             Mensaje.From = New MailAddress("Tasas@Finagil.com.mx", "FINAGIL envíos automáticos")

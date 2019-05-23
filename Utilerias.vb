@@ -328,9 +328,10 @@ Public Class Utilerias
 
     Public Shared Sub EnviacORREO(ByVal Para As String, ByVal Mensaje As String, ByVal Asunto As String, de As String)
         Dim Mensage As New MailMessage(Trim(de), Trim(Para), Trim(Asunto), Mensaje)
-        Dim Cliente As New SmtpClient("192.168.110.1", 25)
+        Dim Cliente As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
         Try
-            Cliente.Credentials = New System.Net.NetworkCredential("ecacerest", "c4c3r1t0s", "cmoderna")
+            Dim Cred() As String = My.Settings.SMTP_creden.Split(",")
+            Cliente.Credentials = New System.Net.NetworkCredential(Cred(0), Cred(1), Cred(2))
             Mensage.IsBodyHtml = True
             Cliente.Send(Mensage)
         Catch ex As Exception
