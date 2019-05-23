@@ -74,20 +74,10 @@ Module LayoutBancomer
         End Select
 
         Select Case nDiaSemana
-            Case 0                  ' Domingo
+            Case 0, 6                 ' Domingo y sabado
                 lProcesar = False
-            Case 1                  ' Lunes
+            Case 1, 2, 3, 4, 5        ' Lunes a Viernes
                 lProcesar = True
-            Case 2                  ' Martes
-                lProcesar = True
-            Case 3                  ' Miércoles
-                lProcesar = True
-            Case 4                  ' Jueves
-                lProcesar = True
-            Case 5                  ' Viernes
-                lProcesar = True
-            Case 6                  ' Sábado
-                lProcesar = False
         End Select
 
         If lProcesar = True Then
@@ -124,7 +114,9 @@ Module LayoutBancomer
                 'Revive Cargos Extras de mañana respecto a la fecha de proceso
                 With cm2
                     .CommandType = CommandType.Text
-                    .CommandText = "update PROM_Cargos_Extras set Procesado = 0 WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "'"
+                    .CommandText = "update PROM_Cargos_Extras set Procesado = 0 " &
+                                   "FROM PROM_Cargos_Extras INNER JOIN CuentasDomi ON PROM_Cargos_Extras.Anexo = CuentasDomi.Anexo " &
+                                   "WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "' and Banco = 'BANCOMER'"
                     .Connection = cnAgil
                     cnAgil.Open()
                     cm2.ExecuteScalar()
@@ -175,7 +167,9 @@ Module LayoutBancomer
                 'Revive Cargos Extras de hoy respecto a la fecha de proceso
                 With cm2
                     .CommandType = CommandType.Text
-                    .CommandText = "update PROM_Cargos_Extras set Procesado = 0 WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "'"
+                    .CommandText = "update PROM_Cargos_Extras set Procesado = 0 " &
+                                   "FROM PROM_Cargos_Extras INNER JOIN CuentasDomi ON PROM_Cargos_Extras.Anexo = CuentasDomi.Anexo " &
+                                   "WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "' and Banco <> 'BANCOMER'"
                     .Connection = cnAgil
                     cnAgil.Open()
                     cm2.ExecuteScalar()
