@@ -16,34 +16,39 @@ Module Backup
             '*****Respalda Fuentes
 
             For Each file1 As FileInfo In folder.GetFiles("*.bak")
-                Console.WriteLine("Copia 1 : " & file1.Name)
                 Aux = InStr(file1.Name, "_")
                 Inicio = Mid(file1.Name, 1, Aux)
                 For Each file2 As FileInfo In folder2.GetFiles(Inicio & "*.bak")
+                    Console.WriteLine("Borrando: " & file2.FullName)
                     file2.Delete()
                 Next
+                Console.WriteLine("Copia 1 : " & file1.FullName)
                 file1.CopyTo(My.Settings.RutaBackupDB & file1.Name, True)
                 If InStr(file1.Name, "minds") > 0 Or InStr(file1.Name, "Lavado") > 0 Then
-                    Console.WriteLine("Copia 2: " & file1.Name)
+                    Console.WriteLine("Copia 2: " & file1.FullName)
                     file1.CopyTo(My.Settings.RutaBackupMinds & file1.Name, True)
                 Else
-                    Console.WriteLine("Copia 2: " & file1.Name)
+                    Console.WriteLine("Copia 2: " & file1.FullName)
                     file1.CopyTo(My.Settings.RutaBackupRaid & file1.Name, True)
                 End If
+                Console.WriteLine("Borrando: " & file1.FullName)
                 file1.Delete()
             Next
 
             folder = New DirectoryInfo(My.Settings.RutaOrigenBackup_Contpaq)
             For Each File1 As FileInfo In folder.GetFiles("*.bak")
-                Console.WriteLine("Copia 1 : " & File1.Name)
+
                 Aux = InStr(File1.Name, "_")
                 Inicio = Mid(File1.Name, 1, Aux - 1)
                 For Each file2 As FileInfo In folder2.GetFiles(Inicio & "*.bak")
+                    Console.WriteLine("Borrando: " & file2.FullName)
                     file2.Delete()
                 Next
+                Console.WriteLine("Copia 1 : " & File1.FullName)
                 File1.CopyTo(My.Settings.RutaBackupDB & File1.Name, True)
-                Console.WriteLine("Copia 2: " & File1.Name)
+                Console.WriteLine("Copia 2: " & File1.FullName)
                 File1.CopyTo(My.Settings.RutaBackupContpaq & File1.Name, True)
+                Console.WriteLine("Borrando: " & File1.FullName)
                 File1.Delete()
             Next
 
