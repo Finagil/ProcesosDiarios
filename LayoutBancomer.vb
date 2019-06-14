@@ -219,7 +219,7 @@ Module LayoutBancomer
                     Particion = 1
                     nSaldoFac = drAnexo("SaldoFac")
                     If drAnexo("Letra") <> "" Then
-                        cm3 = New SqlCommand("Select isnull(MAX(Importe),0) from JUR_DomiciliacionFija where Anexo= '" & drAnexo("Anexo") & "'", cnAgil)
+                        cm3 = New SqlCommand("Select isnull(MAX(Importe),0) from JUR_DomiciliacionFija where Anexo= '" & drAnexo("Anexo") & "' and Activo = 1", cnAgil)
                         cnAgil.Open()
                         DomiciliacionFija = cm3.ExecuteScalar()
                         cnAgil.Close()
