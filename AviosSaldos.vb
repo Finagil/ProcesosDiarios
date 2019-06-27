@@ -4,6 +4,8 @@
         Dim t As New ProduccionDS.SaldosAviosDataTable
         Dim R As ProduccionDS.SaldosAviosRow
         Dim tx As New ProduccionDSTableAdapters.AVI_SaldosTMPTableAdapter
+        Console.WriteLine("Poner en Ceros")
+        ta.SaldoAceros()
         ta.FillConSaldo(t)
         For Each R In t.Rows
             Console.WriteLine(R.AnexoCon)
@@ -17,6 +19,5 @@
             tx.UpdateMinistrado(R.Imp, R.Fega, R.Garantia, R.Anexo, R.Ciclo, R.Anexo, R.Ciclo)
             tx.UpdateMontoFinanciado(R.Imp + R.Fega + R.Garantia, R.Anexo, R.Ciclo, R.Anexo, R.Ciclo)
         Next
-
     End Sub
 End Module
