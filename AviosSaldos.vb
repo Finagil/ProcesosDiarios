@@ -46,7 +46,7 @@ Module AviosSaldos
             Else
                 Dim FechaCon As Date = CTOD(R.Fechacon)
                 Dim cad As String = R.RFC.Substring(4, 6)
-                If CInt(cad.Substring(1, 2)) <= Date.Now.Year - 2000 Then
+                If CInt(cad.Substring(0, 2)) <= Date.Now.Year - 2000 Then
                     cad = "20" & cad
                 Else
                     cad = "19" & cad
