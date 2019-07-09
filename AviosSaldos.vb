@@ -25,7 +25,6 @@ Module AviosSaldos
             tx.UpdateMinistrado(R.Imp, R.Fega, R.Garantia, R.Anexo, R.Ciclo, R.Anexo, R.Ciclo)
             tx.UpdateMontoFinanciado(R.Imp + R.Fega + R.Garantia, R.Anexo, R.Ciclo, R.Anexo, R.Ciclo)
         Next
-        Aplica_Seguro_Vida()
     End Sub
 
     Sub Aplica_Seguro_Vida()
@@ -38,8 +37,12 @@ Module AviosSaldos
         Dim rr As ProduccionDS.GEN_CorreosFasesRow
         Mensaje.IsBodyHtml = True
         Mensaje.From = New MailAddress("SEGUROSVIDA@Finagil.com.mx", "SEGUROS VIDA envíos automáticos")
-        ta.Fill(t)
         taMail.Fill(tmail, "SEGUROSVIDA")
+        For Each rr In tmail.Rows
+            Mensaje.To.Add(Trim(rr.Correo))
+        Next
+        ta.Fill(t)
+        Console.WriteLine("SEGUROSVIDA")
         For Each R In t.Rows
             If R.Tipo = "M" Then
                 ta.UpdateSegVida("N", 0, R.Anexo, R.Ciclo)
@@ -59,16 +62,15 @@ Module AviosSaldos
                     Mensaje.Body = "Contrato Sin seguro de Vida por la edad de Cliente: <br>"
                 Else
                     ta.UpdateSegVida("S", R.SeguroVida, R.Anexo, R.Ciclo)
-                    Mensaje.Subject = "Contrato con seguro de Vida " & R.Anexo
+                    Mensaje.Subject = "Contrato con seguro de Vida " & R.AnexoCon
                     Mensaje.Body = "Contrato con seguro de Vida por la edad de Cliente: <br>"
                 End If
-                For Each rr In tmail.Rows
-                    Mensaje.To.Add(Trim(rr.Correo))
-                Next
                 Mensaje.Body += "Cliente: " & R.Descr & "<br>"
+                Mensaje.Body += "Contrato: " & R.AnexoCon & "<br>"
                 Mensaje.Body += "Fecha de Nacimiento: " & FechaNac.ToShortDateString & "<br>"
                 Mensaje.Body += "Edad: " & Edad & "<br>"
                 Servidor.Send(Mensaje)
+
             End If
         Next
     End Sub
