@@ -67,6 +67,7 @@ Module AviosSaldos
                 End If
                 Mensaje.Body += "Cliente: " & R.Descr & "<br>"
                 Mensaje.Body += "Contrato: " & R.AnexoCon & "<br>"
+                Mensaje.Body += "Tipo Crédito: " & R.Tipocredito & "<br>"
                 Mensaje.Body += "Fecha de Nacimiento: " & FechaNac.ToShortDateString & "<br>"
                 Mensaje.Body += "Edad: " & Edad & "<br>"
                 Servidor.Send(Mensaje)
