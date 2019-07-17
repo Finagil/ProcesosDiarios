@@ -18,18 +18,12 @@ Module LayoutBancomer
         Dim drCorreo As DataRow
         Dim drDomiciliacion As DataRow
         Dim ContadorAux1 As Integer = 1
-
         Dim strUpdate As String = ""
-
-        Dim Servidor As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
-        Dim Credenciales As String() = My.Settings.SMTP_creden.Split(",")
-        Servidor.Credentials = New System.Net.NetworkCredential(Credenciales(0), Credenciales(1), Credenciales(2))
-        Dim Mensaje As New MailMessage
-        Dim Adjunto As Attachment
-
+        Dim Asunto As String
+        Dim Adjunto As String
+        Dim Para, De As String
         Dim ms As New MemoryStream
         Dim writer As StreamWriter
-
         Dim cAnexo As String = ""
         Dim cBanco As String = ""
         Dim cCuenta As String = ""
@@ -307,9 +301,9 @@ Module LayoutBancomer
 
                 nCount = 1
                 If cTipoReporte = "B" Then
-                    writer = New StreamWriter("c:\files\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                    writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                 ElseIf cTipoReporte = "O" Then
-                    writer = New StreamWriter("c:\files\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                    writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                 End If
 
                 For Each drAnexo In dtDomiciliacion.Rows
@@ -320,9 +314,9 @@ Module LayoutBancomer
                         ContadorAux1 += 1
                         nSumaPago = 0
                         If cTipoReporte = "B" Then
-                            writer = New StreamWriter("c:\files\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                            writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                         ElseIf cTipoReporte = "O" Then
-                            writer = New StreamWriter("c:\files\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                            writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                         End If
                     End If
 
@@ -566,57 +560,50 @@ Module LayoutBancomer
                 writer.Close()
                 Try
                     ms.Position = 0
+                    Para = ""
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
-                        Mensaje.To.Add(Trim(drCorreo("Correo")))
+                        Para += Trim(drCorreo("Correo")) & ";"
                     Next
-                    'Mensaje.To.Add("ecacerest@finagil.com.mx")
-                    Mensaje.From = New MailAddress("Domiciliacion@Finagil.com.mx", "FINAGIL envíos automáticos")
+
+                    De = ("Domiciliacion@Finagil.com.mx")
                     If cTipoReporte = "B" Then
-                        Mensaje.Subject = "Layout BANCOMER"
+                        Asunto = "Layout BANCOMER"
                         For x = 1 To ContadorAux1
-                            Adjunto = New Attachment("c:\files\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt", "text/csv")
-                            Mensaje.Attachments.Add(Adjunto)
+                            Adjunto = "Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt"
                         Next
-                        'Adjunto = New Attachment(ms, "Pagos BANCOMER_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
                     ElseIf cTipoReporte = "O" Then
-                        Mensaje.Subject = "Layout OTROS BANCOS"
+                        Asunto = "Layout OTROS BANCOS"
                         For x = 1 To ContadorAux1
-                            Adjunto = New Attachment("c:\files\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt", "text/csv")
-                            Mensaje.Attachments.Add(Adjunto)
+                            Adjunto = "Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt"
                         Next
-                        'Adjunto = New Attachment(ms, "Pagos_OTROS BANCOS_" & Hoy.ToString("ddMMyyyy") & ".txt", "text/csv")
                     End If
-                    'Mensaje.Attachments.Add(Adjunto)
-                    Servidor.Send(Mensaje)
+                    Utilerias.EnviacORREO(Para, "", Asunto, De, Adjunto)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
                     cMensaje = ex.Message
                 End Try
-
                 writer.Close()
                 writer.Dispose()
                 ms.Dispose()
-                Mensaje.Dispose()
-                If Not IsNothing(Adjunto) Then Adjunto.Dispose()
             Else
                 Try
                     ms.Position = 0
+                    Para = ""
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
-                        Mensaje.To.Add(Trim(drCorreo("Correo")))
+                        Para += Trim(drCorreo("Correo")) & ";"
                     Next
-                    Mensaje.From = New MailAddress("Domiciliacion@Finagil.com.mx", "FINAGIL envíos automáticos (SIN DATOS)")
+                    De = ("Domiciliacion@Finagil.com.mx")
                     If cTipoReporte = "B" Then
-                        Mensaje.Subject = "SIN DATOS - Layout BANCOMER"
+                        Asunto = "SIN DATOS - Layout BANCOMER"
                     ElseIf cTipoReporte = "O" Then
-                        Mensaje.Subject = "SIN DATOS - Layout OTROS BANCOS"
+                        Asunto = "SIN DATOS - Layout OTROS BANCOS"
                     End If
-                    Servidor.Send(Mensaje)
+                    Utilerias.EnviacORREO(Para, "", Asunto, De)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
                     cMensaje = ex.Message
                 End Try
             End If
-
         End If
 
         cnAgil.Dispose()

@@ -1,9 +1,5 @@
 ﻿Imports System.Net.Mail
 Module AviosSaldos
-    Dim Servidor As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
-    Dim Credenciales As String() = My.Settings.SMTP_creden.Split(",")
-    Dim Mensaje As New MailMessage
-    Dim Adjunto As Attachment
 
     Public Sub SaldosAvios()
         Dim ta As New ProduccionDSTableAdapters.SaldosAviosTableAdapter
@@ -28,18 +24,19 @@ Module AviosSaldos
     End Sub
 
     Sub Aplica_Seguro_Vida()
-        Servidor.Credentials = New System.Net.NetworkCredential(Credenciales(0), Credenciales(1), Credenciales(2))
         Dim ta As New ProduccionDSTableAdapters.VwSegVidaTableAdapter
         Dim t As New ProduccionDS.VwSegVidaDataTable
         Dim R As ProduccionDS.VwSegVidaRow
         Dim taMail As New ProduccionDSTableAdapters.GEN_CorreosFasesTableAdapter
         Dim tmail As New ProduccionDS.GEN_CorreosFasesDataTable
         Dim rr As ProduccionDS.GEN_CorreosFasesRow
-        Mensaje.IsBodyHtml = True
-        Mensaje.From = New MailAddress("SEGUROSVIDA@Finagil.com.mx", "SEGUROS VIDA envíos automáticos")
+        Dim Para As String = ""
+        Dim asunto As String = ""
+        Dim Mensaje As String = ""
+        Dim De As String = "SEGUROSVIDA@Finagil.com.mx"
         taMail.Fill(tmail, "SEGUROSVIDA")
         For Each rr In tmail.Rows
-            Mensaje.To.Add(Trim(rr.Correo))
+            Para += (Trim(rr.Correo)) & ";"
         Next
         ta.Fill(t)
         Console.WriteLine("SEGUROSVIDA")
@@ -58,20 +55,19 @@ Module AviosSaldos
                 Dim Edad As Integer = DateDiff(DateInterval.Year, FechaNac, FechaCon)
                 If Edad >= 75 Then
                     ta.UpdateSegVida("N", 0, R.Anexo, R.Ciclo)
-                    Mensaje.Subject = "Contrato sin seguro de Vida " & R.AnexoCon
-                    Mensaje.Body = "Contrato Sin seguro de Vida por la edad de Cliente: <br>"
+                    asunto = "Contrato sin seguro de Vida " & R.AnexoCon
+                    Mensaje = "Contrato Sin seguro de Vida por la edad de Cliente: <br>"
                 Else
                     ta.UpdateSegVida("S", R.SeguroVida, R.Anexo, R.Ciclo)
-                    Mensaje.Subject = "Contrato con seguro de Vida " & R.AnexoCon
-                    Mensaje.Body = "Contrato con seguro de Vida por la edad de Cliente: <br>"
+                    asunto = "Contrato con seguro de Vida " & R.AnexoCon
+                    Mensaje = "Contrato con seguro de Vida por la edad de Cliente: <br>"
                 End If
-                Mensaje.Body += "Cliente: " & R.Descr & "<br>"
-                Mensaje.Body += "Contrato: " & R.AnexoCon & "<br>"
-                Mensaje.Body += "Tipo Crédito: " & R.Tipocredito & "<br>"
-                Mensaje.Body += "Fecha de Nacimiento: " & FechaNac.ToShortDateString & "<br>"
-                Mensaje.Body += "Edad: " & Edad & "<br>"
-                Servidor.Send(Mensaje)
-
+                Mensaje += "Cliente: " & R.Descr & "<br>"
+                Mensaje += "Contrato: " & R.AnexoCon & "<br>"
+                Mensaje += "Tipo Crédito: " & R.TipoCredito & "<br>"
+                Mensaje += "Fecha de Nacimiento: " & FechaNac.ToShortDateString & "<br>"
+                Mensaje += "Edad: " & Edad & "<br>"
+                Utilerias.EnviacORREO(Para, Mensaje, asunto, De)
             End If
         Next
     End Sub

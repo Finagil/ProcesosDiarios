@@ -1,6 +1,6 @@
 ﻿Imports System.Net.Mail
 Module PasivosIntereses
-    Dim CorreoTESORERIA As String = "atorres@finagil.com.mx"
+    Dim CorreoTESORERIA As String = "atorres@finagil.com.mx;gisvazquez@finagil.com.mx;ecacerest@finagil.com.mx"
     Sub GeneraInteresesDiarios(FechaFin As Date, idAux As Integer)
         Console.WriteLine("ID=" & idAux & " - " & FechaFin.ToShortDateString)
         Dim TaTasas As New ProduccionDSTableAdapters.HistaTableAdapter
@@ -157,18 +157,11 @@ Module PasivosIntereses
 
     Sub ErrorEnTasa(Para As String, Tasa As String, Fecha As Date)
         Try
-            Dim Servidor As New SmtpClient
-            Dim Mensaje As New MailMessage
-            Servidor.Host = My.Settings.SMTP
-            Servidor.Port = My.Settings.SMTP_port
-            Dim Cred() As String = My.Settings.SMTP_creden.Split(",")
-            Servidor.Credentials = New System.Net.NetworkCredential(Cred(0), Cred(1), Cred(2))
-            Mensaje.To.Add(Para)
-            Mensaje.To.Add("ecacerest@finagil.com.mx")
-            Mensaje.From = New MailAddress("Tasas@Finagil.com.mx", "FINAGIL envíos automáticos")
-            Mensaje.Subject = "Tasa no Encontrada"
-            Mensaje.Body = "Tasa no encontrada: " & Tasa & "<BR> Fecha : " & Fecha.ToShortDateString
-            Servidor.Send(Mensaje)
+            Dim Mensaje As String
+            Mensaje = "Tasa no encontrada: " & Tasa & "<BR> Fecha : " & Fecha.ToShortDateString
+            Dim taCorreos As New ProduccionDSTableAdapters.GEN_Correos_SistemaFinagilTableAdapter
+            taCorreos.Insert("Tasas@Finagil.com.mx", Para, "Tasa no Encontrada", Mensaje, False, Date.Now, "")
+            taCorreos.Dispose()
         Catch ex As Exception
 
         End Try

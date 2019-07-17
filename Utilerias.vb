@@ -326,17 +326,10 @@ Public Class Utilerias
 
     'End Function
 
-    Public Shared Sub EnviacORREO(ByVal Para As String, ByVal Mensaje As String, ByVal Asunto As String, de As String)
-        Dim Mensage As New MailMessage(Trim(de), Trim(Para), Trim(Asunto), Mensaje)
-        Dim Cliente As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
-        Try
-            Dim Cred() As String = My.Settings.SMTP_creden.Split(",")
-            Cliente.Credentials = New System.Net.NetworkCredential(Cred(0), Cred(1), Cred(2))
-            Mensage.IsBodyHtml = True
-            Cliente.Send(Mensage)
-        Catch ex As Exception
-
-        End Try
+    Public Shared Sub EnviacORREO(ByVal Para As String, ByVal Mensaje As String, ByVal Asunto As String, de As String, Optional Archivo As String = "")
+        Dim taCorreos As New ProduccionDSTableAdapters.GEN_Correos_SistemaFinagilTableAdapter
+        taCorreos.Insert(de, Para, Asunto, Mensaje, False, Date.Now, Archivo)
+        taCorreos.Dispose()
     End Sub
 
 End Class

@@ -202,15 +202,9 @@ Module PersonasHistoria
 
     Private Sub EnviaError(ByVal Para As String, ByVal Mensaje As String, ByVal Asunto As String)
         If InStr(Mensaje, Asunto) = 0 Then
-            Dim Mensage As New MailMessage("InternoBI2008@cmoderna.com", Trim(Para), Trim(Asunto), Mensaje)
-            Dim Cliente As New SmtpClient(My.Settings.SMTP, My.Settings.SMTP_port)
-            Try
-                Dim Cred() As String = My.Settings.SMTP_creden.Split(",")
-                Cliente.Credentials = New System.Net.NetworkCredential(Cred(0), Cred(1), Cred(2))
-                Cliente.Send(Mensage)
-            Catch ex As Exception
-                'ReportError(ex)
-            End Try
+            Dim taCorreos As New ProduccionDSTableAdapters.GEN_Correos_SistemaFinagilTableAdapter
+            taCorreos.Insert("InternoBI2008@cmoderna.com", Para, Asunto, Mensaje, False, Date.Now, "")
+            taCorreos.Dispose()
         Else
             Console.WriteLine("No se ha encontrado la ruta de acceso de la red")
         End If
