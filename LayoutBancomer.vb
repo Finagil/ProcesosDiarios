@@ -561,6 +561,7 @@ Module LayoutBancomer
                 Try
                     ms.Position = 0
                     Para = ""
+                    Adjunto = ""
                     For Each drCorreo In dsAgil.Tables("Correos").Rows
                         Para += Trim(drCorreo("Correo")) & ";"
                     Next
@@ -569,12 +570,12 @@ Module LayoutBancomer
                     If cTipoReporte = "B" Then
                         Asunto = "Layout BANCOMER"
                         For x = 1 To ContadorAux1
-                            Adjunto = "Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt"
+                            Adjunto += "Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
                         Next
                     ElseIf cTipoReporte = "O" Then
                         Asunto = "Layout OTROS BANCOS"
                         For x = 1 To ContadorAux1
-                            Adjunto = "Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt"
+                            Adjunto += "Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
                         Next
                     End If
                     Utilerias.EnviacORREO(Para, "", Asunto, De, Adjunto)
