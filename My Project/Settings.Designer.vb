@@ -192,6 +192,18 @@ Namespace My
                 Me("RutaFolios") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("\\server-raid2\TmpFinagil\")>  _
+        Public Property RUTA_TMP() As String
+            Get
+                Return CType(Me("RUTA_TMP"),String)
+            End Get
+            Set
+                Me("RUTA_TMP") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

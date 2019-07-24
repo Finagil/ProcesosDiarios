@@ -301,9 +301,9 @@ Module LayoutBancomer
 
                 nCount = 1
                 If cTipoReporte = "B" Then
-                    writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                    writer = New StreamWriter(My.Settings.RUTA_TMP & "DOMI\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                 ElseIf cTipoReporte = "O" Then
-                    writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                    writer = New StreamWriter(My.Settings.RUTA_TMP & "DOMI\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                 End If
 
                 For Each drAnexo In dtDomiciliacion.Rows
@@ -314,9 +314,9 @@ Module LayoutBancomer
                         ContadorAux1 += 1
                         nSumaPago = 0
                         If cTipoReporte = "B" Then
-                            writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                            writer = New StreamWriter(My.Settings.RUTA_TMP & "DOMI\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                         ElseIf cTipoReporte = "O" Then
-                            writer = New StreamWriter("\\server-raid2\TmpFinagil\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
+                            writer = New StreamWriter(My.Settings.RUTA_TMP & "DOMI\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & ContadorAux1 & ".txt")
                         End If
                     End If
 
@@ -570,12 +570,12 @@ Module LayoutBancomer
                     If cTipoReporte = "B" Then
                         Asunto = "Layout BANCOMER"
                         For x = 1 To ContadorAux1
-                            Adjunto += "Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
+                            Adjunto += "DOMI\Pagos_BANCOMER_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
                         Next
                     ElseIf cTipoReporte = "O" Then
                         Asunto = "Layout OTROS BANCOS"
                         For x = 1 To ContadorAux1
-                            Adjunto += "Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
+                            Adjunto += "DOMI\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
                         Next
                     End If
                     Utilerias.EnviacORREO(Para, "", Asunto, De, Adjunto)
