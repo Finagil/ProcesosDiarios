@@ -28,6 +28,7 @@ Module Procesos
                     PersonasHistoria.Main()
                 Case "TERMINACONTRATO"
                     Termina_Contratos()
+                    Terminados_Con_Saldo()
                 Case "FACTORAJE"
                     Factoraje.NotificacionFactorajeFACT_VENC()
                 Case "PASIVOS"
