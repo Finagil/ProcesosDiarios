@@ -26,7 +26,7 @@
     <Shape ID="DesignTable:VwSegVida" ZOrder="5" X="464" Y="1542" Height="305" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
     <Shape ID="DesignTable:GEN_CorreosFases" ZOrder="4" X="810" Y="1556" Height="172" Width="250" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
     <Shape ID="DesignTable:GEN_Correos_SistemaFinagil" ZOrder="3" X="73" Y="1639" Height="229" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
-    <Shape ID="DesignTable:Vw_TerminadosConSaldo" ZOrder="1" X="362" Y="1880" Height="191" Width="291" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
+    <Shape ID="DesignTable:Vw_TerminadosConSaldo" ZOrder="1" X="362" Y="1880" Height="210" Width="291" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

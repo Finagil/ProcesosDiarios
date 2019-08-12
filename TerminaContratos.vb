@@ -12,9 +12,11 @@
             TA.DesbloqueaAnexo(R.Anexo)
             TA.TerminaContrato(R.Anexo)
             TA.BloqueaAnexo(R.Anexo)
-            For Each rr As WEB_FinagilDS.CorreosRow In t2.Rows
-                Utilerias.EnviacORREO(rr.Correo, R.AnexoCon, "Terminación de Contrato: " & R.AnexoCon, "Notificaciones@finagil.com.mx")
-            Next
+            If R.SaldoFac < 10 Then
+                For Each rr As WEB_FinagilDS.CorreosRow In t2.Rows
+                    Utilerias.EnviacORREO(rr.Correo, R.AnexoCon, "Terminación de Contrato: " & R.AnexoCon, "Notificaciones@finagil.com.mx")
+                Next
+            End If
         Next
         TA.QuitaOpciones()
     End Sub
@@ -23,10 +25,22 @@
         Dim TA As New ProduccionDSTableAdapters.Vw_TerminadosConSaldoTableAdapter
         Dim T As New ProduccionDS.Vw_TerminadosConSaldoDataTable
 
+        Dim ta2 As New WEB_FinagilDSTableAdapters.CorreosTableAdapter
+        Dim t2 As New WEB_FinagilDS.CorreosDataTable
+        ta2.Fill(t2, "TERMINACONTRATO")
+
         TA.Fill(T)
         For Each R As ProduccionDS.Vw_TerminadosConSaldoRow In T.Rows
             TA.TerminaAnexoConSaldo(R.Anexo)
             Utilerias.EnviacORREO("ecacerest@finagil.com.mx", R.Anexo, "Terminación de Contrato con Saldo: " & R.Anexo, "Notificaciones@finagil.com.mx")
+        Next
+
+        TA.TermiandosConSaldo_liquidados(T)
+        For Each R As ProduccionDS.Vw_TerminadosConSaldoRow In T.Rows
+            TA.TerminaAnexoConSaldo(R.Anexo)
+            For Each rr As WEB_FinagilDS.CorreosRow In t2.Rows
+                Utilerias.EnviacORREO(rr.Correo, R.Anexo, "Terminación de Contrato: " & R.Anexo, "Notificaciones@finagil.com.mx")
+            Next
         Next
     End Sub
 
