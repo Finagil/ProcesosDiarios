@@ -18,6 +18,19 @@
                 Next
             End If
         Next
+        'Cancelados por Adelanto a capital
+        TA.FillSinSaldoInsoluto(T, Today.AddDays(1).ToString("yyyyMMdd"))
+        ta2.Fill(t2, "TERMINACONTRATO")
+        For Each R As ProduccionDS.AnexosTerminadosRow In T.Rows
+            TA.DesbloqueaAnexo(R.Anexo)
+            TA.CancelaContrato(R.Anexo)
+            TA.BloqueaAnexo(R.Anexo)
+            If R.SaldoFac < 10 Then
+                For Each rr As WEB_FinagilDS.CorreosRow In t2.Rows
+                    Utilerias.EnviacORREO(rr.Correo, R.AnexoCon, "Cancelación de Contrato: " & R.AnexoCon, "Notificaciones@finagil.com.mx")
+                Next
+            End If
+        Next
         TA.QuitaOpciones()
     End Sub
 
