@@ -4,7 +4,7 @@ Imports System.Data
 Imports System.Data.SqlClient
 Module LayoutBancomer
     Public Function EnviaLayout(ByVal cTipoReporte As String, Dias As Integer) As String
-
+        Dim taJur As New ProduccionDSTableAdapters.JUR_NoDomiciliarAvisoTableAdapter
         Dim cnAgil As New SqlConnection(My.Settings.ConnectionStringDOMI)
         Dim cm1 As New SqlCommand
         Dim cm2 As New SqlCommand
@@ -120,25 +120,25 @@ Module LayoutBancomer
 
                 With cm1
                     .CommandType = CommandType.Text
-                    .CommandText = "SELECT SaldoFac, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, Facturas.Letra, Anexos.Autoriza, Facturas.Anexo, Tipo, Facturas.Feven, Facturas.Fepag, 0 AS [id_Cargo_Extra] FROM Facturas " &
+                    .CommandText = "SELECT Facturas.Factura, SaldoFac, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, Facturas.Letra, Anexos.Autoriza, Facturas.Anexo, Tipo, Facturas.Feven, Facturas.Fepag, 0 AS [id_Cargo_Extra] FROM Facturas " &
                                    "INNER JOIN Clientes ON Facturas.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = Facturas.Anexo " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = Facturas.Anexo " &
                                    "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE = '' AND Facturas.SaldoFac > 0 " &
                                    "UNION " &
-                                   "SELECT SaldoFac, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, Facturas.Letra, Anexos.Autoriza, Facturas.Anexo, Tipo, Facturas.Feven, Facturas.Fepag, 0 AS [id_Cargo_Extra] FROM Facturas " &
+                                   "SELECT Facturas.Factura, SaldoFac, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, Facturas.Letra, Anexos.Autoriza, Facturas.Anexo, Tipo, Facturas.Feven, Facturas.Fepag, 0 AS [id_Cargo_Extra] FROM Facturas " &
                                    "INNER JOIN Clientes ON Facturas.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = Facturas.Anexo " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = Facturas.Anexo " &
                                    "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco = 'BANCOMER' AND Facturas.SaldoFac > 0 " &
                                    "UNION " &
-                                   "SELECT PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, '' AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
+                                   "SELECT 0 as Factura,PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, '' AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "INNER JOIN Clientes ON Anexos.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "WHERE FechaCargo >= '" & cFechaInicialEXT & "' AND FechaCargo <= '" & cFechaFinalEXT & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE = '' AND PROM_CARGOS_EXTRAS.Importe > 0 AND PROM_Cargos_Extras.Procesado = 0" &
                                    "UNION " &
-                                   "SELECT PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, '' AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
+                                   "SELECT 0 as Factura, PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, '' AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "INNER JOIN Clientes ON Anexos.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
@@ -172,13 +172,13 @@ Module LayoutBancomer
 
                 With cm1
                     .CommandType = CommandType.Text
-                    .CommandText = "SELECT SaldoFac, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, Facturas.Letra, Anexos.Autoriza, Facturas.Anexo, Tipo, Facturas.Feven, Facturas.Fepag, 0 AS [id_Cargo_Extra] FROM Facturas " &
+                    .CommandText = "SELECT Facturas.Factura, SaldoFac, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, Facturas.Letra, Anexos.Autoriza, Facturas.Anexo, Tipo, Facturas.Feven, Facturas.Fepag, 0 AS [id_Cargo_Extra] FROM Facturas " &
                                    "INNER JOIN Clientes ON Facturas.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = Facturas.Anexo " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = Facturas.Anexo " &
                                    "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco <> 'BANCOMER' AND Facturas.SaldoFac > 0 " &
                                    "UNION " &
-                                   "SELECT PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, rtrim(letra) AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
+                                   "SELECT 0 as Factura, PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, rtrim(letra) AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "INNER JOIN Clientes ON Anexos.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
@@ -206,10 +206,11 @@ Module LayoutBancomer
             Dim DomiciliacionFija As Decimal
             If dsAgil.Tables("Pagos").Rows.Count > 0 Then
 
-                For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace vario correos por montos mayores a 
-                    'If ta.EsRimo(drAnexo("Anexo")) <= 0 Then
-                    '    Continue For
-                    'End If
+                For Each drAnexo In dsAgil.Tables("Pagos").Rows ' hace varios correos por montos mayores a 
+
+                    If taJur.ExsisteAvisoJUR(drAnexo("Factura")) > 0 Then 'NO DOMICILIAR AVISO
+                        Continue For
+                    End If
                     Particion = 1
                     nSaldoFac = drAnexo("SaldoFac")
                     If drAnexo("Letra") <> "" Then
