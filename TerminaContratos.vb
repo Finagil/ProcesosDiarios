@@ -34,7 +34,7 @@
         TA.QuitaOpciones()
     End Sub
 
-    Public Sub Terminados_Con_Saldo()
+    Public Sub Terminados_Con_Saldo(fec As Date)
         Dim TA As New ProduccionDSTableAdapters.Vw_TerminadosConSaldoTableAdapter
         Dim T As New ProduccionDS.Vw_TerminadosConSaldoDataTable
 
@@ -55,6 +55,9 @@
                 Utilerias.EnviacORREO(rr.Correo, R.Anexo, "Terminación de Contrato: " & R.Anexo, "Notificaciones@finagil.com.mx")
             Next
         Next
+        'Termina AV
+        TA.TerminaContratosAV_W()
+        TA.TerminaContratosConSaldoAV(fec.ToString("yyyyMMdd"))
     End Sub
 
 End Module

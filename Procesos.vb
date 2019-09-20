@@ -28,7 +28,7 @@ Module Procesos
                     PersonasHistoria.Main()
                 Case "TERMINACONTRATO"
                     Termina_Contratos()
-                    Terminados_Con_Saldo()
+                    Terminados_Con_Saldo(Date.Now.Date.AddDays(-5))
                 Case "FACTORAJE"
                     Factoraje.NotificacionFactorajeFACT_VENC()
                 Case "PASIVOS"
