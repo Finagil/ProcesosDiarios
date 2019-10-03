@@ -50,9 +50,9 @@
 
         TA.TermiandosConSaldo_liquidados(T)
         For Each R As ProduccionDS.Vw_TerminadosConSaldoRow In T.Rows
-            TA.TerminaAnexoConSaldo(R.Anexo)
+            TA.TerminaAnexo(R.Anexo)
             For Each rr As WEB_FinagilDS.CorreosRow In t2.Rows
-                Utilerias.EnviacORREO(rr.Correo, R.Anexo, "Terminación de Contrato: " & R.Anexo, "Notificaciones@finagil.com.mx")
+                Utilerias.EnviacORREO(rr.Correo, R.Anexo, "Terminación de Contrato (Saldo Pagado): " & R.Anexo, "Notificaciones@finagil.com.mx")
             Next
         Next
         'Termina AV
