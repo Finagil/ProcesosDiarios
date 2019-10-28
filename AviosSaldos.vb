@@ -53,7 +53,7 @@ Module AviosSaldos
                 End If
                 Dim FechaNac As Date = CTOD(cad)
                 Dim Edad As Integer = DateDiff(DateInterval.Year, FechaNac, FechaCon)
-                If Edad >= 75 Then
+                If Edad >= 70 Then
                     ta.UpdateSegVida("N", 0, R.Anexo, R.Ciclo)
                     asunto = "Contrato sin seguro de Vida " & R.AnexoCon
                     Mensaje = "Contrato Sin seguro de Vida por la edad de Cliente: <br>"
