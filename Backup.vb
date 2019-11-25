@@ -24,13 +24,8 @@ Module Backup
                 Next
                 Console.WriteLine("Copia 1 : " & file1.FullName)
                 file1.CopyTo(My.Settings.RutaBackupDB & file1.Name, True)
-                If InStr(file1.Name, "minds") > 0 Or InStr(file1.Name, "Lavado") > 0 Then
-                    Console.WriteLine("Copia 2: " & file1.FullName)
-                    file1.CopyTo(My.Settings.RutaBackupMinds & file1.Name, True)
-                Else
-                    Console.WriteLine("Copia 2: " & file1.FullName)
-                    file1.CopyTo(My.Settings.RutaBackupRaid & file1.Name, True)
-                End If
+                Console.WriteLine("Copia 2: " & file1.FullName)
+                file1.CopyTo(My.Settings.RutaBackupRaid & file1.Name, True)
                 Console.WriteLine("Borrando: " & file1.FullName)
                 file1.Delete()
             Next
@@ -50,6 +45,16 @@ Module Backup
                 File1.CopyTo(My.Settings.RutaBackupContpaq & File1.Name, True)
                 Console.WriteLine("Borrando: " & File1.FullName)
                 File1.Delete()
+            Next
+
+            folder = New DirectoryInfo(My.Settings.RutaBackupDB)
+            For Each File1 As FileInfo In folder.GetFiles("minds*.bak")
+                Console.WriteLine("Copia 2: " & File1.FullName)
+                File1.CopyTo(My.Settings.RutaBackupMinds & File1.Name, True)
+            Next
+            For Each File1 As FileInfo In folder.GetFiles("Preven*.bak")
+                Console.WriteLine("Copia 2: " & File1.FullName)
+                File1.CopyTo(My.Settings.RutaBackupMinds & File1.Name, True)
             Next
 
         Catch ex As Exception

@@ -72,6 +72,7 @@
     <Compile Include="AviosSaldos.vb" />
     <Compile Include="Backup.vb" />
     <Compile Include="Factoraje.vb" />
+    <Compile Include="GeneraHistorial.vb" />
     <Compile Include="LayoutBancomer.vb" />
     <Compile Include="PasivosIntereses.vb" />
     <Compile Include="PersonasHistoria.vb" />
