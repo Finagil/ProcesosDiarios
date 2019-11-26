@@ -50,7 +50,7 @@ Module PersonasHistoria
                 cAnexo = "03173/0001"
             End If
             Try
-
+                TaPersonas.DeleteAnexo(cAnexo)
 
                 TaPersonas.Insert(cAnexo, Cad, "Acreditado", FechaCon, rAne.Flcan, rAne.Tipar, 0, Cad, Atraso)
                 If Trim(RCli.Nomaval1) <> "" Then TaPersonas.Insert(cAnexo, Trim(RCli.Nomaval1), "Aval 1", FechaCon, rAne.Flcan, rAne.Tipar, 0, Cad, Atraso)
