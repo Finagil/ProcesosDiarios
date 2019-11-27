@@ -482,7 +482,7 @@ SELECT Anexo, Nombre, TipoPersona, FechaContrato, Estatus, TipoCredito, SaldoIns
               <Mapping SourceColumn="ConAtraso" DataSetColumn="ConAtraso" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteAnexo" Modifier="Public" Name="DeleteAnexo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="DeleteAnexo">
+              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteAnexo" Modifier="Public" Name="DeleteAnexo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteAnexo">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM HistoriaPersonas
@@ -493,7 +493,7 @@ WHERE        (Anexo = @Anexo)</CommandText>
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteFecha" Modifier="Public" Name="DeleteFecha" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteFecha">
+              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteFecha" Modifier="Public" Name="DeleteFecha" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="DeleteFecha">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM HistoriaPersonas
@@ -505,7 +505,7 @@ WHERE        (FechaContrato &gt;= @Fecha)
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeletePersona" Modifier="Public" Name="DeletePersona" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="DeletePersona">
+              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeletePersona" Modifier="Public" Name="DeletePersona" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="DeletePersona">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM HistoriaPersonas
@@ -555,7 +555,7 @@ GROUP BY Anexo, Acreditado</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateSaldo" Modifier="Public" Name="UpdateSaldo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="UpdateSaldo">
+              <DbSource ConnectionRef="ConectionStringCFDI (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateSaldo" Modifier="Public" Name="UpdateSaldo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="UpdateSaldo">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>UPDATE       HistoriaPersonas
@@ -3313,6 +3313,35 @@ SELECT Cliente, Anexo, Atrasos, DiasProm, MontoProm, DiasMax, MontoMax, Penaliza
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Vw_SaldoCCTableAdapter" GeneratorDataComponentClassName="Vw_SaldoCCTableAdapter" Name="Vw_SaldoCC" UserDataComponentName="Vw_SaldoCCTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectName="Production.dbo.Vw_SaldoCC" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Anexo, Pagare, FechaTerminacion, Clientes, Fondeotit, EMail1, EMail2, AnexoCon, Correo, InteresMensual
+FROM            Vw_SaldoCC
+WHERE        (FechaTerminacion &gt; @FechaFinMes) AND (InteresMensual = N'SI')</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="FechaFinMes" ColumnName="FechaTerminacion" DataSourceName="Production.dbo.Vw_SaldoCC" DataTypeServer="nchar(8)" DbType="String" Direction="Input" ParameterName="@FechaFinMes" Precision="0" ProviderType="NChar" Scale="0" Size="8" SourceColumn="FechaTerminacion" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Anexo" DataSetColumn="Anexo" />
+              <Mapping SourceColumn="Pagare" DataSetColumn="Pagare" />
+              <Mapping SourceColumn="FechaTerminacion" DataSetColumn="FechaTerminacion" />
+              <Mapping SourceColumn="Clientes" DataSetColumn="Clientes" />
+              <Mapping SourceColumn="Fondeotit" DataSetColumn="Fondeotit" />
+              <Mapping SourceColumn="EMail1" DataSetColumn="EMail1" />
+              <Mapping SourceColumn="EMail2" DataSetColumn="EMail2" />
+              <Mapping SourceColumn="AnexoCon" DataSetColumn="AnexoCon" />
+              <Mapping SourceColumn="Correo" DataSetColumn="Correo" />
+              <Mapping SourceColumn="InteresMensual" DataSetColumn="InteresMensual" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -5839,6 +5868,82 @@ SELECT Cliente, Anexo, Atrasos, DiasProm, MontoProm, DiasMax, MontoMax, Penaliza
               <xs:element name="Amortizaciones" msprop:Generator_ColumnVarNameInTable="columnAmortizaciones" msprop:Generator_ColumnPropNameInRow="Amortizaciones" msprop:Generator_ColumnPropNameInTable="AmortizacionesColumn" msprop:Generator_UserColumnName="Amortizaciones" type="xs:int" minOccurs="0" />
               <xs:element name="Adelantos" msprop:Generator_ColumnVarNameInTable="columnAdelantos" msprop:Generator_ColumnPropNameInRow="Adelantos" msprop:Generator_ColumnPropNameInTable="AdelantosColumn" msprop:Generator_UserColumnName="Adelantos" type="xs:int" minOccurs="0" />
               <xs:element name="MontoAdelanto" msprop:Generator_ColumnVarNameInTable="columnMontoAdelanto" msprop:Generator_ColumnPropNameInRow="MontoAdelanto" msprop:Generator_ColumnPropNameInTable="MontoAdelantoColumn" msprop:Generator_UserColumnName="MontoAdelanto" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Vw_SaldoCC" msprop:Generator_TableClassName="Vw_SaldoCCDataTable" msprop:Generator_TableVarName="tableVw_SaldoCC" msprop:Generator_RowChangedName="Vw_SaldoCCRowChanged" msprop:Generator_TablePropName="Vw_SaldoCC" msprop:Generator_RowDeletingName="Vw_SaldoCCRowDeleting" msprop:Generator_RowChangingName="Vw_SaldoCCRowChanging" msprop:Generator_RowEvHandlerName="Vw_SaldoCCRowChangeEventHandler" msprop:Generator_RowDeletedName="Vw_SaldoCCRowDeleted" msprop:Generator_RowClassName="Vw_SaldoCCRow" msprop:Generator_UserTableName="Vw_SaldoCC" msprop:Generator_RowEvArgName="Vw_SaldoCCRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Anexo" msprop:Generator_ColumnVarNameInTable="columnAnexo" msprop:Generator_ColumnPropNameInRow="Anexo" msprop:Generator_ColumnPropNameInTable="AnexoColumn" msprop:Generator_UserColumnName="Anexo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Pagare" msprop:Generator_ColumnVarNameInTable="columnPagare" msprop:Generator_ColumnPropNameInRow="Pagare" msprop:Generator_ColumnPropNameInTable="PagareColumn" msprop:Generator_UserColumnName="Pagare">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaTerminacion" msprop:Generator_ColumnVarNameInTable="columnFechaTerminacion" msprop:Generator_ColumnPropNameInRow="FechaTerminacion" msprop:Generator_ColumnPropNameInTable="FechaTerminacionColumn" msprop:Generator_UserColumnName="FechaTerminacion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Clientes" msprop:Generator_ColumnVarNameInTable="columnClientes" msprop:Generator_ColumnPropNameInRow="Clientes" msprop:Generator_ColumnPropNameInTable="ClientesColumn" msprop:Generator_UserColumnName="Clientes">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="120" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Fondeotit" msprop:Generator_ColumnVarNameInTable="columnFondeotit" msprop:Generator_ColumnPropNameInRow="Fondeotit" msprop:Generator_ColumnPropNameInTable="FondeotitColumn" msprop:Generator_UserColumnName="Fondeotit">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EMail1" msprop:Generator_ColumnVarNameInTable="columnEMail1" msprop:Generator_ColumnPropNameInRow="EMail1" msprop:Generator_ColumnPropNameInTable="EMail1Column" msprop:Generator_UserColumnName="EMail1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EMail2" msprop:Generator_ColumnVarNameInTable="columnEMail2" msprop:Generator_ColumnPropNameInRow="EMail2" msprop:Generator_ColumnPropNameInTable="EMail2Column" msprop:Generator_UserColumnName="EMail2">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AnexoCon" msprop:Generator_ColumnVarNameInTable="columnAnexoCon" msprop:Generator_ColumnPropNameInRow="AnexoCon" msprop:Generator_ColumnPropNameInTable="AnexoConColumn" msprop:Generator_UserColumnName="AnexoCon" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Correo" msprop:Generator_ColumnVarNameInTable="columnCorreo" msprop:Generator_ColumnPropNameInRow="Correo" msprop:Generator_ColumnPropNameInTable="CorreoColumn" msprop:Generator_UserColumnName="Correo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="InteresMensual" msprop:Generator_ColumnVarNameInTable="columnInteresMensual" msprop:Generator_ColumnPropNameInRow="InteresMensual" msprop:Generator_ColumnPropNameInTable="InteresMensualColumn" msprop:Generator_UserColumnName="InteresMensual" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
