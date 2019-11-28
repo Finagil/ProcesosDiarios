@@ -143,7 +143,7 @@ Module AviosSaldos
         ReFerencia(r.Anexo)
         daDetalle.Fill(dsAgil, "Detalle")
         For Each rR As DataRow In dsAgil.Tables(0).Rows
-            Intereses = rR.Item("Intereses")
+            Intereses += rR.Item("Intereses")
         Next
         newrptEdoCtaNew.SummaryInfo.ReportTitle = "Saldo al " & Fechad.ToLongDateString
         newrptEdoCtaNew.SummaryInfo.ReportComments = "Cliente : " & r.Clientes.Trim & Space(1) & " Pagare: " & r.Pagare
