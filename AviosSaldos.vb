@@ -81,7 +81,7 @@ Module AviosSaldos
         Dim ta As New ProduccionDSTableAdapters.Vw_SaldoCCTableAdapter
         Dim t As New ProduccionDS.Vw_SaldoCCDataTable
         Dim r As ProduccionDS.Vw_SaldoCCRow
-        Dim Fecha As String = Date.Now.AddMonths(1).ToString("yyyyMMdd")
+        Dim Fecha As String = Date.Now.AddMonths(1).AddDays((Date.Now.Day - 1) * -1).ToString("yyyyMMdd")
         Dim FechaD As Date = Date.Now.AddMonths(1).AddDays(Date.Now.Day * -1)
         Dim res As Object
 
