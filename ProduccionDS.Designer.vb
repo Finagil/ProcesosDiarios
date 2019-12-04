@@ -29838,7 +29838,9 @@ Namespace ProduccionDSTableAdapters
                 "antes.Anexo LEFT OUTER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Vw_SaldosEnFactura ON Vw_A"& _ 
                 "nexos.Anexo = Vw_SaldosEnFactura.Anexo"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (Vw_Anexos.Flcan = N'A') AN"& _ 
                 "D (Vw_Anexos.Ciclo < N'00') AND (Vw_Anexos.Feven > @Feven) AND (Vw_ZSadosInsolut"& _ 
-                "os.Saldo = 0)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY Vw_Anexos.AnexoCon"
+                "os.Saldo = 0) OR"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (Vw_Anexos.Flcan = N'A') AND (Vw_ZSad"& _ 
+                "osInsolutos.Saldo IS NULL) AND (Vw_SaldosEnFactura.SaldoFac = 0)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY Vw_An"& _ 
+                "exos.AnexoCon"
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Feven", Global.System.Data.SqlDbType.NChar, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "Feven", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5) = New Global.System.Data.SqlClient.SqlCommand()
