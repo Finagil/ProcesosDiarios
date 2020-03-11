@@ -54,7 +54,7 @@
       <Value Profile="(Default)">\\server-nas\FacturasCFDI\FoliosEkomercio\</Value>
     </Setting>
     <Setting Name="RUTA_TMP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\\server-raid2\TmpFinagil\</Value>
+      <Value Profile="(Default)">\\server-nas\TmpFinagil\</Value>
     </Setting>
   </Settings>
 </SettingsFile>
