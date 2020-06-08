@@ -36,9 +36,12 @@ Module Procesos
                 Case "FACTORAJE"
                     Factoraje.NotificacionFactorajeFACT_VENC()
                 Case "PASIVOS"
-                    Dim ID As Integer
+                    Dim ID, dMenos As Integer
                     If Arg.Length >= 3 Then
                         ID = Arg(2)
+                        If Arg.Length >= 4 Then
+                            dMenos = Arg(3)
+                        End If
                     End If
                     'GeneraInteresesDiarios("2017-12-31", ID)
                     'GeneraInteresesDiarios("2018-01-31", ID)
@@ -50,7 +53,7 @@ Module Procesos
                     'GeneraInteresesDiarios("2018-07-31", ID)
                     'GeneraInteresesDiarios("2018-08-31", ID)
                     'GeneraInteresesDiarios("2019-01-31", ID)
-                    If Date.Now.Day <= 6 Then
+                    If Date.Now.Day <= 6 + dMenos Then
                         GeneraInteresesDiarios(Date.Now.Date.AddDays(Date.Now.Day * -1), ID) ' se procesa 6 dias lo del mes anterior
                     End If
                     GeneraInteresesDiarios(Date.Now.Date, ID) '.AddDays(Date.Now.Date.Day * -1))
