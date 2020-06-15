@@ -211,10 +211,10 @@ Module LayoutBancomer
                     If taJur.ExsisteAvisoJUR(drAnexo("Factura")) > 0 Then 'NO DOMICILIAR AVISO
                         Continue For
                     End If
-                    Select Case drAnexo("Anexo") ' contratos con ceuntas que no existen
-                        Case "047440001", "054580001", "054140001", "054140001", "043200001", "047440001", "051890001", "054030001", "054080001", "054140001", "054430001", "054580001", "054620001"
-                            Continue For
-                    End Select
+                    'Select Case drAnexo("Anexo") ' contratos con ceuntas que no existen
+                    '    Case "047440001", "054580001", "054140001", "054140001", "043200001", "047440001", "051890001", "054030001", "054080001", "054140001", "054430001", "054580001", "054620001"
+                    '        Continue For
+                    'End Select
 
                     Particion = 1
                     nSaldoFac = drAnexo("SaldoFac")
