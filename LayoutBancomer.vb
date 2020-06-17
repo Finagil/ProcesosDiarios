@@ -110,7 +110,7 @@ Module LayoutBancomer
                     .CommandType = CommandType.Text
                     .CommandText = "update PROM_Cargos_Extras set Procesado = 0 " &
                                    "FROM PROM_Cargos_Extras INNER JOIN CuentasDomi ON PROM_Cargos_Extras.Anexo = CuentasDomi.Anexo " &
-                                   "WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "' and Banco = 'BANCOMER'"
+                                   "WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "' and Banco = 'BBVA BANCOMER'"
                     .Connection = cnAgil
                     cnAgil.Open()
                     cm2.ExecuteScalar()
@@ -130,7 +130,7 @@ Module LayoutBancomer
                                    "INNER JOIN Clientes ON Facturas.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = Facturas.Anexo " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = Facturas.Anexo " &
-                                   "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco = 'BANCOMER' AND Facturas.SaldoFac > 0 " &
+                                   "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco = 'BBVA BANCOMER' AND Facturas.SaldoFac > 0 " &
                                    "UNION " &
                                    "SELECT 0 as Factura,PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, '' AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
@@ -142,7 +142,7 @@ Module LayoutBancomer
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "INNER JOIN Clientes ON Anexos.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
-                                   "WHERE FechaCargo >= '" & cFechaInicialEXT & "' AND FechaCargo <= '" & cFechaFinalEXT & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco = 'BANCOMER' AND PROM_CARGOS_EXTRAS.Importe > 0 AND PROM_Cargos_Extras.Procesado = 0"
+                                   "WHERE FechaCargo >= '" & cFechaInicialEXT & "' AND FechaCargo <= '" & cFechaFinalEXT & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco = 'BBVA BANCOMER' AND PROM_CARGOS_EXTRAS.Importe > 0 AND PROM_Cargos_Extras.Procesado = 0"
                     .Connection = cnAgil
 
                 End With
@@ -163,7 +163,7 @@ Module LayoutBancomer
                     .CommandType = CommandType.Text
                     .CommandText = "update PROM_Cargos_Extras set Procesado = 0 " &
                                    "FROM PROM_Cargos_Extras INNER JOIN CuentasDomi ON PROM_Cargos_Extras.Anexo = CuentasDomi.Anexo " &
-                                   "WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "' and Banco <> 'BANCOMER'"
+                                   "WHERE FechaCargo >= '" & cFechaInicial & "' and FechaCargo <= '" & cFechaFinal & "' and Banco <> 'BBVA BANCOMER'"
                     .Connection = cnAgil
                     cnAgil.Open()
                     cm2.ExecuteScalar()
@@ -176,13 +176,13 @@ Module LayoutBancomer
                                    "INNER JOIN Clientes ON Facturas.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = Facturas.Anexo " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = Facturas.Anexo " &
-                                   "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco <> 'BANCOMER' AND Facturas.SaldoFac > 0 " &
+                                   "WHERE Feven >= '" & cFechaInicial & "' AND Feven <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco <> 'BBVA BANCOMER' AND Facturas.SaldoFac > 0 " &
                                    "UNION " &
                                    "SELECT 0 as Factura, PROM_CARGOS_EXTRAS.ImporteTotal, Descr, CuentasDomi.Banco, CuentasDomi.CuentaCLABE, CuentasDomi.NumTarjeta, CuentasDomi.CuentaEJE, CuentasDomi.TitularCta, Referencia, rtrim(letra) AS Letra, Anexos.Autoriza, PROM_CARGOS_EXTRAS.Anexo, Tipo, PROM_CARGOS_EXTRAS.FechaCargo, '' AS Fepag, id_Cargo_Extra FROM PROM_CARGOS_EXTRAS " &
                                    "INNER JOIN Anexos ON Anexos.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
                                    "INNER JOIN Clientes ON Anexos.Cliente = Clientes.Cliente " &
                                    "INNER JOIN CuentasDomi ON CuentasDomi.Anexo = PROM_CARGOS_EXTRAS.Anexo " &
-                                   "WHERE FechaCargo >= '" & cFechaInicial & "' AND FechaCargo <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco <> 'BANCOMER' AND PROM_CARGOS_EXTRAS.Importe > 0 AND PROM_Cargos_Extras.Procesado = 0"
+                                   "WHERE FechaCargo >= '" & cFechaInicial & "' AND FechaCargo <= '" & cFechaFinal & "' AND Anexos.Autoriza = 'S' AND CuentasDomi.CuentaCLABE <> '' AND CuentasDomi.Banco <> 'BBVA BANCOMER' AND PROM_CARGOS_EXTRAS.Importe > 0 AND PROM_Cargos_Extras.Procesado = 0"
                     .Connection = cnAgil
                 End With
 
@@ -418,55 +418,8 @@ Module LayoutBancomer
                     cBanco = Trim(drAnexo("Banco"))
                     cCuenta = Trim(drAnexo("Cuenta"))
 
-                    If cBanco = "BANCOMER" Then
-                        cBanco = "012"
-                        cLeyenda = "CARGO DOMICILIADO A BANCO BANCOMER"
-                    Else
-                        Select Case cBanco
-                            Case "BANAMEX"
-                                cBanco = "002"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO BANAMEX"
-                            Case "SANTANDER"
-                                cBanco = "014"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO SANTANDER"
-                            Case "BANJERCITO"
-                                cBanco = "019"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO BANJERCITO"
-                            Case "HSBC"
-                                cBanco = "021"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO HSBC"
-                            Case "BANCO DEL BAJIO"
-                                cBanco = "030"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO DEL BAJIO"
-                            Case "IXE"
-                                cBanco = "032"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO IXE"
-                            Case "INBURSA"
-                                cBanco = "036"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO INBURSA"
-                            Case "INTERACCIONES"
-                                cBanco = "037"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO INTERACCIONES"
-                            Case "BANCA MIFEL"
-                                cBanco = "042"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO MIFEL"
-                            Case "SCOTIABANK"
-                                cBanco = "044"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO SCOTIABANK"
-                            Case "BANORTE"
-                                cBanco = "072"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO BANORTE"
-                            Case "AZTECA"
-                                cBanco = "127"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO AZTECA"
-                            Case "AHORRO"
-                                cBanco = "131"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO AHORRO"
-                            Case "BANCOPPEL"
-                                cBanco = "137"
-                                cLeyenda = "CARGO DOMICILIADO A BANCO BANCOPPEL"
-                        End Select
-                    End If
+                    cLeyenda = "CARGO DOMICILIADO A BANCO " & cBanco.Trim
+                    cBanco = taJur.SacaClaveBanco(cBanco)
 
                     If Len(cCuenta) = 18 Then
                         cTipo = "40"
