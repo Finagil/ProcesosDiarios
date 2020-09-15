@@ -35,6 +35,12 @@ Module Procesos
                     Terminados_Con_Saldo(Date.Now.Date.AddDays(-5))
                 Case "FACTORAJE"
                     Factoraje.NotificacionFactorajeFACT_VENC()
+                Case "SEPOMEX"
+                    If Arg.Length = 3 Then
+                        AltaCodigo(Arg(2))
+                    Else
+                        Console.WriteLine("SEPOMEX 'ruta'")
+                    End If
                 Case "PASIVOS"
                     Dim ID, dMenos As Integer
                     If Arg.Length >= 3 Then
