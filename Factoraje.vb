@@ -29,7 +29,7 @@
             Mensaje += "</Table>"
             TaWEB.Fill(Grupos, "CANCELACIONES")
             For Each rr In Grupos.Rows
-                Utilerias.EnviacORREO(rr.Correo, Mensaje, "Notificación de Facturas Canceladas (Factoraje): " & Date.Now.ToShortDateString, "Notificaciones@finagil.com.mx")
+                MGlobal.enviacorreo(rr.Correo, Mensaje, "Notificación de Facturas Canceladas (Factoraje): " & Date.Now.ToShortDateString, "Notificaciones@finagil.com.mx")
             Next
             TaNotifi.Enviados()
         End If
@@ -63,7 +63,7 @@
         '    Mensaje += "</Table>"
         '    TaWEB.Fill(Grupos, "FACT_VENC")
         '    For Each rr In Grupos.Rows
-        '        Utilerias.EnviacORREO(rr.Correo, Mensaje, "Notificación de Facturas Vencidas (Factoraje): " & Date.Now.ToShortDateString, "Notificaciones@finagil.com.mx")
+        '        MGlobal.enviacorreo(rr.Correo, Mensaje, "Notificación de Facturas Vencidas (Factoraje): " & Date.Now.ToShortDateString, "Notificaciones@finagil.com.mx")
         '    Next
         'End If
 

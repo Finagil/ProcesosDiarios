@@ -9,7 +9,7 @@ Module PersonasHistoria
         If Todo = "Fecha" Then
             Fecha = Date.Now.AddDays(-16).ToString("yyyyMMdd")
         End If
-        FechaD = CTOD(Fecha)
+        FechaD = mglobal.CTOD(Fecha)
         Call GeneraPersonas()
         Call Actualiza_saldos("Todo")
         Call Actualiza_saldos("ConSaldo")
@@ -40,7 +40,7 @@ Module PersonasHistoria
             Console.WriteLine("Fase 1 Personas: " & rAne.Anexo & " " & Math.Round((Cont / Cuantos) * 100, 2) & "%")
             Cont += 1
             Cad = Trim(RCli.Descr)
-            FechaCon = CTOD(rAne.Fechacon)
+            FechaCon = mglobal.CTOD(rAne.Fechacon)
             If Right(rAne.Anexo, 1) = "-" Then
                 cAnexo = Left(rAne.Anexo, rAne.Anexo.Length - 1)
             Else
@@ -84,7 +84,7 @@ Module PersonasHistoria
                 Cont += 1
                 Console.WriteLine("Fase 2 Personas: " & rr.Anexo & " " & Math.Round((Cont / Cuantos) * 100, 2) & "%")
                 TaPersonas.DeletePersona(rr.Anexo, rr.Persona.Trim, rr.DescripPers.Trim)
-                FechaCon = CTOD(rr.Fechacon)
+                FechaCon = mglobal.CTOD(rr.Fechacon)
                 TaPersonas.Insert(rr.Anexo, rr.Persona.Trim, rr.DescripPers, FechaCon, rr.Flcan, rr.Tipar, 0, rr.Acreditado.Trim, Atraso)
             Catch ex As Exception
                 EnviaError("Ecacerest@Finagil.com.mx", ex.Message, "error de GeneraPersonas " & rr.Anexo)

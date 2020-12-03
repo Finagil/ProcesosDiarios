@@ -32,15 +32,13 @@ Module AviosSaldos
         Dim ta As New ProduccionDSTableAdapters.VwSegVidaTableAdapter
         Dim t As New ProduccionDS.VwSegVidaDataTable
         Dim R As ProduccionDS.VwSegVidaRow
-        Dim taMail As New ProduccionDSTableAdapters.GEN_CorreosFasesTableAdapter
-        Dim tmail As New ProduccionDS.GEN_CorreosFasesDataTable
         Dim rr As ProduccionDS.GEN_CorreosFasesRow
         Dim Para As String = ""
         Dim asunto As String = ""
         Dim Mensaje As String = ""
         Dim De As String = "SEGUROSVIDA@Finagil.com.mx"
-        taMail.Fill(tmail, "SEGUROSVIDA")
-        For Each rr In tmail.Rows
+        taFASES.Fill(tFASES, "SEGUROSVIDA")
+        For Each rr In tFASES.Rows
             Para += (Trim(rr.Correo)) & ";"
         Next
         ta.Fill(t)
@@ -49,14 +47,14 @@ Module AviosSaldos
             If R.Tipo = "M" Then
                 ta.UpdateSegVida("N", 0, R.Anexo, R.Ciclo)
             Else
-                Dim FechaCon As Date = CTOD(R.Fechacon)
+                Dim FechaCon As Date = MGlobal.CTOD(R.Fechacon)
                 Dim cad As String = R.RFC.Substring(4, 6)
                 If CInt(cad.Substring(0, 2)) <= Date.Now.Year - 2000 Then
                     cad = "20" & cad
                 Else
                     cad = "19" & cad
                 End If
-                Dim FechaNac As Date = CTOD(cad)
+                Dim FechaNac As Date = MGlobal.CTOD(cad)
                 Dim Edad As Integer = DateDiff(DateInterval.Year, FechaNac, FechaCon)
                 If Edad >= 70 Then
                     ta.UpdateSegVida("N", 0, R.Anexo, R.Ciclo)
@@ -72,7 +70,7 @@ Module AviosSaldos
                 Mensaje += "Tipo Crédito: " & R.TipoCredito & "<br>"
                 Mensaje += "Fecha de Nacimiento: " & FechaNac.ToShortDateString & "<br>"
                 Mensaje += "Edad: " & Edad & "<br>"
-                Utilerias.EnviacORREO(Para, Mensaje, asunto, De)
+                MGlobal.EnviacORREO(Para, Mensaje, asunto, De)
             End If
         Next
     End Sub
@@ -112,7 +110,7 @@ Module AviosSaldos
         Try
             Res = cm1.ExecuteScalar()
         Catch ex As Exception
-            Utilerias.EnviacORREO("ecacerest@finagil.com.mx", ex.Message, "Error AvisosCC", "AvisosCC@Finagil.com.mx")
+            MGlobal.EnviacORREO("ecacerest@finagil.com.mx", ex.Message, "Error AvisosCC", "AvisosCC@Finagil.com.mx")
         End Try
         cnAgil.Close()
         cnAgil.Dispose()
@@ -127,8 +125,6 @@ Module AviosSaldos
         Dim newrptEdoCtaNew As New rptEdoCtaNew()
         Dim dsAgil As New DataSet()
         Dim Intereses As Decimal
-        Dim taMail As New ProduccionDSTableAdapters.GEN_CorreosFasesTableAdapter
-        Dim tmail As New ProduccionDS.GEN_CorreosFasesDataTable
 
         With cm1
             .CommandType = CommandType.Text
@@ -155,7 +151,7 @@ Module AviosSaldos
         newrptEdoCtaNew.SetParameterValue("Tipo", "Tipo: Crédito en Cuenta Corriente")
         newrptEdoCtaNew.SetParameterValue("Fondeo", "Tipo de Recursos: " & r.Fondeotit)
         newrptEdoCtaNew.SetParameterValue("Semilla", "INTERES MENSUAL A PAGAR: " & Intereses.ToString("n2"))
-        newrptEdoCtaNew.SetParameterValue("Vencimiento", "Vencimiento: " & CTOD(r.FechaTerminacion).ToShortDateString)
+        newrptEdoCtaNew.SetParameterValue("Vencimiento", "Vencimiento: " & MGlobal.CTOD(r.FechaTerminacion).ToShortDateString)
         newrptEdoCtaNew.SetParameterValue("Ciclo", "")
         newrptEdoCtaNew.SetParameterValue("Moratorios", 0)
         newrptEdoCtaNew.SetParameterValue("SeguroVida", 0)
@@ -167,8 +163,8 @@ Module AviosSaldos
         newrptEdoCtaNew.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Archivo)
         Dim PARA As String = ""
         Dim DE As String = "AvisosCC@finagil.com.mx"
-        taMail.Fill(tmail, "AVISOSCC")
-        For Each rr In tmail.Rows
+        taFASES.Fill(tFASES, "AVISOSCC")
+        For Each rr In tFASES.Rows
             PARA += (Trim(rr.Correo)) & ";"
         Next
 
@@ -181,10 +177,10 @@ Module AviosSaldos
                 "Usted podrá consultar sus facturas CFDI en nuestra página de internet www.finagil.com.mx" & "<br>" &
                 "Sin más por el momento agradecemos su atención y nos ponemos a su disposición en el teléfono" & "<br>" &
                 "01 722 214 5533 ext. 1010 o al 800 727 7100, en caso de cualquier duda o comentario al respecto" & "<br>"
-        Utilerias.EnviacORREO(PARA, Mensaje, Asunto, DE, Archi)
-        If InStr(r.EMail1, "@") Then Utilerias.EnviacORREO(r.EMail1.Trim, Mensaje, Asunto, DE, Archi)
-        If InStr(r.EMail2, "@") Then Utilerias.EnviacORREO(r.EMail2.Trim, Mensaje, Asunto, DE, Archi)
-        If InStr(r.Correo, "@") Then Utilerias.EnviacORREO(r.Correo.Trim, Mensaje, Asunto, DE, Archi)
+        MGlobal.EnviacORREO(PARA, Mensaje, Asunto, DE, Archi)
+        If InStr(r.EMail1, "@") Then MGlobal.EnviacORREO(r.EMail1.Trim, Mensaje, Asunto, DE, Archi)
+        If InStr(r.EMail2, "@") Then MGlobal.EnviacORREO(r.EMail2.Trim, Mensaje, Asunto, DE, Archi)
+        If InStr(r.Correo, "@") Then MGlobal.EnviacORREO(r.Correo.Trim, Mensaje, Asunto, DE, Archi)
 
         newrptEdoCtaNew.Dispose()
         cnAgil.Dispose()

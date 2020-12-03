@@ -3,7 +3,7 @@ Imports System.IO.Compression
 Module Backup
 
     Public Sub RepaldoDB()
-        Utilerias.EnviacORREO("ecacerest@finagil.com.mx", Date.Now, "Inicio BackupDB", "BackupDB@Finagil.com.mx")
+        MGlobal.EnviacORREO("ecacerest@finagil.com.mx", Date.Now, "Inicio BackupDB", "BackupDB@Finagil.com.mx")
         Dim folder As New DirectoryInfo(My.Settings.RutaOrigenBackup_Raid)
         Dim folder2 As New DirectoryInfo(My.Settings.RutaBackupDB)
         Dim Inicio As String = ""
@@ -58,9 +58,9 @@ Module Backup
             Next
 
         Catch ex As Exception
-            Utilerias.EnviacORREO("ecacerest@finagil.com.mx", ex.Message, "Error BackupDB", "BackupDB@Finagil.com.mx")
+            MGlobal.EnviacORREO("ecacerest@finagil.com.mx", ex.Message, "Error BackupDB", "BackupDB@Finagil.com.mx")
         Finally
-            Utilerias.EnviacORREO("ecacerest@finagil.com.mx", Date.Now, "Fin BackupDB", "BackupDB@Finagil.com.mx")
+            MGlobal.EnviacORREO("ecacerest@finagil.com.mx", Date.Now, "Fin BackupDB", "BackupDB@Finagil.com.mx")
         End Try
     End Sub
 
@@ -157,7 +157,7 @@ Module Backup
             End If
         Catch ex As Exception
             Console.WriteLine(ex.Message)
-            Utilerias.EnviacORREO("Ecacerest@lamoderna.com.mx", ex.Message, "Error de Onbase " & Date.Now, "ProcesosDiarios@Finagil.com.mx")
+            MGlobal.EnviacORREO("Ecacerest@lamoderna.com.mx", ex.Message, "Error de Onbase " & Date.Now, "ProcesosDiarios@Finagil.com.mx")
         End Try
     End Sub
 

@@ -86,7 +86,7 @@ Module GeneraHistorial
             cm2.Dispose()
 
             For Each drFactura In DSagil.Tables("Facturas").Rows
-                Ndias = DateDiff(DateInterval.Day, CTOD(drFactura("Feven")), CTOD(drFactura("Fepag")))
+                Ndias = DateDiff(DateInterval.Day, MGlobal.CTOD(drFactura("Feven")), MGlobal.CTOD(drFactura("Fepag")))
                 If Ndias > 0 Then
                     cm0.CommandText = "SELECT isnull(sum(Importe),0) as mora FROM Historia WHERE Observa1 = 'MORATORIOS' and Anexo = '" & cAnexo & "' and letra = '" & drFactura("Letra") & "'"
                     nMora = cm0.ExecuteScalar

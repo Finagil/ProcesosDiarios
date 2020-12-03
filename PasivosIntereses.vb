@@ -1,6 +1,5 @@
 ﻿Imports System.Net.Mail
 Module PasivosIntereses
-    Dim CorreoTESORERIA As String = "atorres@finagil.com.mx;gisvazquez@finagil.com.mx;ecacerest@finagil.com.mx"
     Sub GeneraInteresesDiarios(FechaFin As Date, idAux As Integer)
         Console.WriteLine("ID=" & idAux & " - " & FechaFin.ToShortDateString)
         Dim TaTasas As New ProduccionDSTableAdapters.HistaTableAdapter
@@ -35,7 +34,7 @@ Module PasivosIntereses
                     End If
                     If F.TipoTasa = "Tasa Fija" Then
                         Tasa = F.TasaDiferencial
-                        If Tasa = 0 Then ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecAux)
+                        If Tasa = 0 Then ErrorEnTasa("TESORERIA", F.TipoTasa, FecAux)
                     End If
                     taPag.Fill(FondeoDS.FOND_FechasPagoCapital, F.id_Fondeo, FecAux)
                     If FondeoDS.FOND_FechasPagoCapital.Rows.Count > 0 And FecAux.Month = FechaFin.Month Then
@@ -90,7 +89,7 @@ Module PasivosIntereses
                         Tasa = F.TasaDiferencial
                     ElseIf F.TipoTasa = "Tasa TIIE 28" Then
                         Tasa = F.TasaDiferencial + TaTasas.SacaTASA(4, FecIni.ToString("yyyyMMdd"))
-                        If Tasa = 0 Then ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecIni)
+                        If Tasa = 0 Then ErrorEnTasa("TESORERIA", F.TipoTasa, FecIni)
                     ElseIf F.TipoTasa = "Tasa Libor" Then
                         Tasa = F.TasaDiferencial + TaTasas.SacaTASA(12, FecIni.ToString("yyyyMMdd"))
                         For x As Integer = 1 To 4
@@ -98,7 +97,7 @@ Module PasivosIntereses
                             If Tasa > 0 Then Exit For
                         Next
                         If Tasa = 0 Then
-                            ErrorEnTasa(CorreoTESORERIA, F.TipoTasa, FecIni)
+                            ErrorEnTasa("TESORERIA", F.TipoTasa, FecIni)
                         End If
                     End If
 
@@ -155,7 +154,12 @@ Module PasivosIntereses
 
     End Sub
 
-    Sub ErrorEnTasa(Para As String, Tasa As String, Fecha As Date)
+    Sub ErrorEnTasa(Fase As String, Tasa As String, Fecha As Date)
+        Dim Para As String
+        taFASES.Fill(tFASES, Fase)
+        For Each rr As ProduccionDS.GEN_CorreosFasesRow In tFASES.Rows
+            Para += rr.Correo & ";"
+        Next
         Try
             Dim Mensaje As String
             Mensaje = "Tasa no encontrada: " & Tasa & "<BR> Fecha : " & Fecha.ToShortDateString

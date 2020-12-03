@@ -406,7 +406,7 @@ Module LayoutBancomer
                     If Trim(cLetra) <> "" Then
                         cRefBancomer = "PAGO " & cLetra & " DEL CONTRATO " & cRefBancomer
                     Else
-                        cLetra = Utilerias.Stuff(nCount.ToString, "I", "0", 3)
+                        cLetra = MGlobal.Stuff(nCount.ToString, "I", "0", 3)
                         cRefBancomer = "PAGO " & cLetra & " EXT " & Today.ToString("yyyyMMdd") & " " & cRefBancomer
                     End If
 
@@ -429,10 +429,10 @@ Module LayoutBancomer
                         cTipo = "01"
                     End If
 
-                    cDia = Mid(Utilerias.DTOC(Today), 7, 2) & Mid(Utilerias.DTOC(Today), 5, 2)
+                    cDia = Mid(MGlobal.DTOC(Today), 7, 2) & Mid(MGlobal.DTOC(Today), 5, 2)
 
                     If nCount = 1 Then
-                        cRenglon = "01000000130012E2" & Mid(cDia, 1, 2) & Utilerias.Stuff(nCount.ToString, "I", "0", 5) & Utilerias.DTOC(Today) & "0100                         " & "FINAGIL SA DE CV SOFOM ENR              " & "FIN 940905AX7     " & Space(182)
+                        cRenglon = "01000000130012E2" & Mid(cDia, 1, 2) & MGlobal.Stuff(nCount.ToString, "I", "0", 5) & MGlobal.DTOC(Today) & "0100                         " & "FINAGIL SA DE CV SOFOM ENR              " & "FIN 940905AX7     " & Space(182)
                         writer.WriteLine(cRenglon)
                     End If
                     nCount += 1
@@ -461,9 +461,9 @@ Module LayoutBancomer
                         cPago = cPago & "00"
                     End If
 
-                    cRenglon = "02" & Utilerias.Stuff(nCount.ToString, "I", "0", 7) & "3001" & Utilerias.Stuff(cPago, "I", "0", 15) & Utilerias.DTOC(Today) & Space(24) & "51" & Utilerias.DTOC(Today) & cBanco
-                    cRenglon = cRenglon & cTipo & Utilerias.Stuff(cCuenta, "I", "0", 20) & Utilerias.Stuff(Trim(cTitular), "D", " ", 40) & Utilerias.Stuff(cRefBancomer, "D", " ", 40) & Utilerias.Stuff(cDescr, "D", " ", 40)
-                    cRenglon = cRenglon & "000000000000000" & Utilerias.Stuff((nCount - 1).ToString, "I", "0", 7) & Utilerias.Stuff(cLeyenda, "D", " ", 40) & "00" & Space(21)
+                    cRenglon = "02" & MGlobal.Stuff(nCount.ToString, "I", "0", 7) & "3001" & MGlobal.Stuff(cPago, "I", "0", 15) & MGlobal.DTOC(Today) & Space(24) & "51" & MGlobal.DTOC(Today) & cBanco
+                    cRenglon = cRenglon & cTipo & MGlobal.Stuff(cCuenta, "I", "0", 20) & MGlobal.Stuff(Trim(cTitular), "D", " ", 40) & MGlobal.Stuff(cRefBancomer, "D", " ", 40) & MGlobal.Stuff(cDescr, "D", " ", 40)
+                    cRenglon = cRenglon & "000000000000000" & MGlobal.Stuff((nCount - 1).ToString, "I", "0", 7) & MGlobal.Stuff(cLeyenda, "D", " ", 40) & "00" & Space(21)
 
                     cRenglon = cRenglon.Replace("Ñ", Chr(78))
                     cRenglon = cRenglon.Replace("ñ", Chr(110))
@@ -494,7 +494,7 @@ Module LayoutBancomer
                             cSumaPago = cSumaPago & "00"
                         End If
 
-                        cRenglon = "09" & Utilerias.Stuff(nCount.ToString, "I", "0", 7) & "30" & Mid(cDia, 1, 2) & "00001" & Utilerias.Stuff((nCount - 2).ToString, "I", "0", 7) & Utilerias.Stuff(cSumaPago, "I", "0", 18) & Space(17) & Space(240)
+                        cRenglon = "09" & MGlobal.Stuff(nCount.ToString, "I", "0", 7) & "30" & Mid(cDia, 1, 2) & "00001" & MGlobal.Stuff((nCount - 2).ToString, "I", "0", 7) & MGlobal.Stuff(cSumaPago, "I", "0", 18) & Space(17) & Space(240)
                         writer.WriteLine(cRenglon)
                     End If
                 Next
@@ -514,7 +514,7 @@ Module LayoutBancomer
                     cSumaPago = cSumaPago & "00"
                 End If
 
-                cRenglon = "09" & Utilerias.Stuff(nCount.ToString, "I", "0", 7) & "30" & Mid(cDia, 1, 2) & "00001" & Utilerias.Stuff((nCount - 2).ToString, "I", "0", 7) & Utilerias.Stuff(cSumaPago, "I", "0", 18) & Space(17) & Space(240)
+                cRenglon = "09" & MGlobal.Stuff(nCount.ToString, "I", "0", 7) & "30" & Mid(cDia, 1, 2) & "00001" & MGlobal.Stuff((nCount - 2).ToString, "I", "0", 7) & MGlobal.Stuff(cSumaPago, "I", "0", 18) & Space(17) & Space(240)
                 writer.WriteLine(cRenglon)
                 writer.Close()
                 Try
@@ -537,7 +537,7 @@ Module LayoutBancomer
                             Adjunto += "DOMI\Pagos_OTROS_BANCOS_" & Hoy.ToString("ddMMyyyy") & "_" & x & ".txt|"
                         Next
                     End If
-                    Utilerias.EnviacORREO(Para, "", Asunto, De, Adjunto)
+                    MGlobal.enviacorreo(Para, "", Asunto, De, Adjunto)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
                     cMensaje = ex.Message
@@ -558,7 +558,7 @@ Module LayoutBancomer
                     ElseIf cTipoReporte = "O" Then
                         Asunto = "SIN DATOS - Layout OTROS BANCOS"
                     End If
-                    Utilerias.EnviacORREO(Para, "", Asunto, De)
+                    MGlobal.enviacorreo(Para, "", Asunto, De)
                     cMensaje = "Generación y envío exitosos"
                 Catch ex As Exception
                     cMensaje = ex.Message
