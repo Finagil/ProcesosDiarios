@@ -8,6 +8,8 @@ Module Procesos
         Arg = Environment.GetCommandLineArgs()
         If Arg.Length > 1 Then
             Select Case UCase(Arg(1))
+                Case "CXP_FACTORAJE"
+                    Inserta_CXP_MOVS_FACT()
                 Case "AVISOSCC"
                     AvisoCC()
                 Case "HISTORIAL"

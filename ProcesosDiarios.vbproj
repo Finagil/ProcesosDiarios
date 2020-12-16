@@ -76,6 +76,17 @@
     <Compile Include="AviosSaldos.vb" />
     <Compile Include="Backup.vb" />
     <Compile Include="Codigos.vb" />
+    <Compile Include="CXP.vb" />
+    <Compile Include="CXP_DS.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CXP_DS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Factor100DS.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Factor100DS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Factoraje.vb" />
     <Compile Include="GeneraHistorial.vb" />
     <Compile Include="LayoutBancomer.vb" />
@@ -136,6 +147,28 @@
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="CXP_DS.xsc">
+      <DependentUpon>CXP_DS.xsd</DependentUpon>
+    </None>
+    <None Include="CXP_DS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CXP_DS.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="CXP_DS.xss">
+      <DependentUpon>CXP_DS.xsd</DependentUpon>
+    </None>
+    <None Include="Factor100DS.xsc">
+      <DependentUpon>Factor100DS.xsd</DependentUpon>
+    </None>
+    <None Include="Factor100DS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Factor100DS.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Factor100DS.xss">
+      <DependentUpon>Factor100DS.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

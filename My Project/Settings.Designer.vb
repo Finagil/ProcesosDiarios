@@ -204,6 +204,17 @@ Namespace My
                 Me("RUTA_TMP") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=""SERVER-RAID2"";Initial Catalog=Factor100;Persist Security Info=True;U"& _ 
+            "ser ID=User_PRO;Password=User_PRO2015")>  _
+        Public ReadOnly Property Factor100ConnectionString() As String
+            Get
+                Return CType(Me("Factor100ConnectionString"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 
