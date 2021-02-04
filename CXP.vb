@@ -29,7 +29,7 @@
         For Each r As Factor100DS.Vw_PagosFactor100Row In tPags.Rows
             taCuent.Fill(ds.CXP_CuentasBancarias, r.clabe, r.rfc)
             If ds.CXP_CuentasBancarias.Rows.Count <= 0 Then
-                MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.", "ErrorEnCuenta: " & r.NOMBRE & "-" & r.clabe)
+                MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.", "ErrorEnCuenta: " & r.NOMBRE & "-" & r.clabe)
                 MandaCorreoFase("Factoraje@cmoderna.com", "FactorCXP", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.", "ErrorEnCuenta: " & r.NOMBRE & "-" & r.clabe)
                 TaPags.UpdateEstatus("ErrorEnCuenta", r.id)
             Else
@@ -49,7 +49,7 @@
             End If
         Next
         If CorreoB = True Then
-            MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", Asunto, Mensaje)
+            MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", Asunto, Mensaje)
             MandaCorreoFase("Factoraje@cmoderna.com", "TESORERIA_CXP", Asunto, Mensaje)
         End If
 
@@ -58,7 +58,7 @@
         For Each r As Factor100DS.Vw_PagosFactor100Row In tPags.Rows
             taCuent.Fill(ds.CXP_CuentasBancarias, r.clabe, r.rfc)
             If ds.CXP_CuentasBancarias.Rows.Count <= 0 Then
-                MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.", "ErrorEnCuentaMC: " & r.NOMBRE & "-" & r.clabe)
+                MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.", "ErrorEnCuentaMC: " & r.NOMBRE & "-" & r.clabe)
                 MandaCorreoFase("Factoraje@cmoderna.com", "FactorCXP", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.", "ErrorEnCuentaMC: " & r.NOMBRE & "-" & r.clabe)
                 TaPags.UpdateEstatus("ErrorEnCuentaMC", r.id)
             Else
@@ -75,13 +75,13 @@
                     MensajeAux = "Solicitud: " & r.referencia & "<br>"
                     MensajeAux += "Beneficiario: " & r.NOMBRE & "<br>"
                     MensajeAux += "Importe: " & CDec(r.importe).ToString("n2") & "<br>"
-                    MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", "Solicitud en el LIMBO", MensajeAux)
+                    MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", "Solicitud en el LIMBO", MensajeAux)
                 End If
             End If
         Next
         If CorreoB = True Then
             EnviacORREO(CorreoMC, Mensaje, Asunto, "Factoraje@cmoderna.com")
-            MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", Asunto, Mensaje)
+            MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", Asunto, Mensaje)
         End If
         'TaPags.Fill(tPags, "usuario MCONTROL_CXP") esto se hace manual desde wEB TASAS
 
@@ -90,7 +90,7 @@
         For Each r As Factor100DS.Vw_PagosFactor100Row In tPags.Rows
             taCuent.Fill(ds.CXP_CuentasBancarias, r.clabe, r.rfc)
             If ds.CXP_CuentasBancarias.Rows.Count <= 0 Then
-                MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada. (vobo)", "ErrorEnCuentaMC2: " & r.cliente & "-" & r.clabe)
+                MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada. (vobo)", "ErrorEnCuentaMC2: " & r.cliente & "-" & r.clabe)
                 MandaCorreoFase("Factoraje@cmoderna.com", "FactorCXP", "Beneficiario sin cuenta bancaria o la cuenta no esta autorizada.(vobo)", "ErrorEnCuentaMC2: " & r.cliente & "-" & r.clabe)
                 TaPags.UpdateEstatus("ErrorEnCuentaAutMC", r.id)
             Else
@@ -105,7 +105,7 @@
             End If
         Next
         If CorreoB = True Then
-            MandaCorreoFase("Factoraje@cmoderna.com", "sistemas", Asunto, Mensaje)
+            MandaCorreoFase("Factoraje@cmoderna.com", "SISTEMAS_CXP", Asunto, Mensaje)
             MandaCorreoFase("Factoraje@cmoderna.com", "TESORERIA_CXP", Asunto, Mensaje)
         End If
 
