@@ -28,8 +28,10 @@ Module Procesos
                     Else
                         Dias = 0
                     End If
-                    EnviaLayout("B", Dias) 'Bancomer
-                    EnviaLayout("O", Dias) 'otros bancos
+                    EnviaLayoutNORMAL("B", 0) 'Bancomer
+                    EnviaLayoutNORMAL("O", 0) 'otros bancos
+                    EnviaLayoutFESTIVO("B", 0) 'Bancomer
+                    EnviaLayoutFESTIVO("O", 0) 'otros bancos
                 Case "GENERAPERSONAS"
                     PersonasHistoria.Main()
                 Case "TERMINACONTRATO"
